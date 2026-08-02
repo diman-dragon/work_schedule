@@ -2390,10 +2390,10 @@ function buildStats(){
 // Данные хранятся в одном приватном файле на Google Диске, доступном только
 // этому приложению (scope drive.file — Google не даёт видеть остальные файлы
 // пользователя). Перед отправкой в облако содержимое шифруется AES-256-GCM
-// с ключом, полученным из пароля пользователя (PBKDF2). Пароль нигде не
-// сохраняется постоянно — только в sessionStorage (живёт, пока открыта
-// вкладка браузера), поэтому при следующем открытии страницы его нужно
-// ввести заново.
+// с ключом, полученным из пароля пользователя (PBKDF2). Пароль хранится в
+// localStorage этого устройства/браузера (в открытом виде) — так синхронизация
+// остаётся включённой между перезапусками браузера и не спрашивает пароль
+// заново, пока сами не нажмёте «Отключить синхронизацию».
 const CLOUD_CLIENT_ID = '524857013705-lcro9dq97ctlfdq0rmubkgcvhao0724n.apps.googleusercontent.com';
 const CLOUD_SCOPE = 'https://www.googleapis.com/auth/drive.file';
 const CLOUD_FILE_NAME = 'rabochiy-grafik-sync.json.enc';
@@ -2403,7 +2403,7 @@ const CLOUD_PASS_SESSION_KEY = 'cloudSyncPass_v1';
 let cloudAccessToken = null;
 let cloudTokenClient = null;
 let cloudFileId = null;
-let cloudPassword = sessionStorage.getItem(CLOUD_PASS_SESSION_KEY) || null;
+let cloudPassword = localStorage.getItem(CLOUD_PASS_SESSION_KEY) || null;
 let cloudPushTimer = null;
 let cloudBusy = false;
 
@@ -2589,7 +2589,7 @@ async function connectCloudSync(){
     }
     if(!pass){ setCloudStatus(''); cloudBusy = false; return; }
     cloudPassword = pass;
-    sessionStorage.setItem(CLOUD_PASS_SESSION_KEY, pass);
+    localStorage.setItem(CLOUD_PASS_SESSION_KEY, pass);
     localStorage.setItem(CLOUD_ENABLED_KEY, '1');
     setCloudStatus('☁️ синхронизация…');
     await pullFromCloud();
@@ -2601,7 +2601,7 @@ async function connectCloudSync(){
     if(err && err.message && err.message.includes('OPERATION_FAILED')){
       setCloudStatus('☁️ неверный пароль или повреждён файл', true);
       cloudPassword = null;
-      sessionStorage.removeItem(CLOUD_PASS_SESSION_KEY);
+      localStorage.removeItem(CLOUD_PASS_SESSION_KEY);
     } else {
       setCloudStatus('☁️ не удалось подключиться', true);
     }
@@ -2613,7 +2613,7 @@ function disconnectCloudSync(){
   localStorage.removeItem(CLOUD_ENABLED_KEY);
   cloudAccessToken = null;
   cloudPassword = null;
-  sessionStorage.removeItem(CLOUD_PASS_SESSION_KEY);
+  localStorage.removeItem(CLOUD_PASS_SESSION_KEY);
   clearTimeout(cloudPushTimer);
   setCloudStatus('');
   cloudSyncBtn.textContent = '☁️ Синхронизация';
