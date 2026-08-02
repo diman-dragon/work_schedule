@@ -916,6 +916,8 @@ footer{
       <button class="save-btn" id="saveFileBtn" title="Сохранить данные в JSON-файл" aria-label="Сохранить данные в JSON-файл">💾 Сохранить</button>
       <button class="save-btn" id="exportCsvBtn" title="Экспортировать все данные в CSV-таблицу" aria-label="Экспортировать все данные в CSV">📄 CSV</button>
       <button class="save-btn" id="clearDataBtn" title="Удалить все сохранённые данные" aria-label="Удалить все сохранённые данные">🗑️ Очистить</button>
+      <button class="save-btn" id="cloudSyncBtn" title="Синхронизация через Google Диск" aria-label="Синхронизация через Google Диск">☁️ Синхронизация</button>
+      <span class="sub" id="cloudSyncStatus" style="align-self:center; opacity:.7; font-size:12px;"></span>
     </div>
   </div>
 
@@ -1052,6 +1054,25 @@ footer{
   </div>
 </div>
 
+<div class="modal-overlay" id="syncPassOverlay" data-cancel-btn="syncPassCancelBtn" data-confirm-btn="syncPassOkBtn">
+  <div class="modal">
+    <h3 id="syncPassTitle">Пароль шифрования</h3>
+    <div class="m-sub" id="syncPassMessage">Данные на Google Диске хранятся зашифрованными. Введите пароль (в первый раз — придумайте его, дальше используйте всегда один и тот же).</div>
+    <div class="time-row">
+      <div class="time-field" style="flex:1;">
+        <label for="syncPassInput">Пароль</label>
+        <input type="password" id="syncPassInput" autocomplete="off" placeholder="••••••••">
+      </div>
+    </div>
+    <div class="m-sub" style="margin-top:8px; opacity:.7;">⚠️ Если забудете пароль — данные с Диска будет не восстановить. Храните его отдельно (менеджер паролей, заметка).</div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="syncPassCancelBtn">Отмена</button>
+      <button class="btn btn-primary" id="syncPassOkBtn">Продолжить</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.2/confetti.browser.min.js"></script>
@@ -1092,13 +1113,17 @@ let hiddenShiftTimes = new Set(Array.isArray(APP.hiddenShiftTimes) ? APP.hiddenS
 
 // Сохраняет текущее состояние (график, ставку, тему) в localStorage —
 // вызывается после каждого изменения данных.
-function persist(){
+function persistLocalOnly(){
   try{
-    APP = { rate, currentKey, order, months: DATA, theme: document.documentElement.getAttribute('data-theme') || 'dark', hiddenShiftTimes: Array.from(hiddenShiftTimes) };
+    APP = { rate, currentKey, order, months: DATA, theme: document.documentElement.getAttribute('data-theme') || 'dark', hiddenShiftTimes: Array.from(hiddenShiftTimes), updatedAt: APP.updatedAt };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(APP));
   }catch(err){
     console.error('Не удалось сохранить данные в localStorage', err);
   }
+}
+function persist(){
+  persistLocalOnly();
+  if(typeof scheduleCloudPush === 'function') scheduleCloudPush();
 }
 
 const monthNamesGen = ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
@@ -1679,6 +1704,28 @@ function closeConfirmModal(result){
 confirmCancelBtn.addEventListener('click', () => closeConfirmModal(false));
 confirmOkBtn.addEventListener('click', () => closeConfirmModal(true));
 confirmOverlay.addEventListener('click', (e) => { if(e.target === confirmOverlay) closeConfirmModal(false); });
+
+// ---------- МОДАЛКА ВВОДА ПАРОЛЯ ШИФРОВАНИЯ (для облачной синхронизации) ----------
+const syncPassOverlay = document.getElementById('syncPassOverlay');
+const syncPassInput = document.getElementById('syncPassInput');
+const syncPassCancelBtn = document.getElementById('syncPassCancelBtn');
+const syncPassOkBtn = document.getElementById('syncPassOkBtn');
+let syncPassResolve = null;
+// возвращает Promise<string|null>: введённый пароль, либо null при отмене
+function promptSyncPassword(message){
+  document.getElementById('syncPassMessage').textContent = message || document.getElementById('syncPassMessage').textContent;
+  syncPassInput.value = '';
+  syncPassOverlay.classList.add('show');
+  setTimeout(() => syncPassInput.focus(), 50);
+  return new Promise((resolve) => { syncPassResolve = resolve; });
+}
+function closeSyncPassModal(result){
+  syncPassOverlay.classList.remove('show');
+  if(syncPassResolve){ const r = syncPassResolve; syncPassResolve = null; r(result); }
+}
+syncPassCancelBtn.addEventListener('click', () => closeSyncPassModal(null));
+syncPassOkBtn.addEventListener('click', () => closeSyncPassModal(syncPassInput.value || null));
+syncPassOverlay.addEventListener('click', (e) => { if(e.target === syncPassOverlay) closeSyncPassModal(null); });
 
 // ---------- КЛАВИАТУРА ДЛЯ ВСЕХ МОДАЛОК: Enter подтверждает, Escape отменяет ----------
 // каждая .modal-overlay помечена data-cancel-btn / data-confirm-btn — id соответствующих кнопок
@@ -2336,6 +2383,259 @@ function buildStats(){
     grid.innerHTML = `<div class="chart-card wide"><div class="empty-state">📉 Не удалось построить графики (${err.message}). Табель и данные при этом не затронуты.</div></div>`;
   }
 }
+
+// ========================================================================
+// ОБЛАЧНАЯ СИНХРОНИЗАЦИЯ ЧЕРЕЗ GOOGLE ДИСК (шифрование на стороне браузера)
+// ========================================================================
+// Данные хранятся в одном приватном файле на Google Диске, доступном только
+// этому приложению (scope drive.file — Google не даёт видеть остальные файлы
+// пользователя). Перед отправкой в облако содержимое шифруется AES-256-GCM
+// с ключом, полученным из пароля пользователя (PBKDF2). Пароль нигде не
+// сохраняется постоянно — только в sessionStorage (живёт, пока открыта
+// вкладка браузера), поэтому при следующем открытии страницы его нужно
+// ввести заново.
+const CLOUD_CLIENT_ID = '524857013705-lcro9dq97ctlfdq0rmubkgcvhao0724n.apps.googleusercontent.com';
+const CLOUD_SCOPE = 'https://www.googleapis.com/auth/drive.file';
+const CLOUD_FILE_NAME = 'rabochiy-grafik-sync.json.enc';
+const CLOUD_ENABLED_KEY = 'cloudSyncEnabled_v1';
+const CLOUD_PASS_SESSION_KEY = 'cloudSyncPass_v1';
+
+let cloudAccessToken = null;
+let cloudTokenClient = null;
+let cloudFileId = null;
+let cloudPassword = sessionStorage.getItem(CLOUD_PASS_SESSION_KEY) || null;
+let cloudPushTimer = null;
+let cloudBusy = false;
+
+const cloudSyncBtn = document.getElementById('cloudSyncBtn');
+const cloudSyncStatus = document.getElementById('cloudSyncStatus');
+
+function setCloudStatus(text, isError){
+  cloudSyncStatus.textContent = text || '';
+  cloudSyncStatus.style.color = isError ? 'var(--negative, #e5484d)' : '';
+}
+
+// ---- шифрование ----
+function b64encode(bytes){
+  let bin = '';
+  bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin);
+}
+function b64decode(str){
+  const bin = atob(str);
+  const bytes = new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) bytes[i] = bin.charCodeAt(i);
+  return bytes;
+}
+async function deriveKey(password, saltBytes){
+  const enc = new TextEncoder();
+  const baseKey = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey(
+    { name:'PBKDF2', salt: saltBytes, iterations: 150000, hash:'SHA-256' },
+    baseKey,
+    { name:'AES-GCM', length:256 },
+    false,
+    ['encrypt','decrypt']
+  );
+}
+async function encryptForCloud(obj, password){
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const key = await deriveKey(password, salt);
+  const enc = new TextEncoder();
+  const cipherBuf = await crypto.subtle.encrypt({name:'AES-GCM', iv}, key, enc.encode(JSON.stringify(obj)));
+  return JSON.stringify({ v:1, salt: b64encode(salt), iv: b64encode(iv), data: b64encode(new Uint8Array(cipherBuf)) });
+}
+async function decryptFromCloud(payloadStr, password){
+  const payload = JSON.parse(payloadStr);
+  const salt = b64decode(payload.salt);
+  const iv = b64decode(payload.iv);
+  const key = await deriveKey(password, salt);
+  const plainBuf = await crypto.subtle.decrypt({name:'AES-GCM', iv}, key, b64decode(payload.data));
+  return JSON.parse(new TextDecoder().decode(plainBuf));
+}
+
+// ---- Google OAuth (Google Identity Services) ----
+function ensureTokenClient(){
+  if(cloudTokenClient) return cloudTokenClient;
+  if(!window.google || !google.accounts || !google.accounts.oauth2){
+    throw new Error('Google-скрипт авторизации ещё не загрузился, попробуйте через секунду');
+  }
+  cloudTokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: CLOUD_CLIENT_ID,
+    scope: CLOUD_SCOPE,
+    callback: () => {} // переопределяется на каждый вызов requestCloudToken
+  });
+  return cloudTokenClient;
+}
+function requestCloudToken(interactive){
+  return new Promise((resolve, reject) => {
+    let client;
+    try{ client = ensureTokenClient(); } catch(err){ reject(err); return; }
+    client.callback = (resp) => {
+      if(resp && resp.access_token){ cloudAccessToken = resp.access_token; resolve(resp.access_token); }
+      else reject(new Error('Не удалось получить доступ к Google-аккаунту'));
+    };
+    client.error_callback = (err) => reject(new Error(err && err.type ? err.type : 'Ошибка авторизации Google'));
+    client.requestAccessToken({ prompt: interactive ? 'consent' : '' });
+  });
+}
+
+// ---- Google Drive REST (scope drive.file — видит только файлы этого приложения) ----
+async function driveFindFile(){
+  const res = await fetch(`https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(`name='${CLOUD_FILE_NAME}' and trashed=false`)}&spaces=drive&fields=files(id,name)`, {
+    headers: { Authorization: `Bearer ${cloudAccessToken}` }
+  });
+  if(!res.ok) throw new Error('Ошибка поиска файла на Диске: ' + res.status);
+  const json = await res.json();
+  return (json.files && json.files[0]) ? json.files[0].id : null;
+}
+async function driveCreateFile(contentStr){
+  const boundary = 'grafboundary';
+  const metadata = { name: CLOUD_FILE_NAME, mimeType: 'application/json' };
+  const body =
+    `--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(metadata)}\r\n` +
+    `--${boundary}\r\nContent-Type: application/json\r\n\r\n${contentStr}\r\n--${boundary}--`;
+  const res = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${cloudAccessToken}`, 'Content-Type': `multipart/related; boundary=${boundary}` },
+    body
+  });
+  if(!res.ok) throw new Error('Ошибка создания файла на Диске: ' + res.status);
+  const json = await res.json();
+  return json.id;
+}
+async function driveUpdateFile(fileId, contentStr){
+  const res = await fetch(`https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=media`, {
+    method: 'PATCH',
+    headers: { Authorization: `Bearer ${cloudAccessToken}`, 'Content-Type': 'application/json' },
+    body: contentStr
+  });
+  if(!res.ok) throw new Error('Ошибка сохранения на Диск: ' + res.status);
+}
+async function driveDownloadFile(fileId){
+  const res = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, {
+    headers: { Authorization: `Bearer ${cloudAccessToken}` }
+  });
+  if(!res.ok) throw new Error('Ошибка загрузки с Диска: ' + res.status);
+  return res.text();
+}
+
+// ---- логика синхронизации ----
+async function pullFromCloud(){
+  cloudFileId = await driveFindFile();
+  if(!cloudFileId) return; // на Диске ещё ничего нет — это первая синхронизация с этого аккаунта
+  const encrypted = await driveDownloadFile(cloudFileId);
+  const remote = await decryptFromCloud(encrypted, cloudPassword);
+  const localUpdatedAt = APP.updatedAt || 0;
+  const remoteUpdatedAt = remote.updatedAt || 0;
+  if(remoteUpdatedAt > localUpdatedAt){
+    // облачная версия свежее — подтягиваем её
+    rate = remote.rate; currentKey = remote.currentKey;
+    DATA = remote.months || {};
+    order = sanitizeOrder(remote.order, DATA);
+    hiddenShiftTimes = new Set(Array.isArray(remote.hiddenShiftTimes) ? remote.hiddenShiftTimes : []);
+    APP.updatedAt = remoteUpdatedAt;
+    if(!DATA[currentKey]) currentKey = ensureCurrentMonthExists();
+    document.getElementById('rateInput').value = rate;
+    renderMonthsStrip();
+    render(currentKey);
+    persistLocalOnly();
+  }
+}
+async function pushToCloud(){
+  const payload = { rate, currentKey, order, months: DATA, hiddenShiftTimes: Array.from(hiddenShiftTimes), updatedAt: Date.now() };
+  APP.updatedAt = payload.updatedAt;
+  const encrypted = await encryptForCloud(payload, cloudPassword);
+  if(!cloudFileId) cloudFileId = await driveFindFile();
+  if(!cloudFileId) cloudFileId = await driveCreateFile(encrypted);
+  else await driveUpdateFile(cloudFileId, encrypted);
+}
+function scheduleCloudPush(){
+  if(!isCloudSyncActive()) return;
+  clearTimeout(cloudPushTimer);
+  cloudPushTimer = setTimeout(async () => {
+    try{
+      setCloudStatus('☁️ сохранение…');
+      await pushToCloud();
+      setCloudStatus('☁️ синхронизировано ' + new Date().toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'}));
+    }catch(err){
+      console.error('Ошибка синхронизации с Google Диском', err);
+      setCloudStatus('☁️ ошибка синхронизации', true);
+    }
+  }, 2000);
+}
+function isCloudSyncActive(){
+  return localStorage.getItem(CLOUD_ENABLED_KEY) === '1' && !!cloudAccessToken && !!cloudPassword;
+}
+
+async function connectCloudSync(){
+  if(cloudBusy) return;
+  cloudBusy = true;
+  try{
+    setCloudStatus('☁️ вход в Google…');
+    await requestCloudToken(true);
+    let pass = cloudPassword;
+    if(!pass){
+      pass = await promptSyncPassword('Данные на Google Диске хранятся зашифрованными. Введите пароль (в первый раз — придумайте его, дальше используйте всегда один и тот же).');
+    }
+    if(!pass){ setCloudStatus(''); cloudBusy = false; return; }
+    cloudPassword = pass;
+    sessionStorage.setItem(CLOUD_PASS_SESSION_KEY, pass);
+    localStorage.setItem(CLOUD_ENABLED_KEY, '1');
+    setCloudStatus('☁️ синхронизация…');
+    await pullFromCloud();
+    await pushToCloud();
+    setCloudStatus('☁️ подключено');
+    cloudSyncBtn.textContent = '☁️ Отключить синхронизацию';
+  }catch(err){
+    console.error('Не удалось подключить синхронизацию', err);
+    if(err && err.message && err.message.includes('OPERATION_FAILED')){
+      setCloudStatus('☁️ неверный пароль или повреждён файл', true);
+      cloudPassword = null;
+      sessionStorage.removeItem(CLOUD_PASS_SESSION_KEY);
+    } else {
+      setCloudStatus('☁️ не удалось подключиться', true);
+    }
+  } finally {
+    cloudBusy = false;
+  }
+}
+function disconnectCloudSync(){
+  localStorage.removeItem(CLOUD_ENABLED_KEY);
+  cloudAccessToken = null;
+  cloudPassword = null;
+  sessionStorage.removeItem(CLOUD_PASS_SESSION_KEY);
+  clearTimeout(cloudPushTimer);
+  setCloudStatus('');
+  cloudSyncBtn.textContent = '☁️ Синхронизация';
+}
+cloudSyncBtn.addEventListener('click', async () => {
+  if(isCloudSyncActive()){
+    const ok = await showConfirmModal('Отключить синхронизацию с Google Диском на этом устройстве? Данные в облаке останутся нетронутыми, локальные — тоже.', 'Отключить синхронизацию', 'Отключить');
+    if(ok) disconnectCloudSync();
+  } else {
+    connectCloudSync();
+  }
+});
+// при старте, если синхронизация уже включена на этом устройстве — пробуем
+// тихо восстановить сессию (без окна входа), не мешая работе, если не выйдет
+(async function tryResumeCloudSync(){
+  if(localStorage.getItem(CLOUD_ENABLED_KEY) !== '1') return;
+  cloudSyncBtn.textContent = '☁️ Отключить синхронизацию';
+  try{
+    setCloudStatus('☁️ подключение…');
+    await requestCloudToken(false);
+    if(!cloudPassword){
+      setCloudStatus('☁️ введите пароль для синхронизации');
+      return;
+    }
+    await pullFromCloud();
+    setCloudStatus('☁️ подключено');
+  }catch(err){
+    setCloudStatus('☁️ нажмите, чтобы подключиться');
+  }
+})();
 
 // init
 currentKey = ensureCurrentMonthExists();
