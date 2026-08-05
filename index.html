@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Рабочий график</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cdefs%3E%0A%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%3Cstop%20offset%3D%220%22%20stop-color%3D%22%232a2a2a%22/%3E%0A%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231a1a1a%22/%3E%0A%3C/linearGradient%3E%0A%3C/defs%3E%0A%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22url%28%23bg%29%22/%3E%0A%3Crect%20x%3D%229%22%20y%3D%2213%22%20width%3D%2230%22%20height%3D%2227%22%20rx%3D%225%22%20fill%3D%22%23ffffff%22/%3E%0A%3Crect%20x%3D%229%22%20y%3D%2213%22%20width%3D%2230%22%20height%3D%229%22%20rx%3D%225%22%20fill%3D%22%234cc2ff%22/%3E%0A%3Crect%20x%3D%229%22%20y%3D%2218%22%20width%3D%2230%22%20height%3D%224%22%20fill%3D%22%234cc2ff%22/%3E%0A%3Crect%20x%3D%2215%22%20y%3D%229%22%20width%3D%224%22%20height%3D%228%22%20rx%3D%222%22%20fill%3D%22%234cc2ff%22/%3E%0A%3Crect%20x%3D%2229%22%20y%3D%229%22%20width%3D%224%22%20height%3D%228%22%20rx%3D%222%22%20fill%3D%22%234cc2ff%22/%3E%0A%3Ccircle%20cx%3D%2215.5%22%20cy%3D%2229.5%22%20r%3D%222.4%22%20fill%3D%22%23c7d2d9%22/%3E%0A%3Ccircle%20cx%3D%2224%22%20cy%3D%2229.5%22%20r%3D%222.4%22%20fill%3D%22%23c7d2d9%22/%3E%0A%3Ccircle%20cx%3D%2215.5%22%20cy%3D%2236%22%20r%3D%222.4%22%20fill%3D%22%23c7d2d9%22/%3E%0A%3Ccircle%20cx%3D%2224%22%20cy%3D%2236%22%20r%3D%222.4%22%20fill%3D%22%23dfe7ea%22%20fill-opacity%3D%220.4%22/%3E%0A%3Ccircle%20cx%3D%2239%22%20cy%3D%2239%22%20r%3D%2216%22%20fill%3D%22%230f1a17%22/%3E%0A%3Ccircle%20cx%3D%2239%22%20cy%3D%2239%22%20r%3D%2213%22%20fill%3D%22%236fa89a%22/%3E%0A%3Cpath%20d%3D%22M39%2030.5v9l6.5%204.2%22%20stroke%3D%22%230f1a17%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20fill%3D%22none%22/%3E%0A%3Ccircle%20cx%3D%2239%22%20cy%3D%2239%22%20r%3D%221.8%22%20fill%3D%22%230f1a17%22/%3E%0A%3C/svg%3E">
 <style>
 :root{
   /* ---- Fluent Design (Windows 11) — шрифты ---- */
@@ -383,6 +384,7 @@ body{
   border:1px solid var(--border);
   border-radius:var(--radius-md);
   min-height:96px;
+  min-width:0;
   padding:8px 9px;
   position:relative;
   cursor:pointer;
@@ -431,46 +433,78 @@ body{
 .day.pending-today .d-num{color:var(--text);}
 .day.pending-today .d-off{color:var(--accent); font-weight:600;}
 
+.day .d-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:6px;
+  margin-bottom:2px;
+}
 .day .d-num{
-  font-size:14px;
-  color:var(--text-dim);
+  font-size:12px;
+  color:var(--text-faint);
   font-weight:600;
+  flex:0 0 auto;
+}
+.day .d-body{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
 }
 .day .d-time{
   font-family:var(--font-ui);
-  font-size:11px;
-  color:var(--accent);
-  margin-top:7px;
-  line-height:1.4;
+  font-size:10.5px;
+  color:var(--text-dim);
+  line-height:1.35;
   font-weight:600;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  flex:0 1 auto;
+  min-width:0;
 }
 .day .d-dur{
   font-family:var(--font-ui);
-  font-size:10px;
-  color:var(--text-dim);
+  font-size:9.5px;
+  color:var(--text-faint);
   margin-top:1px;
   line-height:1.3;
 }
-.day .d-sum{
-  font-family:var(--font-ui);
+.day .d-bus,
+.day .d-route{
+  align-self:flex-start;
+  text-align:left;
   font-size:11px;
-  color:var(--teal);
-  margin-top:2px;
-  font-weight:700;
-}
-.day .d-bus{
-  font-size:9.5px;
-  color:var(--text-faint);
-  margin-top:2px;
-  line-height:1.3;
+  font-weight:600;
+  color:var(--text);
+  margin-top:4px;
+  line-height:1.25;
+  max-width:100%;
+  width:100%;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
 }
+.day .d-tag{
+  font-size:9px;
+  font-weight:500;
+  color:var(--text-faint);
+  text-transform:uppercase;
+  letter-spacing:0.02em;
+}
+.day .d-sum{
+  font-family:var(--font-ui);
+  font-size:15px;
+  color:var(--teal);
+  margin-top:6px;
+  font-weight:800;
+  letter-spacing:-.01em;
+}
 .day .d-off{
   font-size:10px;
   color:var(--text-faint);
-  margin-top:7px;
+  margin-top:0;
   font-style:italic;
 }
 .day.pending-shift{
@@ -481,10 +515,10 @@ body{
 .day.pending-shift .d-num{color:var(--accent);}
 .day.pending-shift .d-time{color:var(--accent);}
 .day .d-pending{
-  font-size:9.5px;
+  font-size:10.5px;
   color:var(--accent);
-  margin-top:2px;
-  font-weight:600;
+  margin-top:6px;
+  font-weight:700;
   line-height:1.3;
 }
 
@@ -578,8 +612,13 @@ body{
   border-radius:var(--radius-sm);
   padding:9px 11px;
   margin-bottom:18px;
+  line-height:1.6;
 }
 .calc-preview b{color:var(--teal); font-family:var(--font-ui); font-variant-numeric:tabular-nums;}
+.calc-status{font-weight:700; font-size:12.5px;}
+.calc-status--future{color:var(--text-dim);}
+.calc-status--pending{color:var(--accent);}
+.calc-status--done{color:var(--positive, var(--teal));}
 .recent-times{
   display:flex;
   flex-wrap:wrap;
@@ -669,12 +708,14 @@ footer{
   .led-value.small{font-size:19px;}
   .display-panel{padding:16px;}
   .stat-mini{gap:10px;}
-  .day{min-height:70px; padding:5px;}
-  .cal-grid{gap:5px;}
-  .day .d-num{font-size:12px;}
-  .day .d-time, .day .d-sum{font-size:10px;}
-  .day .d-dur{font-size:10px;}
-  .day .d-bus{display:none;}
+  .day{min-height:104px; padding:6px 7px;}
+  .cal-grid{gap:6px;}
+  .day .d-num{font-size:11px;}
+  .day .d-head{margin-bottom:1px;}
+  .day .d-time{font-size:9.5px;}
+  .day .d-dur{font-size:8.5px;}
+  .day .d-sum{font-size:13px; margin-top:5px;}
+  .day .d-bus, .day .d-route{font-size:10px; margin-top:3px; white-space:normal; line-height:1.2; overflow:visible; text-overflow:clip; max-width:92%;}
   .rate-box{padding:6px 10px;}
   .rate-box label{font-size:10.5px;}
   .save-btn{padding:0 12px; font-size:12px; height:36px;}
@@ -687,19 +728,22 @@ footer{
   .header{align-items:stretch;}
   .header-right{width:100%;}
   .rate-box{flex:1 1 auto;}
-  .day{min-height:64px; padding:4px;}
-  .day .d-num{font-size:11px;}
-  .day .d-time{font-size:10px;}
-  .day .d-sum{display:none;}
-  .day .d-dur{font-size:10px;}
+  .day{min-height:90px; padding:5px 6px;}
+  .day .d-num{font-size:10px;}
+  .day .d-head{margin-bottom:1px;}
+  .day .d-time{font-size:9px;}
+  .day .d-dur{display:none;}
+  .day .d-sum{font-size:12px; margin-top:4px;}
+  .day .d-bus, .day .d-route{font-size:9.5px;}
   .modal{max-width:100%; margin:0 10px; padding:18px;}
   .modal-overlay{padding:10px;}
   .stat-cards{grid-template-columns:repeat(2,1fr);}
 }
 @media (max-width:360px){
-  .cal-grid{gap:3px;}
-  .day{min-height:50px; padding:3px;}
-  .day .d-time{display:none;}
+  .cal-grid{gap:4px;}
+  .day{min-height:82px; padding:4px 5px;}
+  .day .d-time{font-size:8.5px;}
+  .day .d-bus, .day .d-route{font-size:9px;}
 }
 
 .tabs{display:flex; gap:8px; margin-bottom:20px;}
@@ -916,7 +960,8 @@ footer{
       <button class="save-btn" id="saveFileBtn" title="Сохранить данные в JSON-файл" aria-label="Сохранить данные в JSON-файл">💾 Сохранить</button>
       <button class="save-btn" id="exportCsvBtn" title="Экспортировать все данные в CSV-таблицу" aria-label="Экспортировать все данные в CSV">📄 CSV</button>
       <button class="save-btn" id="clearDataBtn" title="Удалить все сохранённые данные" aria-label="Удалить все сохранённые данные">🗑️ Очистить</button>
-      <button class="save-btn" id="cloudSyncBtn" title="Синхронизация через Google Диск" aria-label="Синхронизация через Google Диск">☁️ Синхронизация</button>
+      <button class="save-btn" id="cloudSyncBtn" title="Синхронизировать с Google Диском" aria-label="Синхронизировать с Google Диском">☁️ Синхронизация</button>
+      <button class="save-btn" id="cloudDisconnectBtn" title="Отключить синхронизацию" aria-label="Отключить синхронизацию" style="display:none; padding:0 10px;">✕</button>
       <span class="sub" id="cloudSyncStatus" style="align-self:center; opacity:.7; font-size:12px;"></span>
     </div>
   </div>
@@ -1123,7 +1168,6 @@ function persistLocalOnly(){
 }
 function persist(){
   persistLocalOnly();
-  if(typeof scheduleCloudPush === 'function') scheduleCloudPush();
 }
 
 const monthNamesGen = ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];
@@ -1323,10 +1367,20 @@ function hexToRgb(hex){
   if(isNaN(num)) return { r:76, g:194, b:255 };
   return { r:(num>>16)&255, g:(num>>8)&255, b:num&255 };
 }
-function getGlobalMaxSum(){
-  let max = 0;
-  Object.values(DATA).forEach(m => m.days.forEach(d => { if(d.sum && d.sum > max) max = d.sum; }));
-  return max;
+function mixRgb(c1, c2, t){
+  return {
+    r: Math.round(c1.r + (c2.r - c1.r) * t),
+    g: Math.round(c1.g + (c2.g - c1.g) * t),
+    b: Math.round(c1.b + (c2.b - c1.b) * t)
+  };
+}
+// тёплый градиент: янтарный (мало) → оранжевый (средне) → глубокий красный (много) —
+// вся шкала в тёплых тонах, без холодных цветов на нижнем конце
+function warmHeatColor(ratio){
+  const low = { r:255, g:214, b:130 };  // мягкий янтарный
+  const mid = { r:255, g:123, b:57 };   // насыщенный оранжевый
+  const high = { r:196, g:33, b:39 };   // глубокий красный
+  return ratio < 0.5 ? mixRgb(low, mid, ratio*2) : mixRgb(mid, high, (ratio-0.5)*2);
 }
 function applyHeatmap(){
   const grid = document.getElementById('calGrid');
@@ -1336,13 +1390,22 @@ function applyHeatmap(){
     cells.forEach(cell => { cell.style.background = ''; });
     return;
   }
-  const maxSum = getGlobalMaxSum();
-  const rgb = hexToRgb(cssVar('--accent'));
+  // растягиваем контраст по мин/макс именно среди показанных сейчас смен, а не по
+  // всему архиву — иначе один сильно выделяющийся месяц "съедал" контраст остальных,
+  // а при близких суммах (одна ставка, похожие смены) все дни выглядели одинаково
+  let min = Infinity, max = -Infinity;
   cells.forEach(cell => {
     const sum = parseFloat(cell.dataset.sum || '0');
-    if(!sum || !maxSum){ cell.style.background = ''; return; }
-    const ratio = Math.min(1, sum / maxSum);
-    const alpha = 0.14 + ratio * 0.62; // от лёгкой заливки до насыщенной
+    if(sum > 0){ if(sum < min) min = sum; if(sum > max) max = sum; }
+  });
+  const hasRange = isFinite(min) && isFinite(max) && max > min;
+  cells.forEach(cell => {
+    const sum = parseFloat(cell.dataset.sum || '0');
+    if(!sum){ cell.style.background = ''; return; }
+    // если разброс есть — растягиваем 0..1 по факт. диапазону; если все суммы одинаковые — красим ровным средним тоном
+    const ratio = hasRange ? (sum - min) / (max - min) : 0.5;
+    const rgb = warmHeatColor(ratio);
+    const alpha = 0.38 + ratio * 0.4; // насыщенность заливки растёт вместе с цветом
     cell.style.background = `rgba(${rgb.r},${rgb.g},${rgb.b},${alpha.toFixed(2)})`;
   });
 }
@@ -1466,18 +1529,18 @@ function render(key){
     else { stateClass = 'off'; }
     cell.className = 'day ' + stateClass + (isToday ? ' today' : '');
     cell.style.animationDelay = (Math.min(idx, 30) * 12) + 'ms';
-    let inner = `<div class="d-num">${dayNum}</div>`;
+    let inner = `<div class="d-head"><span class="d-num">${dayNum}</span>` +
+      (d.start ? `<span class="d-time">${d.start}–${d.end}</span>` : '') +
+      `</div><div class="d-body">`;
     let stateLabel;
     if(d.start){
-      inner += `<div class="d-time">${d.start}–${d.end}</div>`;
       inner += `<div class="d-dur">${minutesToHM(d.minutes)}</div>`;
+      if(d.bus) inner += `<div class="d-bus">🚌 <span class="d-tag">авт.</span> ${d.bus}</div>`;
+      if(d.route) inner += `<div class="d-route">🧭 <span class="d-tag">маршр.</span> ${d.route}</div>`;
       if(d.pending){
-        inner += `<div class="d-pending">смена идёт · доход после ${d.end}</div>`;
+        inner += `<div class="d-pending">🟡 идёт · после ${d.end}</div>`;
       } else {
         inner += `<div class="d-sum">${fmtNum(d.sum)} дин.</div>`;
-      }
-      if(d.bus || d.route){
-        inner += `<div class="d-bus">🚌${d.bus ? ' '+d.bus : ''}${d.route ? ' · маршрут '+d.route : ''}</div>`;
       }
       stateLabel = d.pending
         ? `смена ${d.start}–${d.end} ещё не закончилась, доход будет засчитан после ${d.end}`
@@ -1492,6 +1555,7 @@ function render(key){
       inner += `<div class="d-off">выходной</div>`;
       stateLabel = 'выходной';
     }
+    inner += `</div>`;
     cell.innerHTML = inner;
     cell.tabIndex = 0;
     cell.setAttribute('role', 'button');
@@ -1613,7 +1677,27 @@ function updatePreview(){
   const mins = computeMinutes(startInput.value, endInput.value);
   const hours = mins/60;
   const sum = Math.round(hours*rate*100)/100;
-  calcPreview.innerHTML = `Смена: <b>${minutesToHM(mins)}</b> &nbsp;·&nbsp; заработок: <b>${fmtNum(sum)} дин.</b>`;
+
+  // определяем реальные дату/время начала и конца смены (та дата, что редактируется,
+  // а не "сегодня"), чтобы правильно показать один из трёх статусов
+  let startDt = null, endDt = null;
+  if(editingDay){
+    const d = DATA[editingDay.key].days[editingDay.idx];
+    const base = parseDate(d.date);
+    const sMin = timeToMin(startInput.value), eMin = timeToMin(endInput.value);
+    const dayOffset = (eMin <= sMin) ? 1 : 0;
+    startDt = new Date(base.getFullYear(), base.getMonth(), base.getDate(), Math.floor(sMin/60), sMin%60);
+    endDt = new Date(base.getFullYear(), base.getMonth(), base.getDate()+dayOffset, Math.floor(eMin/60), eMin%60);
+  }
+  const now = new Date();
+
+  if(startDt && startDt.getTime() > now.getTime()){
+    calcPreview.innerHTML = `<span class="calc-status calc-status--future">🕓 Смена ещё не началась</span><br>Начало в <b>${startInput.value}</b> · длительность: <b>${minutesToHM(mins)}</b> · доход будет: <b>${fmtNum(sum)} дин.</b>`;
+  } else if(endDt && endDt.getTime() > now.getTime()){
+    calcPreview.innerHTML = `<span class="calc-status calc-status--pending">🟡 Смена идёт</span><br>Длительность: <b>${minutesToHM(mins)}</b> · доход будет засчитан после <b>${endInput.value}</b>`;
+  } else {
+    calcPreview.innerHTML = `<span class="calc-status calc-status--done">✅ Смена завершена</span><br>Смена: <b>${minutesToHM(mins)}</b> &nbsp;·&nbsp; заработок: <b>${fmtNum(sum)} дин.</b>`;
+  }
 }
 workSwitch.addEventListener('click', () => {
   const on = !workSwitch.classList.contains('on');
@@ -1654,6 +1738,7 @@ document.getElementById('saveBtn').addEventListener('click', (ev) => {
   closeModal();
   render(key);
   persist();
+  if(typeof isCloudSyncActive === 'function' && isCloudSyncActive()) pushAfterDaySave();
   if(isWorking && window.confetti){
     confetti({ particleCount: 45, spread: 55, startVelocity: 28, gravity: 1.1,
       origin: { x: 0.5, y: 0.35 }, colors: [cssVar('--accent'), cssVar('--teal')], scalar: 0.8, ticks: 140 });
@@ -2559,22 +2644,38 @@ async function pushToCloud(){
   if(!cloudFileId) cloudFileId = await driveCreateFile(encrypted);
   else await driveUpdateFile(cloudFileId, encrypted);
 }
-function scheduleCloudPush(){
-  if(!isCloudSyncActive()) return;
-  clearTimeout(cloudPushTimer);
-  cloudPushTimer = setTimeout(async () => {
-    try{
-      setCloudStatus('☁️ сохранение…');
-      await pushToCloud();
-      setCloudStatus('☁️ синхронизировано ' + new Date().toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'}));
-    }catch(err){
-      console.error('Ошибка синхронизации с Google Диском', err);
-      setCloudStatus('☁️ ошибка синхронизации', true);
-    }
-  }, 2000);
-}
 function isCloudSyncActive(){
   return localStorage.getItem(CLOUD_ENABLED_KEY) === '1' && !!cloudAccessToken && !!cloudPassword;
+}
+// Синхронизация НЕ идёт постоянным фоном. Она запускается только:
+//  1) при открытии приложения — один раз подтягиваем свежие данные (pullFromCloud в tryResumeCloudSync)
+//  2) по нажатию кнопки «☁️ Синхронизация» — полный цикл: сначала забрать, потом отправить
+//  3) при сохранении конкретного дня в карточке — лёгкий пуш только что изменённых данных
+async function runFullSync(){
+  if(!isCloudSyncActive() || cloudBusy) return;
+  cloudBusy = true;
+  try{
+    setCloudStatus('☁️ синхронизация…');
+    await pullFromCloud();
+    await pushToCloud();
+    setCloudStatus('☁️ синхронизировано ' + new Date().toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'}));
+  }catch(err){
+    console.error('Ошибка синхронизации с Google Диском', err);
+    setCloudStatus('☁️ ошибка синхронизации', true);
+  } finally {
+    cloudBusy = false;
+  }
+}
+async function pushAfterDaySave(){
+  if(!isCloudSyncActive() || cloudBusy) return;
+  try{
+    setCloudStatus('☁️ сохранение…');
+    await pushToCloud();
+    setCloudStatus('☁️ синхронизировано ' + new Date().toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'}));
+  }catch(err){
+    console.error('Ошибка синхронизации с Google Диском', err);
+    setCloudStatus('☁️ ошибка синхронизации', true);
+  }
 }
 
 async function connectCloudSync(){
@@ -2595,7 +2696,8 @@ async function connectCloudSync(){
     await pullFromCloud();
     await pushToCloud();
     setCloudStatus('☁️ подключено');
-    cloudSyncBtn.textContent = '☁️ Отключить синхронизацию';
+    cloudSyncBtn.textContent = '🔄 Синхронизировать';
+    cloudDisconnectBtn.style.display = '';
   }catch(err){
     console.error('Не удалось подключить синхронизацию', err);
     if(err && err.message && err.message.includes('OPERATION_FAILED')){
@@ -2614,23 +2716,25 @@ function disconnectCloudSync(){
   cloudAccessToken = null;
   cloudPassword = null;
   localStorage.removeItem(CLOUD_PASS_SESSION_KEY);
-  clearTimeout(cloudPushTimer);
   setCloudStatus('');
   cloudSyncBtn.textContent = '☁️ Синхронизация';
+  cloudDisconnectBtn.style.display = 'none';
 }
+const cloudDisconnectBtn = document.getElementById('cloudDisconnectBtn');
 cloudSyncBtn.addEventListener('click', async () => {
-  if(isCloudSyncActive()){
-    const ok = await showConfirmModal('Отключить синхронизацию с Google Диском на этом устройстве? Данные в облаке останутся нетронутыми, локальные — тоже.', 'Отключить синхронизацию', 'Отключить');
-    if(ok) disconnectCloudSync();
-  } else {
-    connectCloudSync();
-  }
+  if(isCloudSyncActive()) runFullSync();
+  else connectCloudSync();
 });
-// при старте, если синхронизация уже включена на этом устройстве — пробуем
-// тихо восстановить сессию (без окна входа), не мешая работе, если не выйдет
+cloudDisconnectBtn.addEventListener('click', async () => {
+  const ok = await showConfirmModal('Отключить синхронизацию с Google Диском на этом устройстве? Данные в облаке останутся нетронутыми, локальные — тоже.', 'Отключить синхронизацию', 'Отключить');
+  if(ok) disconnectCloudSync();
+});
+// при старте, если синхронизация уже включена на этом устройстве — один раз тихо
+// подтягиваем свежие данные (без окна входа, если сессия Google ещё жива)
 (async function tryResumeCloudSync(){
   if(localStorage.getItem(CLOUD_ENABLED_KEY) !== '1') return;
-  cloudSyncBtn.textContent = '☁️ Отключить синхронизацию';
+  cloudDisconnectBtn.style.display = '';
+  cloudSyncBtn.textContent = '🔄 Синхронизировать';
   try{
     setCloudStatus('☁️ подключение…');
     await requestCloudToken(false);

@@ -1,6 +1,6 @@
 {
   "rate": 700,
-  "currentKey": "Июль 26",
+  "currentKey": "Август '26",
   "order": [
     "Июль",
     "Август",
@@ -8,7 +8,8 @@
     "Октябрь",
     "Ноябрь",
     "Декабрь",
-    "Июль 26"
+    "Июль 26",
+    "Август '26"
   ],
   "months": {
     "Июль": {
@@ -23,7 +24,10 @@
           "end": "22:34",
           "minutes": 531.0000000000001,
           "hours": "08:51",
-          "sum": 6195.02
+          "sum": 6195.02,
+          "pending": false,
+          "bus": "54",
+          "route": "311"
         },
         {
           "date": "02.07.2025",
@@ -32,7 +36,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "54",
+          "route": "311"
         },
         {
           "date": "03.07.2025",
@@ -41,7 +48,10 @@
           "end": "22:34",
           "minutes": 531.0000000000001,
           "hours": "08:51",
-          "sum": 6195.02
+          "sum": 6195.02,
+          "pending": false,
+          "bus": "54",
+          "route": "311"
         },
         {
           "date": "04.07.2025",
@@ -50,7 +60,10 @@
           "end": "22:34",
           "minutes": 531.0000000000001,
           "hours": "08:51",
-          "sum": 6195.02
+          "sum": 6195.02,
+          "pending": false,
+          "bus": "54",
+          "route": "311"
         },
         {
           "date": "05.07.2025",
@@ -59,7 +72,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "06.07.2025",
@@ -68,7 +84,10 @@
           "end": "19:14",
           "minutes": 447.00000000000006,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "07.07.2025",
@@ -77,7 +96,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "54",
+          "route": "311"
         },
         {
           "date": "08.07.2025",
@@ -86,7 +108,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "54",
+          "route": "311"
         },
         {
           "date": "09.07.2025",
@@ -95,7 +120,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "54",
+          "route": "311"
         },
         {
           "date": "10.07.2025",
@@ -104,7 +132,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "54",
+          "route": "311"
         },
         {
           "date": "11.07.2025",
@@ -113,7 +144,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "54",
+          "route": "311"
         },
         {
           "date": "12.07.2025",
@@ -122,7 +156,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "40",
+          "route": "309"
         },
         {
           "date": "13.07.2025",
@@ -131,7 +168,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "40",
+          "route": "309"
         },
         {
           "date": "14.07.2025",
@@ -140,7 +180,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "51",
+          "route": "311"
         },
         {
           "date": "15.07.2025",
@@ -149,7 +192,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "51",
+          "route": "311"
         },
         {
           "date": "16.07.2025",
@@ -158,7 +204,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "51",
+          "route": "311"
         },
         {
           "date": "17.07.2025",
@@ -167,7 +216,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "51",
+          "route": "311"
         },
         {
           "date": "18.07.2025",
@@ -176,7 +228,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "51",
+          "route": "311"
         },
         {
           "date": "19.07.2025",
@@ -185,7 +240,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "20.07.2025",
@@ -194,7 +252,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "21.07.2025",
@@ -203,7 +264,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "49",
+          "route": "311"
         },
         {
           "date": "22.07.2025",
@@ -212,7 +276,10 @@
           "end": "23:19",
           "minutes": 495,
           "hours": "08:15",
-          "sum": 5775.02
+          "sum": 5775.02,
+          "pending": false,
+          "bus": "49",
+          "route": "311"
         },
         {
           "date": "23.07.2025",
@@ -221,7 +288,10 @@
           "end": "23:43",
           "minutes": 360,
           "hours": "06:00",
-          "sum": 4200.01
+          "sum": 4200.01,
+          "pending": false,
+          "bus": "49",
+          "route": "311"
         },
         {
           "date": "24.07.2025",
@@ -230,7 +300,10 @@
           "end": "23:43",
           "minutes": 360,
           "hours": "06:00",
-          "sum": 4200.01
+          "sum": 4200.01,
+          "pending": false,
+          "bus": "49",
+          "route": "311"
         },
         {
           "date": "25.07.2025",
@@ -239,7 +312,10 @@
           "end": "23:43",
           "minutes": 360,
           "hours": "06:00",
-          "sum": 4200.01
+          "sum": 4200.01,
+          "pending": false,
+          "bus": "49",
+          "route": "311"
         },
         {
           "date": "26.07.2025",
@@ -248,7 +324,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "40",
+          "route": "309"
         },
         {
           "date": "27.07.2025",
@@ -257,7 +336,10 @@
           "end": "22:06",
           "minutes": 456.0000000000001,
           "hours": "07:36",
-          "sum": 5320.02
+          "sum": 5320.02,
+          "pending": false,
+          "bus": "40",
+          "route": "309"
         },
         {
           "date": "28.07.2025",
@@ -266,7 +348,10 @@
           "end": "00:23",
           "minutes": 551.0000000000001,
           "hours": "09:11",
-          "sum": 6428.35
+          "sum": 6428.35,
+          "pending": false,
+          "bus": "54",
+          "route": "311"
         },
         {
           "date": "29.07.2025",
@@ -275,7 +360,10 @@
           "end": "00:23",
           "minutes": 551.0000000000001,
           "hours": "09:11",
-          "sum": 6428.35
+          "sum": 6428.35,
+          "pending": false,
+          "bus": "54",
+          "route": "311"
         },
         {
           "date": "30.07.2025",
@@ -284,7 +372,10 @@
           "end": "00:23",
           "minutes": 551.0000000000001,
           "hours": "09:11",
-          "sum": 6428.35
+          "sum": 6428.35,
+          "pending": false,
+          "bus": "54",
+          "route": "311"
         },
         {
           "date": "31.07.2025",
@@ -293,7 +384,10 @@
           "end": "00:23",
           "minutes": 551.0000000000001,
           "hours": "09:11",
-          "sum": 6428.35
+          "sum": 6428.35,
+          "pending": false,
+          "bus": "54",
+          "route": "311"
         }
       ],
       "total_minutes": 6275.000000000001,
@@ -311,7 +405,10 @@
           "end": "00:23",
           "minutes": 551.0000000000001,
           "hours": "09:11",
-          "sum": 6428.35
+          "sum": 6428.35,
+          "pending": false,
+          "bus": "51",
+          "route": "311"
         },
         {
           "date": "02.08.2025",
@@ -320,7 +417,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "03.08.2025",
@@ -329,7 +429,10 @@
           "end": "22:06",
           "minutes": 456.0000000000001,
           "hours": "07:36",
-          "sum": 5320.02
+          "sum": 5320.02,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "04.08.2025",
@@ -338,7 +441,10 @@
           "end": "23:19",
           "minutes": 495,
           "hours": "08:15",
-          "sum": 5775.02
+          "sum": 5775.02,
+          "pending": false,
+          "bus": "49",
+          "route": "311"
         },
         {
           "date": "05.08.2025",
@@ -347,7 +453,10 @@
           "end": "23:19",
           "minutes": 495,
           "hours": "08:15",
-          "sum": 5775.02
+          "sum": 5775.02,
+          "pending": false,
+          "bus": "49",
+          "route": "311"
         },
         {
           "date": "06.08.2025",
@@ -356,7 +465,10 @@
           "end": "23:19",
           "minutes": 495,
           "hours": "08:15",
-          "sum": 5775.02
+          "sum": 5775.02,
+          "pending": false,
+          "bus": "49",
+          "route": "311"
         },
         {
           "date": "07.08.2025",
@@ -365,7 +477,10 @@
           "end": "23:19",
           "minutes": 495,
           "hours": "08:15",
-          "sum": 5775.02
+          "sum": 5775.02,
+          "pending": false,
+          "bus": "49",
+          "route": "311"
         },
         {
           "date": "08.08.2025",
@@ -374,7 +489,10 @@
           "end": "23:19",
           "minutes": 495,
           "hours": "08:15",
-          "sum": 5775.02
+          "sum": 5775.02,
+          "pending": false,
+          "bus": "49",
+          "route": "311"
         },
         {
           "date": "09.08.2025",
@@ -383,7 +501,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "40",
+          "route": "309"
         },
         {
           "date": "10.08.2025",
@@ -392,7 +513,10 @@
           "end": "22:06",
           "minutes": 456.0000000000001,
           "hours": "07:36",
-          "sum": 5320.02
+          "sum": 5320.02,
+          "pending": false,
+          "bus": "40",
+          "route": "309"
         },
         {
           "date": "11.08.2025",
@@ -401,7 +525,10 @@
           "end": "20:16",
           "minutes": 462.99999999999994,
           "hours": "07:43",
-          "sum": 5401.68
+          "sum": 5401.68,
+          "pending": false,
+          "bus": "51",
+          "route": "311"
         },
         {
           "date": "12.08.2025",
@@ -410,7 +537,10 @@
           "end": "20:16",
           "minutes": 462.99999999999994,
           "hours": "07:43",
-          "sum": 5401.68
+          "sum": 5401.68,
+          "pending": false,
+          "bus": "51",
+          "route": "311"
         },
         {
           "date": "13.08.2025",
@@ -419,7 +549,10 @@
           "end": "20:16",
           "minutes": 462.99999999999994,
           "hours": "07:43",
-          "sum": 5401.68
+          "sum": 5401.68,
+          "pending": false,
+          "bus": "51",
+          "route": "311"
         },
         {
           "date": "14.08.2025",
@@ -428,7 +561,10 @@
           "end": "20:16",
           "minutes": 462.99999999999994,
           "hours": "07:43",
-          "sum": 5401.68
+          "sum": 5401.68,
+          "pending": false,
+          "bus": "51",
+          "route": "311"
         },
         {
           "date": "15.08.2025",
@@ -437,7 +573,10 @@
           "end": "20:16",
           "minutes": 462.99999999999994,
           "hours": "07:43",
-          "sum": 5401.68
+          "sum": 5401.68,
+          "pending": false,
+          "bus": "51",
+          "route": "311"
         },
         {
           "date": "16.08.2025",
@@ -446,7 +585,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "17.08.2025",
@@ -455,7 +597,10 @@
           "end": "22:06",
           "minutes": 456.0000000000001,
           "hours": "07:36",
-          "sum": 5320.02
+          "sum": 5320.02,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "18.08.2025",
@@ -464,7 +609,10 @@
           "end": "21:07",
           "minutes": 506,
           "hours": "08:26",
-          "sum": 5903.35
+          "sum": 5903.35,
+          "pending": false,
+          "bus": "51",
+          "route": "311"
         },
         {
           "date": "19.08.2025",
@@ -473,7 +621,10 @@
           "end": "21:07",
           "minutes": 506,
           "hours": "08:26",
-          "sum": 5903.35
+          "sum": 5903.35,
+          "pending": false,
+          "bus": "51",
+          "route": "311"
         },
         {
           "date": "20.08.2025",
@@ -482,7 +633,10 @@
           "end": "21:07",
           "minutes": 506,
           "hours": "08:26",
-          "sum": 5903.35
+          "sum": 5903.35,
+          "pending": false,
+          "bus": "51",
+          "route": "311"
         },
         {
           "date": "21.08.2025",
@@ -491,7 +645,10 @@
           "end": "21:07",
           "minutes": 506,
           "hours": "08:26",
-          "sum": 5903.35
+          "sum": 5903.35,
+          "pending": false,
+          "bus": "51",
+          "route": "311"
         },
         {
           "date": "22.08.2025",
@@ -500,7 +657,10 @@
           "end": "21:07",
           "minutes": 506,
           "hours": "08:26",
-          "sum": 5903.35
+          "sum": 5903.35,
+          "pending": false,
+          "bus": "51",
+          "route": "311"
         },
         {
           "date": "23.08.2025",
@@ -509,7 +669,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "24.08.2025",
@@ -518,7 +681,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "25.08.2025",
@@ -527,7 +693,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "49",
+          "route": "311"
         },
         {
           "date": "26.08.2025",
@@ -536,7 +705,10 @@
           "end": "20:16",
           "minutes": 462.99999999999994,
           "hours": "07:43",
-          "sum": 5401.68
+          "sum": 5401.68,
+          "pending": false,
+          "bus": "49",
+          "route": "311"
         },
         {
           "date": "27.08.2025",
@@ -545,7 +717,10 @@
           "end": "20:16",
           "minutes": 462.99999999999994,
           "hours": "07:43",
-          "sum": 5401.68
+          "sum": 5401.68,
+          "pending": false,
+          "bus": "49",
+          "route": "311"
         },
         {
           "date": "28.08.2025",
@@ -554,7 +729,10 @@
           "end": "20:16",
           "minutes": 462.99999999999994,
           "hours": "07:43",
-          "sum": 5401.68
+          "sum": 5401.68,
+          "pending": false,
+          "bus": "49",
+          "route": "311"
         },
         {
           "date": "29.08.2025",
@@ -563,7 +741,10 @@
           "end": "20:16",
           "minutes": 462.99999999999994,
           "hours": "07:43",
-          "sum": 5401.68
+          "sum": 5401.68,
+          "pending": false,
+          "bus": "49",
+          "route": "311"
         },
         {
           "date": "30.08.2025",
@@ -572,7 +753,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "31.08.2025",
@@ -581,7 +765,10 @@
           "end": "22:06",
           "minutes": 456.0000000000001,
           "hours": "07:36",
-          "sum": 5320.02
+          "sum": 5320.02,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         }
       ],
       "total_minutes": 11547,
@@ -599,7 +786,10 @@
           "end": "22:45",
           "minutes": 446.99999999999983,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "02.09.2025",
@@ -608,7 +798,10 @@
           "end": "22:45",
           "minutes": 446.99999999999983,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "03.09.2025",
@@ -617,7 +810,10 @@
           "end": "22:45",
           "minutes": 446.99999999999983,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "04.09.2025",
@@ -626,7 +822,10 @@
           "end": "22:45",
           "minutes": 446.99999999999983,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "05.09.2025",
@@ -635,7 +834,10 @@
           "end": "22:45",
           "minutes": 446.99999999999983,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "06.09.2025",
@@ -644,7 +846,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "40",
+          "route": "309"
         },
         {
           "date": "07.09.2025",
@@ -653,7 +858,10 @@
           "end": "19:41",
           "minutes": 444.9999999999999,
           "hours": "07:25",
-          "sum": 5191.68
+          "sum": 5191.68,
+          "pending": false,
+          "bus": "40",
+          "route": "309"
         },
         {
           "date": "08.09.2025",
@@ -662,7 +870,10 @@
           "end": "22:45",
           "minutes": 446.99999999999983,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "09.09.2025",
@@ -671,7 +882,10 @@
           "end": "22:45",
           "minutes": 446.99999999999983,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "10.09.2025",
@@ -680,7 +894,10 @@
           "end": "22:45",
           "minutes": 446.99999999999983,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "11.09.2025",
@@ -689,7 +906,10 @@
           "end": "22:45",
           "minutes": 446.99999999999983,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "12.09.2025",
@@ -698,7 +918,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "13.09.2025",
@@ -707,7 +930,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "14.09.2025",
@@ -716,7 +942,10 @@
           "end": "23:43",
           "minutes": 577.9999999999999,
           "hours": "09:38",
-          "sum": 6743.35
+          "sum": 6743.35,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "15.09.2025",
@@ -725,7 +954,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "16.09.2025",
@@ -734,7 +966,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "17.09.2025",
@@ -743,7 +978,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "18.09.2025",
@@ -752,7 +990,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "19.09.2025",
@@ -761,7 +1002,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "20.09.2025",
@@ -770,7 +1014,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "21.09.2025",
@@ -779,7 +1026,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "22.09.2025",
@@ -788,7 +1038,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "23.09.2025",
@@ -797,7 +1050,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "24.09.2025",
@@ -806,7 +1062,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "25.09.2025",
@@ -815,7 +1074,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "26.09.2025",
@@ -824,7 +1086,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "27.09.2025",
@@ -833,7 +1098,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "28.09.2025",
@@ -842,7 +1110,10 @@
           "end": "19:14",
           "minutes": 445.00000000000006,
           "hours": "07:25",
-          "sum": 5191.68
+          "sum": 5191.68,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "29.09.2025",
@@ -851,7 +1122,10 @@
           "end": "00:37",
           "minutes": 370.99999999999994,
           "hours": "06:11",
-          "sum": 4328.35
+          "sum": 4328.35,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "30.09.2025",
@@ -860,7 +1134,10 @@
           "end": "00:37",
           "minutes": 370.99999999999994,
           "hours": "06:11",
-          "sum": 4328.35
+          "sum": 4328.35,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         }
       ],
       "total_minutes": 11150.000000000005,
@@ -878,7 +1155,10 @@
           "end": "00:37",
           "minutes": 370.99999999999994,
           "hours": "06:11",
-          "sum": 4328.35
+          "sum": 4328.35,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "02.10.2025",
@@ -887,7 +1167,10 @@
           "end": "00:37",
           "minutes": 370.99999999999994,
           "hours": "06:11",
-          "sum": 4328.35
+          "sum": 4328.35,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "03.10.2025",
@@ -896,7 +1179,10 @@
           "end": "00:37",
           "minutes": 370.99999999999994,
           "hours": "06:11",
-          "sum": 4328.35
+          "sum": 4328.35,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "04.10.2025",
@@ -905,7 +1191,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "05.10.2025",
@@ -914,7 +1203,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "06.10.2025",
@@ -923,7 +1215,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "07.10.2025",
@@ -932,7 +1227,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "08.10.2025",
@@ -941,7 +1239,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "09.10.2025",
@@ -950,7 +1251,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "10.10.2025",
@@ -959,7 +1263,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "11.10.2025",
@@ -968,7 +1275,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "12.10.2025",
@@ -977,7 +1287,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "13.10.2025",
@@ -986,7 +1299,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "14.10.2025",
@@ -995,7 +1311,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "15.10.2025",
@@ -1004,7 +1323,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "16.10.2025",
@@ -1013,7 +1335,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "17.10.2025",
@@ -1022,7 +1347,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "18.10.2025",
@@ -1031,7 +1359,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "19.10.2025",
@@ -1040,7 +1371,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "20.10.2025",
@@ -1049,7 +1383,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "21.10.2025",
@@ -1058,7 +1395,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "22.10.2025",
@@ -1067,7 +1407,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "23.10.2025",
@@ -1076,7 +1419,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "24.10.2025",
@@ -1085,7 +1431,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "25.10.2025",
@@ -1094,7 +1443,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "26.10.2025",
@@ -1103,7 +1455,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "27.10.2025",
@@ -1112,7 +1467,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "28.10.2025",
@@ -1121,7 +1479,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "29.10.2025",
@@ -1130,7 +1491,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "30.10.2025",
@@ -1139,7 +1503,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "31.10.2025",
@@ -1148,7 +1515,10 @@
           "end": "22:45",
           "minutes": 656.0000000000005,
           "hours": "10:56",
-          "sum": 7653.36
+          "sum": 7653.36,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         }
       ],
       "total_minutes": 10262.000000000011,
@@ -1166,7 +1536,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "40",
+          "route": "309"
         },
         {
           "date": "02.11.2025",
@@ -1175,7 +1548,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "40",
+          "route": "309"
         },
         {
           "date": "03.11.2025",
@@ -1184,7 +1560,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "04.11.2025",
@@ -1193,7 +1572,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "05.11.2025",
@@ -1202,7 +1584,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "06.11.2025",
@@ -1211,7 +1596,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "07.11.2025",
@@ -1220,7 +1608,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "08.11.2025",
@@ -1229,7 +1620,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "40",
+          "route": "309"
         },
         {
           "date": "09.11.2025",
@@ -1238,7 +1632,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "40",
+          "route": "309"
         },
         {
           "date": "10.11.2025",
@@ -1247,7 +1644,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "11.11.2025",
@@ -1256,7 +1656,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "12.11.2025",
@@ -1265,7 +1668,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "13.11.2025",
@@ -1274,7 +1680,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "14.11.2025",
@@ -1283,7 +1692,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "15.11.2025",
@@ -1292,7 +1704,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "40",
+          "route": "309"
         },
         {
           "date": "16.11.2025",
@@ -1301,7 +1716,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "40",
+          "route": "309"
         },
         {
           "date": "17.11.2025",
@@ -1310,7 +1728,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "18.11.2025",
@@ -1319,7 +1740,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "19.11.2025",
@@ -1328,7 +1752,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "20.11.2025",
@@ -1337,7 +1764,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "21.11.2025",
@@ -1346,7 +1776,10 @@
           "end": "22:45",
           "minutes": 656.0000000000005,
           "hours": "10:56",
-          "sum": 7653.36
+          "sum": 7653.36,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "22.11.2025",
@@ -1355,7 +1788,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "23.11.2025",
@@ -1364,7 +1800,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "24.11.2025",
@@ -1373,7 +1812,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "25.11.2025",
@@ -1382,7 +1824,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "26.11.2025",
@@ -1391,7 +1836,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "27.11.2025",
@@ -1400,7 +1848,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "28.11.2025",
@@ -1409,7 +1860,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "29.11.2025",
@@ -1418,7 +1872,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "30.11.2025",
@@ -1427,7 +1884,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         }
       ],
       "total_minutes": 8702.000000000013,
@@ -1445,7 +1905,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "02.12.2025",
@@ -1454,7 +1917,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "03.12.2025",
@@ -1463,7 +1929,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "04.12.2025",
@@ -1472,7 +1941,10 @@
           "end": "22:45",
           "minutes": 447.0000000000005,
           "hours": "07:27",
-          "sum": 5215.01
+          "sum": 5215.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "05.12.2025",
@@ -1481,7 +1953,10 @@
           "end": "22:45",
           "minutes": 375.00000000000045,
           "hours": "06:15",
-          "sum": 4375.01
+          "sum": 4375.01,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "06.12.2025",
@@ -1490,7 +1965,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "07.12.2025",
@@ -1499,7 +1977,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "08.12.2025",
@@ -1508,7 +1989,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "09.12.2025",
@@ -1517,7 +2001,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "10.12.2025",
@@ -1526,7 +2013,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "11.12.2025",
@@ -1535,7 +2025,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "12.12.2025",
@@ -1544,7 +2037,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "13.12.2025",
@@ -1553,7 +2049,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "14.12.2025",
@@ -1562,7 +2061,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "15.12.2025",
@@ -1571,7 +2073,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "16.12.2025",
@@ -1580,7 +2085,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "17.12.2025",
@@ -1589,7 +2097,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "18.12.2025",
@@ -1598,7 +2109,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "19.12.2025",
@@ -1607,7 +2121,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "20.12.2025",
@@ -1616,7 +2133,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "21.12.2025",
@@ -1625,7 +2145,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "22.12.2025",
@@ -1634,7 +2157,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "23.12.2025",
@@ -1643,7 +2169,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "24.12.2025",
@@ -1652,7 +2181,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "25.12.2025",
@@ -1661,7 +2193,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "26.12.2025",
@@ -1670,7 +2205,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "27.12.2025",
@@ -1679,7 +2217,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "28.12.2025",
@@ -1688,7 +2229,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
         },
         {
           "date": "29.12.2025",
@@ -1697,7 +2241,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "30.12.2025",
@@ -1706,7 +2253,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "31.12.2025",
@@ -1715,7 +2265,10 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false,
+          "bus": "30",
+          "route": "309"
         }
       ],
       "total_minutes": 2163.0000000000027,
@@ -1733,7 +2286,8 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false
         },
         {
           "date": "02.07.2026",
@@ -1742,7 +2296,8 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false
         },
         {
           "date": "03.07.2026",
@@ -1751,7 +2306,8 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false
         },
         {
           "date": "04.07.2026",
@@ -1760,7 +2316,8 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false
         },
         {
           "date": "05.07.2026",
@@ -1769,7 +2326,8 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false
         },
         {
           "date": "06.07.2026",
@@ -1778,7 +2336,8 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false
         },
         {
           "date": "07.07.2026",
@@ -1787,43 +2346,60 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false
         },
         {
           "date": "08.07.2026",
           "weekday": "Среда",
           "start": "10:29",
           "end": "18:07",
-          "minutes": 458.00000000000006,
-          "hours": "07:38",
-          "sum": 5343.35
+          "minutes": 458,
+          "hours": "7 часов 38 минут",
+          "sum": 5343.33,
+          "pending": false,
+          "edited": true,
+          "bus": "28",
+          "route": "309"
         },
         {
           "date": "09.07.2026",
           "weekday": "Четверг",
           "start": "10:29",
           "end": "18:07",
-          "minutes": 458.00000000000006,
-          "hours": "07:38",
-          "sum": 5343.35
+          "minutes": 458,
+          "hours": "7 часов 38 минут",
+          "sum": 5343.33,
+          "pending": false,
+          "edited": true,
+          "bus": "28",
+          "route": "309"
         },
         {
           "date": "10.07.2026",
           "weekday": "Пятница",
           "start": "10:29",
           "end": "18:07",
-          "minutes": 458.00000000000006,
-          "hours": "07:38",
-          "sum": 5343.35
+          "minutes": 458,
+          "hours": "7 часов 38 минут",
+          "sum": 5343.33,
+          "pending": false,
+          "edited": true,
+          "bus": "28",
+          "route": "309"
         },
         {
           "date": "11.07.2026",
           "weekday": "Суббота",
           "start": "12:16",
           "end": "19:41",
-          "minutes": 444.9999999999999,
-          "hours": "07:25",
-          "sum": 5191.68
+          "minutes": 445,
+          "hours": "7 часов 25 минут",
+          "sum": 5191.67,
+          "pending": false,
+          "edited": true,
+          "bus": "29",
+          "route": "309"
         },
         {
           "date": "12.07.2026",
@@ -1832,61 +2408,86 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false
         },
         {
           "date": "13.07.2026",
           "weekday": "Понедельник",
           "start": "15:20",
           "end": "22:45",
-          "minutes": 444.9999999999999,
-          "hours": "07:25",
-          "sum": 5191.68
+          "minutes": 445,
+          "hours": "7 часов 25 минут",
+          "sum": 5191.67,
+          "pending": false,
+          "edited": true,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "14.07.2026",
           "weekday": "Вторник",
           "start": "15:20",
           "end": "22:45",
-          "minutes": 444.9999999999999,
-          "hours": "07:25",
-          "sum": 5191.68
+          "minutes": 445,
+          "hours": "7 часов 25 минут",
+          "sum": 5191.67,
+          "pending": false,
+          "edited": true,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "15.07.2026",
           "weekday": "Среда",
           "start": "15:20",
           "end": "22:45",
-          "minutes": 444.9999999999999,
-          "hours": "07:25",
-          "sum": 5191.68
+          "minutes": 445,
+          "hours": "7 часов 25 минут",
+          "sum": 5191.67,
+          "pending": false,
+          "edited": true,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "16.07.2026",
           "weekday": "Четверг",
           "start": "15:20",
           "end": "22:45",
-          "minutes": 444.9999999999999,
-          "hours": "07:25",
-          "sum": 5191.68
+          "minutes": 445,
+          "hours": "7 часов 25 минут",
+          "sum": 5191.67,
+          "pending": false,
+          "edited": true,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "17.07.2026",
           "weekday": "Пятница",
           "start": "15:20",
           "end": "22:45",
-          "minutes": 444.9999999999999,
-          "hours": "07:25",
-          "sum": 5191.68
+          "minutes": 445,
+          "hours": "7 часов 25 минут",
+          "sum": 5191.67,
+          "pending": false,
+          "edited": true,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "18.07.2026",
           "weekday": "Суббота",
           "start": "13:50",
           "end": "21:12",
-          "minutes": 441.9999999999999,
-          "hours": "07:22",
-          "sum": 5156.68
+          "minutes": 442,
+          "hours": "7 часов 22 минуты",
+          "sum": 5156.67,
+          "pending": false,
+          "edited": true,
+          "bus": "27",
+          "route": "309"
         },
         {
           "date": "19.07.2026",
@@ -1895,7 +2496,8 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false
         },
         {
           "date": "20.07.2026",
@@ -1907,7 +2509,8 @@
           "sum": 5191.67,
           "edited": true,
           "bus": "30",
-          "route": "309"
+          "route": "309",
+          "pending": false
         },
         {
           "date": "21.07.2026",
@@ -1919,7 +2522,8 @@
           "sum": 5191.67,
           "edited": true,
           "bus": "30",
-          "route": "309"
+          "route": "309",
+          "pending": false
         },
         {
           "date": "22.07.2026",
@@ -1931,34 +2535,47 @@
           "sum": 5191.67,
           "edited": true,
           "bus": "30",
-          "route": "309"
+          "route": "309",
+          "pending": false
         },
         {
           "date": "23.07.2026",
           "weekday": "Четверг",
-          "start": null,
-          "end": null,
-          "minutes": null,
-          "hours": null,
-          "sum": null
+          "start": "15:20",
+          "end": "22:45",
+          "minutes": 445,
+          "hours": "7 часов 25 минут",
+          "sum": 5191.67,
+          "edited": true,
+          "bus": "30",
+          "route": "309",
+          "pending": false
         },
         {
           "date": "24.07.2026",
           "weekday": "Пятница",
-          "start": null,
-          "end": null,
-          "minutes": null,
-          "hours": null,
-          "sum": null
+          "start": "15:20",
+          "end": "22:45",
+          "minutes": 445,
+          "hours": "7 часов 25 минут",
+          "sum": 5191.67,
+          "pending": false,
+          "edited": true,
+          "bus": "30",
+          "route": "309"
         },
         {
           "date": "25.07.2026",
           "weekday": "Суббота",
-          "start": null,
-          "end": null,
-          "minutes": null,
-          "hours": null,
-          "sum": null
+          "start": "13:50",
+          "end": "21:12",
+          "minutes": 442,
+          "hours": "7 часов 22 минуты",
+          "sum": 5156.67,
+          "pending": false,
+          "edited": true,
+          "bus": "35",
+          "route": "309"
         },
         {
           "date": "26.07.2026",
@@ -1967,56 +2584,431 @@
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "pending": false
         },
         {
           "date": "27.07.2026",
           "weekday": "Понедельник",
+          "start": "15:20",
+          "end": "22:45",
+          "minutes": 445,
+          "hours": "7 часов 25 минут",
+          "sum": 5191.67,
+          "pending": false,
+          "edited": true,
+          "bus": "29",
+          "route": "309"
+        },
+        {
+          "date": "28.07.2026",
+          "weekday": "Вторник",
+          "start": "15:20",
+          "end": "22:45",
+          "minutes": 445,
+          "hours": "7 часов 25 минут",
+          "sum": 5191.67,
+          "pending": false,
+          "edited": true,
+          "bus": "29",
+          "route": "309"
+        },
+        {
+          "date": "29.07.2026",
+          "weekday": "Среда",
+          "start": "15:20",
+          "end": "22:45",
+          "minutes": 445,
+          "hours": "7 часов 25 минут",
+          "sum": 5191.67,
+          "pending": false,
+          "edited": true,
+          "bus": "29",
+          "route": "309"
+        },
+        {
+          "date": "30.07.2026",
+          "weekday": "Четверг",
+          "start": "15:20",
+          "end": "22:45",
+          "minutes": 445,
+          "hours": "7 часов 25 минут",
+          "sum": 5191.67,
+          "pending": false,
+          "edited": true,
+          "bus": "29",
+          "route": "309"
+        },
+        {
+          "date": "31.07.2026",
+          "weekday": "Пятница",
+          "start": "15:20",
+          "end": "22:45",
+          "minutes": 445,
+          "hours": "7 часов 25 минут",
+          "sum": 5191.67,
+          "pending": false,
+          "edited": true,
+          "bus": "29",
+          "route": "309"
+        }
+      ],
+      "total_minutes": 9378,
+      "total_sum": 109410.05
+    },
+    "Август '26": {
+      "year": 2026,
+      "month": 8,
+      "label": "Август",
+      "days": [
+        {
+          "date": "01.08.2026",
+          "weekday": "Суббота",
+          "start": "12:16",
+          "end": "19:41",
+          "minutes": 445,
+          "hours": "7 часов 25 минут",
+          "sum": 5191.67,
+          "edited": true,
+          "pending": false,
+          "bus": "39",
+          "route": "309"
+        },
+        {
+          "date": "02.08.2026",
+          "weekday": "Воскресенье",
           "start": null,
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "edited": false,
+          "pending": false
         },
         {
-          "date": "28.07.2026",
+          "date": "03.08.2026",
+          "weekday": "Понедельник",
+          "start": "13:17",
+          "end": "21:41",
+          "minutes": 504,
+          "hours": "8 часов 24 минуты",
+          "sum": 5880,
+          "edited": true,
+          "pending": true,
+          "bus": null,
+          "route": null
+        },
+        {
+          "date": "04.08.2026",
           "weekday": "Вторник",
           "start": null,
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "edited": false,
+          "pending": false
         },
         {
-          "date": "29.07.2026",
+          "date": "05.08.2026",
           "weekday": "Среда",
           "start": null,
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "edited": false,
+          "pending": false
         },
         {
-          "date": "30.07.2026",
+          "date": "06.08.2026",
           "weekday": "Четверг",
           "start": null,
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "edited": false,
+          "pending": false
         },
         {
-          "date": "31.07.2026",
+          "date": "07.08.2026",
           "weekday": "Пятница",
           "start": null,
           "end": null,
           "minutes": null,
           "hours": null,
-          "sum": null
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "08.08.2026",
+          "weekday": "Суббота",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "09.08.2026",
+          "weekday": "Воскресенье",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "10.08.2026",
+          "weekday": "Понедельник",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "11.08.2026",
+          "weekday": "Вторник",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "12.08.2026",
+          "weekday": "Среда",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "13.08.2026",
+          "weekday": "Четверг",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "14.08.2026",
+          "weekday": "Пятница",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "15.08.2026",
+          "weekday": "Суббота",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "16.08.2026",
+          "weekday": "Воскресенье",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "17.08.2026",
+          "weekday": "Понедельник",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "18.08.2026",
+          "weekday": "Вторник",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "19.08.2026",
+          "weekday": "Среда",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "20.08.2026",
+          "weekday": "Четверг",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "21.08.2026",
+          "weekday": "Пятница",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "22.08.2026",
+          "weekday": "Суббота",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "23.08.2026",
+          "weekday": "Воскресенье",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "24.08.2026",
+          "weekday": "Понедельник",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "25.08.2026",
+          "weekday": "Вторник",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "26.08.2026",
+          "weekday": "Среда",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "27.08.2026",
+          "weekday": "Четверг",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "28.08.2026",
+          "weekday": "Пятница",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "29.08.2026",
+          "weekday": "Суббота",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "30.08.2026",
+          "weekday": "Воскресенье",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
+        },
+        {
+          "date": "31.08.2026",
+          "weekday": "Понедельник",
+          "start": null,
+          "end": null,
+          "minutes": null,
+          "hours": null,
+          "sum": null,
+          "edited": false,
+          "pending": false
         }
       ],
-      "total_minutes": 5821,
-      "total_sum": 67911.82
+      "total_minutes": 445,
+      "total_sum": 5191.67
     }
   }
 }
