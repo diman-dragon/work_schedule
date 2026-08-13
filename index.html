@@ -456,13 +456,15 @@ body{
   font-family:var(--font-ui);
   font-size:10.5px;
   color:var(--text-dim);
-  line-height:1.35;
+  line-height:1.3;
   font-weight:600;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  white-space:normal;
+  word-break:keep-all;
+  overflow:visible;
+  text-overflow:clip;
   flex:0 1 auto;
   min-width:0;
+  text-align:right;
 }
 .day .d-dur{
   font-family:var(--font-ui);
@@ -708,14 +710,16 @@ footer{
   .led-value.small{font-size:19px;}
   .display-panel{padding:16px;}
   .stat-mini{gap:10px;}
-  .day{min-height:104px; padding:6px 7px;}
+  .day{min-height:100px; padding:6px 7px;}
   .cal-grid{gap:6px;}
+  .day .d-head{flex-direction:column; align-items:flex-start; gap:1px;}
   .day .d-num{font-size:11px;}
   .day .d-head{margin-bottom:1px;}
-  .day .d-time{font-size:9.5px;}
-  .day .d-dur{font-size:8.5px;}
+  .day .d-time{font-size:10px; text-align:left;}
+  .day .d-dur{font-size:9.5px;}
   .day .d-sum{font-size:13px; margin-top:5px;}
-  .day .d-bus, .day .d-route{font-size:10px; margin-top:3px; white-space:normal; line-height:1.2; overflow:visible; text-overflow:clip; max-width:92%;}
+  /* на мобильных автобус/маршрут не показываем — карточка проще: дата, время, часы, доход */
+  .day .d-bus, .day .d-route{display:none;}
   .rate-box{padding:6px 10px;}
   .rate-box label{font-size:10.5px;}
   .save-btn{padding:0 12px; font-size:12px; height:36px;}
@@ -728,22 +732,21 @@ footer{
   .header{align-items:stretch;}
   .header-right{width:100%;}
   .rate-box{flex:1 1 auto;}
-  .day{min-height:90px; padding:5px 6px;}
+  .day{min-height:92px; padding:5px 6px;}
   .day .d-num{font-size:10px;}
   .day .d-head{margin-bottom:1px;}
-  .day .d-time{font-size:9px;}
-  .day .d-dur{display:none;}
+  .day .d-time{font-size:9.5px;}
+  .day .d-dur{font-size:8.5px;}
   .day .d-sum{font-size:12px; margin-top:4px;}
-  .day .d-bus, .day .d-route{font-size:9.5px;}
   .modal{max-width:100%; margin:0 10px; padding:18px;}
   .modal-overlay{padding:10px;}
   .stat-cards{grid-template-columns:repeat(2,1fr);}
 }
 @media (max-width:360px){
   .cal-grid{gap:4px;}
-  .day{min-height:82px; padding:4px 5px;}
+  .day{min-height:86px; padding:4px 5px;}
   .day .d-time{font-size:8.5px;}
-  .day .d-bus, .day .d-route{font-size:9px;}
+  .day .d-dur{font-size:8px;}
 }
 
 .tabs{display:flex; gap:8px; margin-bottom:20px;}
@@ -962,7 +965,10 @@ footer{
       <button class="save-btn" id="clearDataBtn" title="Удалить все сохранённые данные" aria-label="Удалить все сохранённые данные">🗑️ Очистить</button>
       <button class="save-btn" id="cloudSyncBtn" title="Синхронизировать с Google Диском" aria-label="Синхронизировать с Google Диском">☁️ Синхронизация</button>
       <button class="save-btn" id="cloudDisconnectBtn" title="Отключить синхронизацию" aria-label="Отключить синхронизацию" style="display:none; padding:0 10px;">✕</button>
-      <span class="sub" id="cloudSyncStatus" style="align-self:center; opacity:.7; font-size:12px;"></span>
+      <div style="display:flex; flex-direction:column; align-self:center; gap:1px;">
+        <span class="sub" id="cloudSyncStatus" style="opacity:.7; font-size:12px;"></span>
+        <span class="sub" id="cloudLastSync" style="opacity:.55; font-size:10.5px; text-transform:none; letter-spacing:0;"></span>
+      </div>
     </div>
   </div>
 
@@ -2484,6 +2490,14 @@ const CLOUD_SCOPE = 'https://www.googleapis.com/auth/drive.file';
 const CLOUD_FILE_NAME = 'rabochiy-grafik-sync.json.enc';
 const CLOUD_ENABLED_KEY = 'cloudSyncEnabled_v1';
 const CLOUD_PASS_SESSION_KEY = 'cloudSyncPass_v1';
+// токен доступа Google и время его истечения — храним в localStorage, чтобы
+// не запрашивать вход заново при каждом открытии браузера, пока токен не истёк
+// (обычно ~1 час — это ограничение самого Google для клиентских приложений без сервера)
+const CLOUD_TOKEN_KEY = 'cloudAccessToken_v1';
+const CLOUD_TOKEN_EXP_KEY = 'cloudAccessTokenExp_v1';
+// время последней успешной синхронизации — храним отдельно от статус-сообщения,
+// чтобы метка не пропадала при перезагрузке страницы
+const CLOUD_LAST_SYNC_KEY = 'cloudLastSyncAt_v1';
 
 let cloudAccessToken = null;
 let cloudTokenClient = null;
@@ -2494,10 +2508,47 @@ let cloudBusy = false;
 
 const cloudSyncBtn = document.getElementById('cloudSyncBtn');
 const cloudSyncStatus = document.getElementById('cloudSyncStatus');
+const cloudLastSyncEl = document.getElementById('cloudLastSync');
 
 function setCloudStatus(text, isError){
   cloudSyncStatus.textContent = text || '';
   cloudSyncStatus.style.color = isError ? 'var(--negative, #e5484d)' : '';
+}
+function fmtSyncTime(ts){
+  const d = new Date(ts);
+  return d.toLocaleDateString('ru-RU', {day:'2-digit', month:'2-digit', year:'numeric'}) +
+    ', ' + d.toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'});
+}
+function renderLastSync(){
+  const ts = parseInt(localStorage.getItem(CLOUD_LAST_SYNC_KEY) || '0', 10);
+  cloudLastSyncEl.textContent = ts ? ('Последняя синхронизация: ' + fmtSyncTime(ts)) : '';
+}
+function markSynced(){
+  localStorage.setItem(CLOUD_LAST_SYNC_KEY, String(Date.now()));
+  renderLastSync();
+}
+// ---- кэш токена доступа: переживает перезапуск браузера в пределах срока действия ----
+function saveCloudToken(token, expiresInSec){
+  cloudAccessToken = token;
+  const exp = Date.now() + (Math.max(60, (expiresInSec || 3600) - 60)) * 1000; // запас в 60с
+  localStorage.setItem(CLOUD_TOKEN_KEY, token);
+  localStorage.setItem(CLOUD_TOKEN_EXP_KEY, String(exp));
+}
+function loadCachedCloudToken(){
+  const token = localStorage.getItem(CLOUD_TOKEN_KEY);
+  const exp = parseInt(localStorage.getItem(CLOUD_TOKEN_EXP_KEY) || '0', 10);
+  if(token && exp && Date.now() < exp){
+    cloudAccessToken = token;
+    return true;
+  }
+  localStorage.removeItem(CLOUD_TOKEN_KEY);
+  localStorage.removeItem(CLOUD_TOKEN_EXP_KEY);
+  return false;
+}
+function clearCloudToken(){
+  cloudAccessToken = null;
+  localStorage.removeItem(CLOUD_TOKEN_KEY);
+  localStorage.removeItem(CLOUD_TOKEN_EXP_KEY);
 }
 
 // ---- шифрование ----
@@ -2558,7 +2609,7 @@ function requestCloudToken(interactive){
     let client;
     try{ client = ensureTokenClient(); } catch(err){ reject(err); return; }
     client.callback = (resp) => {
-      if(resp && resp.access_token){ cloudAccessToken = resp.access_token; resolve(resp.access_token); }
+      if(resp && resp.access_token){ saveCloudToken(resp.access_token, resp.expires_in); resolve(resp.access_token); }
       else reject(new Error('Не удалось получить доступ к Google-аккаунту'));
     };
     client.error_callback = (err) => reject(new Error(err && err.type ? err.type : 'Ошибка авторизации Google'));
@@ -2647,6 +2698,13 @@ async function pushToCloud(){
 function isCloudSyncActive(){
   return localStorage.getItem(CLOUD_ENABLED_KEY) === '1' && !!cloudAccessToken && !!cloudPassword;
 }
+// если кэшированный токен вот-вот истечёт (или уже истёк) — тихо, без всплывающего
+// окна входа, пытаемся обновить его в фоне, пока жива сессия Google в этом браузере
+async function ensureFreshToken(){
+  if(loadCachedCloudToken()) return true;
+  try{ await requestCloudToken(false); return true; }
+  catch(err){ return false; }
+}
 // Синхронизация НЕ идёт постоянным фоном. Она запускается только:
 //  1) при открытии приложения — один раз подтягиваем свежие данные (pullFromCloud в tryResumeCloudSync)
 //  2) по нажатию кнопки «☁️ Синхронизация» — полный цикл: сначала забрать, потом отправить
@@ -2656,9 +2714,11 @@ async function runFullSync(){
   cloudBusy = true;
   try{
     setCloudStatus('☁️ синхронизация…');
+    await ensureFreshToken();
     await pullFromCloud();
     await pushToCloud();
-    setCloudStatus('☁️ синхронизировано ' + new Date().toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'}));
+    markSynced();
+    setCloudStatus('☁️ синхронизировано');
   }catch(err){
     console.error('Ошибка синхронизации с Google Диском', err);
     setCloudStatus('☁️ ошибка синхронизации', true);
@@ -2670,8 +2730,10 @@ async function pushAfterDaySave(){
   if(!isCloudSyncActive() || cloudBusy) return;
   try{
     setCloudStatus('☁️ сохранение…');
+    await ensureFreshToken();
     await pushToCloud();
-    setCloudStatus('☁️ синхронизировано ' + new Date().toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'}));
+    markSynced();
+    setCloudStatus('☁️ синхронизировано');
   }catch(err){
     console.error('Ошибка синхронизации с Google Диском', err);
     setCloudStatus('☁️ ошибка синхронизации', true);
@@ -2695,6 +2757,7 @@ async function connectCloudSync(){
     setCloudStatus('☁️ синхронизация…');
     await pullFromCloud();
     await pushToCloud();
+    markSynced();
     setCloudStatus('☁️ подключено');
     cloudSyncBtn.textContent = '🔄 Синхронизировать';
     cloudDisconnectBtn.style.display = '';
@@ -2713,10 +2776,12 @@ async function connectCloudSync(){
 }
 function disconnectCloudSync(){
   localStorage.removeItem(CLOUD_ENABLED_KEY);
-  cloudAccessToken = null;
+  clearCloudToken();
   cloudPassword = null;
   localStorage.removeItem(CLOUD_PASS_SESSION_KEY);
+  localStorage.removeItem(CLOUD_LAST_SYNC_KEY);
   setCloudStatus('');
+  renderLastSync();
   cloudSyncBtn.textContent = '☁️ Синхронизация';
   cloudDisconnectBtn.style.display = 'none';
 }
@@ -2730,19 +2795,24 @@ cloudDisconnectBtn.addEventListener('click', async () => {
   if(ok) disconnectCloudSync();
 });
 // при старте, если синхронизация уже включена на этом устройстве — один раз тихо
-// подтягиваем свежие данные (без окна входа, если сессия Google ещё жива)
+// подтягиваем свежие данные. Сначала пробуем уже сохранённый токен (без всякого
+// обращения к Google — сессия «остаётся открытой» в пределах его срока действия),
+// и только если он истёк, пытаемся обновить его тихо, без окна входа.
+renderLastSync();
 (async function tryResumeCloudSync(){
   if(localStorage.getItem(CLOUD_ENABLED_KEY) !== '1') return;
   cloudDisconnectBtn.style.display = '';
   cloudSyncBtn.textContent = '🔄 Синхронизировать';
   try{
     setCloudStatus('☁️ подключение…');
-    await requestCloudToken(false);
+    const hadCachedToken = loadCachedCloudToken();
+    if(!hadCachedToken) await requestCloudToken(false);
     if(!cloudPassword){
       setCloudStatus('☁️ введите пароль для синхронизации');
       return;
     }
     await pullFromCloud();
+    if(!hadCachedToken) markSynced();
     setCloudStatus('☁️ подключено');
   }catch(err){
     setCloudStatus('☁️ нажмите, чтобы подключиться');
