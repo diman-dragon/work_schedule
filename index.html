@@ -456,15 +456,13 @@ body{
   font-family:var(--font-ui);
   font-size:10.5px;
   color:var(--text-dim);
-  line-height:1.3;
+  line-height:1.35;
   font-weight:600;
-  white-space:normal;
-  word-break:keep-all;
-  overflow:visible;
-  text-overflow:clip;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
   flex:0 1 auto;
   min-width:0;
-  text-align:right;
 }
 .day .d-dur{
   font-family:var(--font-ui);
@@ -710,16 +708,14 @@ footer{
   .led-value.small{font-size:19px;}
   .display-panel{padding:16px;}
   .stat-mini{gap:10px;}
-  .day{min-height:100px; padding:6px 7px;}
+  .day{min-height:104px; padding:6px 7px;}
   .cal-grid{gap:6px;}
-  .day .d-head{flex-direction:column; align-items:flex-start; gap:1px;}
   .day .d-num{font-size:11px;}
   .day .d-head{margin-bottom:1px;}
-  .day .d-time{font-size:10px; text-align:left;}
-  .day .d-dur{font-size:9.5px;}
+  .day .d-time{font-size:9.5px;}
+  .day .d-dur{font-size:8.5px;}
   .day .d-sum{font-size:13px; margin-top:5px;}
-  /* на мобильных автобус/маршрут не показываем — карточка проще: дата, время, часы, доход */
-  .day .d-bus, .day .d-route{display:none;}
+  .day .d-bus, .day .d-route{font-size:10px; margin-top:3px; white-space:normal; line-height:1.2; overflow:visible; text-overflow:clip; max-width:92%;}
   .rate-box{padding:6px 10px;}
   .rate-box label{font-size:10.5px;}
   .save-btn{padding:0 12px; font-size:12px; height:36px;}
@@ -732,21 +728,22 @@ footer{
   .header{align-items:stretch;}
   .header-right{width:100%;}
   .rate-box{flex:1 1 auto;}
-  .day{min-height:92px; padding:5px 6px;}
+  .day{min-height:90px; padding:5px 6px;}
   .day .d-num{font-size:10px;}
   .day .d-head{margin-bottom:1px;}
-  .day .d-time{font-size:9.5px;}
-  .day .d-dur{font-size:8.5px;}
+  .day .d-time{font-size:9px;}
+  .day .d-dur{display:none;}
   .day .d-sum{font-size:12px; margin-top:4px;}
+  .day .d-bus, .day .d-route{font-size:9.5px;}
   .modal{max-width:100%; margin:0 10px; padding:18px;}
   .modal-overlay{padding:10px;}
   .stat-cards{grid-template-columns:repeat(2,1fr);}
 }
 @media (max-width:360px){
   .cal-grid{gap:4px;}
-  .day{min-height:86px; padding:4px 5px;}
+  .day{min-height:82px; padding:4px 5px;}
   .day .d-time{font-size:8.5px;}
-  .day .d-dur{font-size:8px;}
+  .day .d-bus, .day .d-route{font-size:9px;}
 }
 
 .tabs{display:flex; gap:8px; margin-bottom:20px;}
@@ -942,6 +939,165 @@ footer{
 .tab-btn:active, .time-chip:active, .day:active{
   transform:scale(.97);
 }
+
+/* =========================
+   POLISH / UX ENHANCEMENTS
+   ========================= */
+:root{
+  --focus-ring:0 0 0 3px var(--accent-glow), 0 0 0 1px var(--accent);
+}
+html{scroll-behavior:smooth;}
+button,input{touch-action:manipulation;}
+button:disabled{opacity:.55; cursor:not-allowed;}
+.day:focus-visible,.month-btn:focus-visible,.tab-btn:focus-visible,
+.btn:focus-visible,.save-btn:focus-visible,.theme-toggle:focus-visible,
+.switch:focus-visible,.time-chip:focus-visible,input:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+}
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.action-group{
+  position:relative;
+  display:inline-flex;
+}
+.action-menu{
+  position:absolute;
+  top:calc(100% + 8px);
+  right:0;
+  z-index:80;
+  min-width:210px;
+  padding:7px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  box-shadow:0 12px 36px rgba(0,0,0,.25);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  display:none;
+}
+.action-menu.show{display:grid;animation:menuIn .12s ease;}
+@keyframes menuIn{from{opacity:0;transform:translateY(-4px) scale(.98)}to{opacity:1;transform:none}}
+.action-menu button{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:var(--text);
+  border-radius:var(--radius-sm);
+  padding:9px 10px;
+  text-align:left;
+  font:600 12.5px var(--font-ui);
+  cursor:pointer;
+}
+.action-menu button:hover{background:var(--accent-dim);color:var(--accent);}
+.action-menu .menu-sep{height:1px;background:var(--border);margin:5px 2px;}
+.today-btn{
+  height:36px;
+  padding:0 14px;
+  border-radius:var(--radius-pill);
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--text);
+  font:600 12.5px var(--font-ui);
+  cursor:pointer;
+  box-shadow:var(--shadow);
+}
+.today-btn:hover{background:var(--accent-dim);border-color:var(--accent);}
+.month-nav{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-bottom:10px;
+}
+.month-nav .nav-btn{
+  width:34px;height:34px;
+  border:1px solid var(--border);
+  border-radius:50%;
+  background:var(--surface);
+  color:var(--text);
+  cursor:pointer;
+  font:600 16px var(--font-ui);
+}
+.month-nav .nav-btn:hover{background:var(--accent-dim);border-color:var(--accent);}
+.month-nav .nav-label{
+  flex:1;
+  text-align:center;
+  color:var(--text-dim);
+  font-size:12px;
+  font-weight:600;
+}
+.quick-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:-10px 0 22px;
+}
+.sync-status{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 10px;
+  border-radius:var(--radius-pill);
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  font-size:11px;
+  color:var(--text-dim);
+}
+.sync-status.ok{color:var(--teal);}
+.sync-status.error{color:var(--negative);}
+.print-sheet{display:none;}
+.toast[aria-live]{min-width:180px;text-align:center;}
+@media (max-width:720px){
+  body{padding-bottom:86px;}
+  .header-right{width:100%;}
+  .header-actions{width:100%;justify-content:stretch;}
+  .header-actions > *{flex:0 0 auto;}
+  .header-actions .rate-box{flex:1 1 180px;}
+  .action-group{flex:0 0 auto;}
+  .today-btn{flex:1 1 auto;}
+  .months{gap:6px;}
+  .month-btn{padding:9px 8px;}
+  .quick-actions{margin-top:-6px;}
+  .day{min-height:104px;}
+}
+@media (max-width:480px){
+  .header-actions .rate-box{flex-basis:100%;}
+  .today-btn{height:34px;}
+  .action-menu{position:fixed;top:auto;bottom:12px;left:12px;right:12px;width:auto;}
+  .tabs{position:sticky;top:8px;z-index:20;padding:4px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-pill);backdrop-filter:blur(20px);}
+  .tab-btn{flex:1;}
+  .quick-actions .save-btn{flex:1 1 auto;}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+    scroll-behavior:auto!important;
+  }
+}
+@media print{
+  @page{size:A4 portrait;margin:12mm;}
+  html,body{background:#fff!important;color:#111!important;}
+  body{padding:0!important;}
+  body.printing > *:not(.print-sheet){display:none!important;}
+  body.printing .print-sheet{display:block!important;}
+  .print-sheet{color:#111;font-family:Arial,sans-serif;}
+  .print-sheet h1{font-size:22px;margin:0 0 4px;}
+  .print-sheet .print-meta{font-size:11px;color:#555;margin-bottom:14px;}
+  .print-sheet table{width:100%;border-collapse:collapse;font-size:9.5px;}
+  .print-sheet th,.print-sheet td{border:1px solid #bbb;padding:5px 6px;text-align:left;}
+  .print-sheet th{background:#eee;font-weight:700;}
+  .print-sheet .num{text-align:right;}
+  .print-sheet .total{margin-top:12px;font-weight:700;font-size:11px;}
+}
+
 </style>
 </head>
 <body>
@@ -953,24 +1109,37 @@ footer{
       <div class="sub" style="margin-top:2px; opacity:.65;">💾 автосохранение в этом браузере включено</div>
     </div>
     <div class="header-right">
-      <div class="rate-box" title="Действует только на новые/изменённые дни. Старые записи остаются как были рассчитаны изначально.">
-        <label for="rateInput">Ставка, дин./ч <span style="opacity:.55">(для новых)</span></label>
-        <input type="number" id="rateInput" value="700" min="0" step="1" aria-label="Ставка в динарах за час">
-      </div>
-      <button class="theme-toggle" id="themeToggle" title="Переключить тему" aria-label="Переключить тему">🌙</button>
-      <input type="file" id="loadFileInput" accept="application/json" style="display:none" aria-hidden="true">
-      <button class="save-btn" id="loadFileBtn" title="Загрузить данные из JSON-файла" aria-label="Загрузить данные из JSON-файла">📂 Загрузить</button>
-      <button class="save-btn" id="saveFileBtn" title="Сохранить данные в JSON-файл" aria-label="Сохранить данные в JSON-файл">💾 Сохранить</button>
-      <button class="save-btn" id="exportCsvBtn" title="Экспортировать все данные в CSV-таблицу" aria-label="Экспортировать все данные в CSV">📄 CSV</button>
-      <button class="save-btn" id="clearDataBtn" title="Удалить все сохранённые данные" aria-label="Удалить все сохранённые данные">🗑️ Очистить</button>
-      <button class="save-btn" id="cloudSyncBtn" title="Синхронизировать с Google Диском" aria-label="Синхронизировать с Google Диском">☁️ Синхронизация</button>
-      <button class="save-btn" id="cloudDisconnectBtn" title="Отключить синхронизацию" aria-label="Отключить синхронизацию" style="display:none; padding:0 10px;">✕</button>
-      <div style="display:flex; flex-direction:column; align-self:center; gap:1px;">
-        <span class="sub" id="cloudSyncStatus" style="opacity:.7; font-size:12px;"></span>
-        <span class="sub" id="cloudLastSync" style="opacity:.55; font-size:10.5px; text-transform:none; letter-spacing:0;"></span>
+      <div class="header-actions">
+        <div class="rate-box" title="Ставка применяется к новым и изменённым дням. Импортированные старые значения сохраняются.">
+          <label for="rateInput">Ставка, дин./ч</label>
+          <input type="number" id="rateInput" value="700" min="0" step="1" aria-label="Ставка в динарах за час">
+        </div>
+
+        <button class="today-btn" id="todayBtn" title="Перейти к текущему месяцу">Сегодня</button>
+        <button class="theme-toggle" id="themeToggle" title="Переключить тему" aria-label="Переключить тему">🌙</button>
+
+        <div class="action-group">
+          <button class="save-btn" id="dataMenuBtn" aria-haspopup="menu" aria-expanded="false">⋯ Данные</button>
+          <div class="action-menu" id="dataMenu" role="menu">
+            <button id="loadFileBtn" role="menuitem">📂 Загрузить JSON</button>
+            <button id="saveFileBtn" role="menuitem">💾 Сохранить JSON</button>
+            <button id="exportCsvBtn" role="menuitem">📄 Экспорт CSV</button>
+            <div class="menu-sep"></div>
+            <button id="printBtn" role="menuitem">🖨️ Печатный табель</button>
+            <button id="backupBtn" role="menuitem">🛡️ Быстрый бэкап</button>
+            <div class="menu-sep"></div>
+            <button id="clearDataBtn" role="menuitem">🗑️ Очистить данные</button>
+          </div>
+        </div>
+
+        <button class="save-btn" id="cloudSyncBtn" title="Синхронизировать с Google Диском" aria-label="Синхронизировать с Google Диском">☁️ Синхронизация</button>
+        <button class="save-btn" id="cloudDisconnectBtn" title="Отключить синхронизацию" aria-label="Отключить синхронизацию" style="display:none;padding:0 10px;">✕</button>
+        <span class="sync-status" id="cloudSyncStatus" aria-live="polite"></span>
       </div>
     </div>
   </div>
+
+  <input type="file" id="loadFileInput" accept="application/json" style="display:none" aria-hidden="true">
 
   <div class="tabs" role="tablist">
     <button class="tab-btn active" id="tabBtnTable" role="tab" aria-selected="true">Табель</button>
@@ -983,8 +1152,13 @@ footer{
       <div class="months" id="monthsPast"></div>
     </details>
     <div class="months" id="months"></div>
-    <div style="margin:-10px 0 22px; display:flex; gap:10px; flex-wrap:wrap;">
-      <button class="save-btn" id="addMonthBtn" title="Добавить новый месяц в график" aria-label="Добавить новый месяц в график">➕ Добавить месяц</button>
+    <div class="month-nav" aria-label="Навигация по месяцам">
+      <button class="nav-btn" id="prevMonthBtn" title="Предыдущий месяц" aria-label="Предыдущий месяц">‹</button>
+      <div class="nav-label" id="monthNavLabel">—</div>
+      <button class="nav-btn" id="nextMonthBtn" title="Следующий месяц" aria-label="Следующий месяц">›</button>
+    </div>
+    <div class="quick-actions">
+      <button class="save-btn" id="addMonthBtn" title="Добавить новый месяц в график">➕ Добавить месяц</button>
       <button class="save-btn" id="heatmapToggleBtn" title="Подсветить дни календаря по заработку" aria-label="Переключить тепловую карту заработка" aria-pressed="false">🔥 Тепловая карта</button>
     </div>
 
@@ -1032,7 +1206,9 @@ footer{
   </div>
 </div>
 
-<div class="toast" id="toast">Готово</div>
+<div class="print-sheet" id="printSheet" aria-hidden="true"></div>
+
+<div class="toast" id="toast" role="status" aria-live="polite">Готово</div>
 
 <div class="modal-overlay" id="modalOverlay" data-cancel-btn="cancelBtn" data-confirm-btn="saveBtn">
   <div class="modal">
@@ -1135,6 +1311,8 @@ if(window.Chart && window.ChartDataLabels){ Chart.register(ChartDataLabels); }
 // между сессиями). Если ничего не сохранено — стартуем пустыми, историю можно
 // загрузить кнопкой "Загрузить" (JSON-файл).
 const STORAGE_KEY = 'workScheduleData_v1';
+const DATA_SCHEMA_VERSION = 2;
+const BACKUP_KEY = 'workScheduleBackup_v1';
 let APP = { rate: 700, currentKey: null, order: [], months: {}, theme: 'dark' };
 try{
   const savedRaw = localStorage.getItem(STORAGE_KEY);
@@ -1142,6 +1320,7 @@ try{
     const saved = JSON.parse(savedRaw);
     if(saved && typeof saved === 'object'){
       APP = Object.assign(APP, saved);
+      if(!APP.schemaVersion) APP.schemaVersion = 1;
     }
   }
 }catch(err){
@@ -1166,7 +1345,7 @@ let hiddenShiftTimes = new Set(Array.isArray(APP.hiddenShiftTimes) ? APP.hiddenS
 // вызывается после каждого изменения данных.
 function persistLocalOnly(){
   try{
-    APP = { rate, currentKey, order, months: DATA, theme: document.documentElement.getAttribute('data-theme') || 'dark', hiddenShiftTimes: Array.from(hiddenShiftTimes), updatedAt: APP.updatedAt };
+    APP = { schemaVersion: DATA_SCHEMA_VERSION, rate, currentKey, order, months: DATA, theme: document.documentElement.getAttribute('data-theme') || 'dark', hiddenShiftTimes: Array.from(hiddenShiftTimes), updatedAt: APP.updatedAt };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(APP));
   }catch(err){
     console.error('Не удалось сохранить данные в localStorage', err);
@@ -1894,7 +2073,7 @@ function showToast(msg){
 // настоящий системный диалог "Сохранить как", где можно выбрать папку и имя файла.
 // Иначе — откатываемся на обычную загрузку файла в папку "Загрузки".
 async function saveJsonFile(){
-  const exportObj = { rate, currentKey, order, months: DATA };
+  const exportObj = { schemaVersion: DATA_SCHEMA_VERSION, exportedAt: new Date().toISOString(), rate, currentKey, order, months: DATA, hiddenShiftTimes: Array.from(hiddenShiftTimes) };
   const json = JSON.stringify(exportObj, null, 2);
   if(window.showSaveFilePicker){
     try{
@@ -1930,12 +2109,42 @@ async function saveJsonFile(){
 document.getElementById('saveFileBtn').addEventListener('click', saveJsonFile);
 
 // ---------- ЗАГРУЗКА ИЗ JSON ----------
+function createLocalBackup(reason){
+  try{
+    const backup = {
+      schemaVersion: DATA_SCHEMA_VERSION,
+      backupAt: new Date().toISOString(),
+      reason: reason || 'automatic',
+      rate, currentKey, order, months: DATA,
+      hiddenShiftTimes: Array.from(hiddenShiftTimes)
+    };
+    localStorage.setItem(BACKUP_KEY, JSON.stringify(backup));
+    return true;
+  }catch(err){
+    console.warn('Не удалось создать локальный бэкап', err);
+    return false;
+  }
+}
+function validateLoadedData(obj){
+  if(!obj || typeof obj !== 'object') throw new Error('файл не является JSON-объектом');
+  if(!obj.months || typeof obj.months !== 'object') throw new Error('в файле отсутствует корректное поле months');
+  if(!Array.isArray(obj.order)) throw new Error('в файле отсутствует корректное поле order');
+  const keys = Object.keys(obj.months);
+  for(const key of keys){
+    const m = obj.months[key];
+    if(!m || !Array.isArray(m.days) || typeof m.year !== 'number' || typeof m.month !== 'number'){
+      throw new Error('структура одного из месяцев повреждена');
+    }
+  }
+}
 function applyLoadedJson(text, fileLabel){
   const obj = JSON.parse(text);
-  if(!obj.months || !obj.order) throw new Error('в файле нет полей months/order');
+  validateLoadedData(obj);
+  createLocalBackup('перед импортом ' + (fileLabel || 'JSON'));
   DATA = obj.months;
   order = sanitizeOrder(obj.order, obj.months);
-  rate = (typeof obj.rate === 'number') ? obj.rate : 700;
+  hiddenShiftTimes = new Set(Array.isArray(obj.hiddenShiftTimes) ? obj.hiddenShiftTimes : []);
+  rate = (typeof obj.rate === 'number' && obj.rate >= 0) ? obj.rate : 700;
   sortOrderChronologically();
   recomputeAll();
   currentKey = ensureCurrentMonthExists(); // фокус на сегодняшнем месяце, создаём его, если отсутствует
@@ -2038,6 +2247,7 @@ document.getElementById('clearDataBtn').addEventListener('click', async () => {
     'Удалить'
   );
   if(!ok) return;
+  createLocalBackup('перед полной очисткой');
   DATA = {}; order = []; currentKey = null;
   try{ localStorage.removeItem(STORAGE_KEY); }catch(err){}
   persist();
@@ -2179,6 +2389,8 @@ function renderStatCards(stats){
     { label: 'Лучшая смена', value: stats.bestDay ? fmtNum(stats.bestDay.sum) + ' дин.' : '—', sub: stats.bestDay ? stats.bestDay.date : '' },
     { label: 'Рабочих / выходных', value: stats.totalShifts + ' / ' + stats.offDays, sub: 'дней в периоде: ' + stats.totalDaysInPeriod },
     { label: 'Заработок в выходные', value: fmtNum(stats.weekendVsWorkday.weekendSum) + ' дин.', sub: stats.weekendVsWorkday.weekendCount + ' смен в выходные' },
+    { label: 'Лучший часовой доход', value: stats.bestDay && stats.bestDay.minutes ? fmtNum(stats.bestDay.sum / (stats.bestDay.minutes/60)) + ' дин./ч' : '—', sub: stats.bestDay ? stats.bestDay.date : '' },
+    { label: 'Средняя неделя', value: stats.weeklyTrend.length ? minutesToHM(stats.weeklyTrend.reduce((s,w)=>s+w.minutes,0)/stats.weeklyTrend.length) : '—', sub: 'часов в неделю' },
   ];
   wrap.innerHTML = cards.map(c => `
     <div class="stat-card">
@@ -2490,65 +2702,20 @@ const CLOUD_SCOPE = 'https://www.googleapis.com/auth/drive.file';
 const CLOUD_FILE_NAME = 'rabochiy-grafik-sync.json.enc';
 const CLOUD_ENABLED_KEY = 'cloudSyncEnabled_v1';
 const CLOUD_PASS_SESSION_KEY = 'cloudSyncPass_v1';
-// токен доступа Google и время его истечения — храним в localStorage, чтобы
-// не запрашивать вход заново при каждом открытии браузера, пока токен не истёк
-// (обычно ~1 час — это ограничение самого Google для клиентских приложений без сервера)
-const CLOUD_TOKEN_KEY = 'cloudAccessToken_v1';
-const CLOUD_TOKEN_EXP_KEY = 'cloudAccessTokenExp_v1';
-// время последней успешной синхронизации — храним отдельно от статус-сообщения,
-// чтобы метка не пропадала при перезагрузке страницы
-const CLOUD_LAST_SYNC_KEY = 'cloudLastSyncAt_v1';
 
 let cloudAccessToken = null;
 let cloudTokenClient = null;
 let cloudFileId = null;
-let cloudPassword = localStorage.getItem(CLOUD_PASS_SESSION_KEY) || null;
+let cloudPassword = sessionStorage.getItem(CLOUD_PASS_SESSION_KEY) || null;
 let cloudPushTimer = null;
 let cloudBusy = false;
 
 const cloudSyncBtn = document.getElementById('cloudSyncBtn');
 const cloudSyncStatus = document.getElementById('cloudSyncStatus');
-const cloudLastSyncEl = document.getElementById('cloudLastSync');
 
 function setCloudStatus(text, isError){
   cloudSyncStatus.textContent = text || '';
   cloudSyncStatus.style.color = isError ? 'var(--negative, #e5484d)' : '';
-}
-function fmtSyncTime(ts){
-  const d = new Date(ts);
-  return d.toLocaleDateString('ru-RU', {day:'2-digit', month:'2-digit', year:'numeric'}) +
-    ', ' + d.toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'});
-}
-function renderLastSync(){
-  const ts = parseInt(localStorage.getItem(CLOUD_LAST_SYNC_KEY) || '0', 10);
-  cloudLastSyncEl.textContent = ts ? ('Последняя синхронизация: ' + fmtSyncTime(ts)) : '';
-}
-function markSynced(){
-  localStorage.setItem(CLOUD_LAST_SYNC_KEY, String(Date.now()));
-  renderLastSync();
-}
-// ---- кэш токена доступа: переживает перезапуск браузера в пределах срока действия ----
-function saveCloudToken(token, expiresInSec){
-  cloudAccessToken = token;
-  const exp = Date.now() + (Math.max(60, (expiresInSec || 3600) - 60)) * 1000; // запас в 60с
-  localStorage.setItem(CLOUD_TOKEN_KEY, token);
-  localStorage.setItem(CLOUD_TOKEN_EXP_KEY, String(exp));
-}
-function loadCachedCloudToken(){
-  const token = localStorage.getItem(CLOUD_TOKEN_KEY);
-  const exp = parseInt(localStorage.getItem(CLOUD_TOKEN_EXP_KEY) || '0', 10);
-  if(token && exp && Date.now() < exp){
-    cloudAccessToken = token;
-    return true;
-  }
-  localStorage.removeItem(CLOUD_TOKEN_KEY);
-  localStorage.removeItem(CLOUD_TOKEN_EXP_KEY);
-  return false;
-}
-function clearCloudToken(){
-  cloudAccessToken = null;
-  localStorage.removeItem(CLOUD_TOKEN_KEY);
-  localStorage.removeItem(CLOUD_TOKEN_EXP_KEY);
 }
 
 // ---- шифрование ----
@@ -2609,7 +2776,7 @@ function requestCloudToken(interactive){
     let client;
     try{ client = ensureTokenClient(); } catch(err){ reject(err); return; }
     client.callback = (resp) => {
-      if(resp && resp.access_token){ saveCloudToken(resp.access_token, resp.expires_in); resolve(resp.access_token); }
+      if(resp && resp.access_token){ cloudAccessToken = resp.access_token; resolve(resp.access_token); }
       else reject(new Error('Не удалось получить доступ к Google-аккаунту'));
     };
     client.error_callback = (err) => reject(new Error(err && err.type ? err.type : 'Ошибка авторизации Google'));
@@ -2688,7 +2855,7 @@ async function pullFromCloud(){
   }
 }
 async function pushToCloud(){
-  const payload = { rate, currentKey, order, months: DATA, hiddenShiftTimes: Array.from(hiddenShiftTimes), updatedAt: Date.now() };
+  const payload = { schemaVersion: DATA_SCHEMA_VERSION, rate, currentKey, order, months: DATA, hiddenShiftTimes: Array.from(hiddenShiftTimes), updatedAt: Date.now() };
   APP.updatedAt = payload.updatedAt;
   const encrypted = await encryptForCloud(payload, cloudPassword);
   if(!cloudFileId) cloudFileId = await driveFindFile();
@@ -2697,13 +2864,6 @@ async function pushToCloud(){
 }
 function isCloudSyncActive(){
   return localStorage.getItem(CLOUD_ENABLED_KEY) === '1' && !!cloudAccessToken && !!cloudPassword;
-}
-// если кэшированный токен вот-вот истечёт (или уже истёк) — тихо, без всплывающего
-// окна входа, пытаемся обновить его в фоне, пока жива сессия Google в этом браузере
-async function ensureFreshToken(){
-  if(loadCachedCloudToken()) return true;
-  try{ await requestCloudToken(false); return true; }
-  catch(err){ return false; }
 }
 // Синхронизация НЕ идёт постоянным фоном. Она запускается только:
 //  1) при открытии приложения — один раз подтягиваем свежие данные (pullFromCloud в tryResumeCloudSync)
@@ -2714,11 +2874,9 @@ async function runFullSync(){
   cloudBusy = true;
   try{
     setCloudStatus('☁️ синхронизация…');
-    await ensureFreshToken();
     await pullFromCloud();
     await pushToCloud();
-    markSynced();
-    setCloudStatus('☁️ синхронизировано');
+    setCloudStatus('☁️ синхронизировано ' + new Date().toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'}));
   }catch(err){
     console.error('Ошибка синхронизации с Google Диском', err);
     setCloudStatus('☁️ ошибка синхронизации', true);
@@ -2730,10 +2888,8 @@ async function pushAfterDaySave(){
   if(!isCloudSyncActive() || cloudBusy) return;
   try{
     setCloudStatus('☁️ сохранение…');
-    await ensureFreshToken();
     await pushToCloud();
-    markSynced();
-    setCloudStatus('☁️ синхронизировано');
+    setCloudStatus('☁️ синхронизировано ' + new Date().toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'}));
   }catch(err){
     console.error('Ошибка синхронизации с Google Диском', err);
     setCloudStatus('☁️ ошибка синхронизации', true);
@@ -2752,12 +2908,11 @@ async function connectCloudSync(){
     }
     if(!pass){ setCloudStatus(''); cloudBusy = false; return; }
     cloudPassword = pass;
-    localStorage.setItem(CLOUD_PASS_SESSION_KEY, pass);
+    sessionStorage.setItem(CLOUD_PASS_SESSION_KEY, pass);
     localStorage.setItem(CLOUD_ENABLED_KEY, '1');
     setCloudStatus('☁️ синхронизация…');
     await pullFromCloud();
     await pushToCloud();
-    markSynced();
     setCloudStatus('☁️ подключено');
     cloudSyncBtn.textContent = '🔄 Синхронизировать';
     cloudDisconnectBtn.style.display = '';
@@ -2766,7 +2921,7 @@ async function connectCloudSync(){
     if(err && err.message && err.message.includes('OPERATION_FAILED')){
       setCloudStatus('☁️ неверный пароль или повреждён файл', true);
       cloudPassword = null;
-      localStorage.removeItem(CLOUD_PASS_SESSION_KEY);
+      sessionStorage.removeItem(CLOUD_PASS_SESSION_KEY);
     } else {
       setCloudStatus('☁️ не удалось подключиться', true);
     }
@@ -2776,12 +2931,10 @@ async function connectCloudSync(){
 }
 function disconnectCloudSync(){
   localStorage.removeItem(CLOUD_ENABLED_KEY);
-  clearCloudToken();
+  cloudAccessToken = null;
   cloudPassword = null;
-  localStorage.removeItem(CLOUD_PASS_SESSION_KEY);
-  localStorage.removeItem(CLOUD_LAST_SYNC_KEY);
+  sessionStorage.removeItem(CLOUD_PASS_SESSION_KEY);
   setCloudStatus('');
-  renderLastSync();
   cloudSyncBtn.textContent = '☁️ Синхронизация';
   cloudDisconnectBtn.style.display = 'none';
 }
@@ -2795,24 +2948,19 @@ cloudDisconnectBtn.addEventListener('click', async () => {
   if(ok) disconnectCloudSync();
 });
 // при старте, если синхронизация уже включена на этом устройстве — один раз тихо
-// подтягиваем свежие данные. Сначала пробуем уже сохранённый токен (без всякого
-// обращения к Google — сессия «остаётся открытой» в пределах его срока действия),
-// и только если он истёк, пытаемся обновить его тихо, без окна входа.
-renderLastSync();
+// подтягиваем свежие данные (без окна входа, если сессия Google ещё жива)
 (async function tryResumeCloudSync(){
   if(localStorage.getItem(CLOUD_ENABLED_KEY) !== '1') return;
   cloudDisconnectBtn.style.display = '';
   cloudSyncBtn.textContent = '🔄 Синхронизировать';
   try{
     setCloudStatus('☁️ подключение…');
-    const hadCachedToken = loadCachedCloudToken();
-    if(!hadCachedToken) await requestCloudToken(false);
+    await requestCloudToken(false);
     if(!cloudPassword){
       setCloudStatus('☁️ введите пароль для синхронизации');
       return;
     }
     await pullFromCloud();
-    if(!hadCachedToken) markSynced();
     setCloudStatus('☁️ подключено');
   }catch(err){
     setCloudStatus('☁️ нажмите, чтобы подключиться');
@@ -2824,6 +2972,7 @@ currentKey = ensureCurrentMonthExists();
 APP.currentKey = currentKey;
 document.getElementById('rateInput').value = rate;
 render(currentKey);
+document.getElementById('monthNavLabel') && (document.getElementById('monthNavLabel').textContent = `${DATA[currentKey].label} ${DATA[currentKey].year}`);
 persist();
 
 // раз в минуту проверяем — не закончилась ли ещё идущая смена; если да, пересчитываем
@@ -2838,6 +2987,173 @@ setInterval(() => {
     persist();
   }
 }, 60000);
+
+
+/* =========================
+   UX ENHANCEMENTS
+   ========================= */
+(function initEnhancements(){
+  const $ = id => document.getElementById(id);
+
+  // Data dropdown
+  const menuBtn = $('dataMenuBtn');
+  const dataMenu = $('dataMenu');
+  function closeDataMenu(){
+    if(!dataMenu) return;
+    dataMenu.classList.remove('show');
+    menuBtn && menuBtn.setAttribute('aria-expanded','false');
+  }
+  menuBtn?.addEventListener('click', e => {
+    e.stopPropagation();
+    const show = !dataMenu.classList.contains('show');
+    dataMenu.classList.toggle('show', show);
+    menuBtn.setAttribute('aria-expanded', String(show));
+  });
+  document.addEventListener('click', e => {
+    if(dataMenu && !dataMenu.contains(e.target) && e.target !== menuBtn) closeDataMenu();
+  });
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape'){
+      closeDataMenu();
+      document.querySelectorAll('.modal-overlay.show').forEach(x => x.classList.remove('show'));
+    }
+  });
+  dataMenu?.querySelectorAll('button').forEach(btn => btn.addEventListener('click', closeDataMenu));
+
+  // Today
+  $('todayBtn')?.addEventListener('click', () => {
+    const key = ensureCurrentMonthExists();
+    render(key);
+    window.scrollTo({top:0, behavior:'smooth'});
+    showToast('Текущий месяц открыт');
+  });
+
+  // Month navigation
+  function moveMonth(delta){
+    if(!order.length) return;
+    const idx = order.indexOf(currentKey);
+    const next = idx + delta;
+    if(next >= 0 && next < order.length) render(order[next]);
+    else showToast(delta < 0 ? 'Это самый ранний месяц' : 'Это самый поздний месяц');
+  }
+  $('prevMonthBtn')?.addEventListener('click', () => moveMonth(-1));
+  $('nextMonthBtn')?.addEventListener('click', () => moveMonth(1));
+
+  // Keep navigation label current by wrapping render once.
+  if(typeof window.__enhancedRenderWrapped === 'undefined'){
+    window.__enhancedRenderWrapped = true;
+    const originalRender = render;
+    window.render = function(key){
+      const result = originalRender(key);
+      const m = DATA[currentKey];
+      const label = $('monthNavLabel');
+      if(label && m) label.textContent = `${m.label} ${m.year}`;
+      return result;
+    };
+  }
+
+  // Keyboard month navigation when not typing.
+  document.addEventListener('keydown', e => {
+    const tag = (e.target?.tagName || '').toLowerCase();
+    if(['input','textarea','select'].includes(tag)) return;
+    if(e.key === 'ArrowLeft') moveMonth(-1);
+    if(e.key === 'ArrowRight') moveMonth(1);
+    if((e.key === 't' || e.key === 'т') && !e.ctrlKey && !e.metaKey){
+      const key = ensureCurrentMonthExists();
+      render(key);
+    }
+  });
+
+  // Swipe month-to-month on the calendar.
+  let touchX = null, touchY = null;
+  const cal = $('calGrid');
+  cal?.addEventListener('touchstart', e => {
+    const t = e.changedTouches[0];
+    touchX = t.clientX; touchY = t.clientY;
+  }, {passive:true});
+  cal?.addEventListener('touchend', e => {
+    if(touchX === null) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - touchX, dy = t.clientY - touchY;
+    touchX = touchY = null;
+    if(Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy)*1.25) moveMonth(dx < 0 ? 1 : -1);
+  }, {passive:true});
+
+  // Auto-focus first useful field in day modal.
+  const originalOpenDay = window.openDayModal;
+  if(typeof originalOpenDay === 'function'){
+    window.openDayModal = function(...args){
+      const r = originalOpenDay.apply(this,args);
+      setTimeout(() => $('startInput')?.focus(), 80);
+      return r;
+    };
+  }
+
+  // Print current month as a clean A4 report.
+  $('printBtn')?.addEventListener('click', () => {
+    const m = DATA[currentKey];
+    if(!m) return;
+    const rows = m.days.filter(d => d.start).map(d => `
+      <tr>
+        <td>${d.date}</td>
+        <td>${d.weekday || ''}</td>
+        <td>${d.start || ''}–${d.end || ''}</td>
+        <td>${minutesToHM(d.minutes || 0)}</td>
+        <td>${d.bus || '—'}</td>
+        <td>${d.route || '—'}</td>
+        <td class="num">${fmtNum(d.sum || 0)} дин.</td>
+      </tr>`).join('');
+    const sheet = $('printSheet');
+    sheet.innerHTML = `
+      <h1>Рабочий график — ${m.label} ${m.year}</h1>
+      <div class="print-meta">Сформировано ${new Date().toLocaleString('ru-RU')} · ставка для новых/изменённых смен: ${fmtNum(rate)} дин./ч</div>
+      <table>
+        <thead><tr><th>Дата</th><th>День</th><th>Смена</th><th>Длительность</th><th>Автобус</th><th>Маршрут</th><th>Заработок</th></tr></thead>
+        <tbody>${rows || '<tr><td colspan="7">Нет рабочих смен</td></tr>'}</tbody>
+      </table>
+      <div class="total">Итого: ${minutesToHM(m.total_minutes)} · ${m.days.filter(d=>d.start && !d.pending).length} завершённых смен · ${fmtNum(m.total_sum)} дин.</div>`;
+    document.body.classList.add('printing');
+    window.print();
+    setTimeout(() => document.body.classList.remove('printing'), 300);
+  });
+
+  // Manual quick backup. The backup is intentionally separate from the normal export.
+  $('backupBtn')?.addEventListener('click', () => {
+    if(createLocalBackup('ручной бэкап')){
+      showToast('Локальный бэкап создан');
+    }else{
+      showToast('Не удалось создать бэкап');
+    }
+  });
+
+  // Warn before leaving with unsaved form data.
+  let modalDirty = false;
+  ['startInput','endInput','busInput','routeInput'].forEach(id => {
+    $(id)?.addEventListener('input', () => { modalDirty = true; });
+  });
+  $('saveBtn')?.addEventListener('click', () => { modalDirty = false; });
+  $('cancelBtn')?.addEventListener('click', () => { modalDirty = false; });
+
+  // Show local-backup availability in the page title.
+  try{
+    if(localStorage.getItem(BACKUP_KEY)) document.title = 'Рабочий график · бэкап есть';
+  }catch(e){}
+
+  // Improved sync status styling.
+  const status = $('cloudSyncStatus');
+  if(status){
+    const observer = new MutationObserver(() => {
+      const t = status.textContent || '';
+      status.classList.toggle('ok', /синхрониз|подключено/.test(t));
+      status.classList.toggle('error', /ошибка|не удалось|неверный/.test(t));
+    });
+    observer.observe(status,{childList:true,subtree:true,characterData:true});
+  }
+
+  // Initial navigation label.
+  const m = DATA[currentKey];
+  if($('monthNavLabel') && m) $('monthNavLabel').textContent = `${m.label} ${m.year}`;
+})();
 
 </script>
 </body>
