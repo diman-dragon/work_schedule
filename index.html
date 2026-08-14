@@ -690,6 +690,57 @@ body{
 .btn-primary:hover{background:var(--accent-hover);}
 .btn-ghost{background:transparent; color:var(--text-dim);}
 .btn-ghost:hover{background:var(--surface-2);}
+.btn-sm{flex:0 0 auto; height:30px; padding:0 12px; font-size:12.5px;}
+
+/* ---- фото графика смен, прикреплённое к дню ---- */
+.day-photo-section{
+  margin-bottom:16px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--border);
+}
+.day-photo-label{
+  font-size:12px;
+  color:var(--text-dim);
+  margin-bottom:8px;
+  line-height:1.35;
+}
+.day-photo-controls{display:flex; gap:8px; flex-wrap:wrap;}
+.day-photo-preview{
+  display:block;
+  margin-top:10px;
+  max-width:100%;
+  max-height:160px;
+  border-radius:var(--radius-sm);
+  border:1px solid var(--border);
+  cursor:zoom-in;
+  object-fit:contain;
+  background:var(--surface-2);
+}
+.day-photo-preview:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+.day-photo-hint{font-size:11px; color:var(--text-faint); margin-top:6px;}
+/* маленький значок камеры на ячейке дня — сигнализирует, что к дню прикреплено фото графика */
+.day .d-photo-badge{
+  position:absolute;
+  top:4px;
+  right:4px;
+  font-size:10px;
+  line-height:1;
+  opacity:.85;
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,.35));
+}
+.photo-lightbox-modal{
+  max-width:min(92vw, 720px);
+  padding:16px;
+}
+.photo-lightbox-img{
+  display:block;
+  width:100%;
+  max-height:78vh;
+  object-fit:contain;
+  border-radius:var(--radius-sm);
+  background:var(--surface-2);
+  margin-bottom:14px;
+}
 
 footer{
   text-align:center;
@@ -1220,6 +1271,17 @@ button:disabled{opacity:.55; cursor:not-allowed;}
       <div class="switch" id="workSwitch" tabindex="0" role="switch" aria-label="Рабочий день"><div class="knob"></div></div>
     </div>
 
+    <div class="day-photo-section">
+      <div class="day-photo-label">📷 Фото графика смен на этот день (все машины и водители)</div>
+      <div class="day-photo-controls">
+        <input type="file" id="dayPhotoInput" accept="image/*" style="display:none">
+        <button type="button" class="btn btn-ghost btn-sm" id="dayPhotoAddBtn">Добавить фото</button>
+        <button type="button" class="btn btn-ghost btn-sm" id="dayPhotoRemoveBtn" style="display:none">✕ Убрать фото</button>
+      </div>
+      <img id="dayPhotoPreview" class="day-photo-preview" style="display:none" alt="Фото графика смен на этот день" tabindex="0" role="button" aria-label="Открыть фото графика крупнее">
+      <div class="day-photo-hint" id="dayPhotoHint" style="display:none">Фото сохраняется вместе с остальными данными: в локальном хранилище, в бэкапах, в экспорте JSON и при синхронизации с Google Диском.</div>
+    </div>
+
     <div class="recent-times" id="recentTimes"></div>
 
     <div id="timeFields">
@@ -1249,6 +1311,15 @@ button:disabled{opacity:.55; cursor:not-allowed;}
     <div class="modal-actions">
       <button class="btn btn-ghost" id="cancelBtn">Отмена</button>
       <button class="btn btn-primary" id="saveBtn">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="photoLightboxOverlay" data-cancel-btn="photoLightboxCloseBtn" data-confirm-btn="photoLightboxCloseBtn">
+  <div class="modal photo-lightbox-modal">
+    <img id="photoLightboxImg" class="photo-lightbox-img" alt="Фото графика смен, крупный план">
+    <div class="modal-actions">
+      <button class="btn btn-primary" id="photoLightboxCloseBtn">Закрыть</button>
     </div>
   </div>
 </div>
@@ -1714,7 +1785,8 @@ function render(key){
     else { stateClass = 'off'; }
     cell.className = 'day ' + stateClass + (isToday ? ' today' : '');
     cell.style.animationDelay = (Math.min(idx, 30) * 12) + 'ms';
-    let inner = `<div class="d-head"><span class="d-num">${dayNum}</span>` +
+    let inner = (d.photo ? `<span class="d-photo-badge" title="Есть фото графика смен">📷</span>` : '') +
+      `<div class="d-head"><span class="d-num">${dayNum}</span>` +
       (d.start ? `<span class="d-time">${d.start}–${d.end}</span>` : '') +
       `</div><div class="d-body">`;
     let stateLabel;
@@ -1744,7 +1816,7 @@ function render(key){
     cell.innerHTML = inner;
     cell.tabIndex = 0;
     cell.setAttribute('role', 'button');
-    cell.setAttribute('aria-label', `${dayNum}, ${d.weekday}, ${stateLabel}`);
+    cell.setAttribute('aria-label', `${dayNum}, ${d.weekday}, ${stateLabel}${d.photo ? ', есть фото графика смен' : ''}`);
     if(d.sum && !d.pending) cell.dataset.sum = d.sum;
     cell.addEventListener('click', () => openModal(key, idx));
     cell.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openModal(key, idx); } });
@@ -1765,6 +1837,99 @@ const busInput = document.getElementById('busInput');
 const routeInput = document.getElementById('routeInput');
 const calcPreview = document.getElementById('calcPreview');
 
+// ---------- ФОТО ГРАФИКА СМЕН, ПРИКРЕПЛЁННОЕ К ДНЮ ----------
+// Фото графика (расписание по всем машинам/водителям на 5 рабочих дней и
+// выходные, которое иногда меняют) хранится как base64-картинка прямо в
+// объекте дня (d.photo), поэтому автоматически попадает во все существующие
+// механизмы сохранения — localStorage, локальный бэкап, экспорт/импорт JSON,
+// облачную синхронизацию — без каких-либо дополнительных изменений там.
+// Перед сохранением фото пережимаем на canvas (макс. сторона ~1600px, JPEG
+// ~0.78 качества), иначе несколько фото в высоком разрешении быстро упрутся
+// в лимит localStorage (обычно 5–10 МБ на домен).
+const dayPhotoInput = document.getElementById('dayPhotoInput');
+const dayPhotoAddBtn = document.getElementById('dayPhotoAddBtn');
+const dayPhotoRemoveBtn = document.getElementById('dayPhotoRemoveBtn');
+const dayPhotoPreview = document.getElementById('dayPhotoPreview');
+const dayPhotoHint = document.getElementById('dayPhotoHint');
+let pendingDayPhoto = null; // dataURL строкой, null — если фото не прикреплено; undefined никогда не используется
+
+function compressImageFile(file){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('Не удалось прочитать файл'));
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = () => reject(new Error('Файл повреждён или это не изображение'));
+      img.onload = () => {
+        const MAX_SIDE = 1600;
+        let { width, height } = img;
+        if(width > MAX_SIDE || height > MAX_SIDE){
+          const ratio = Math.min(MAX_SIDE/width, MAX_SIDE/height);
+          width = Math.round(width*ratio);
+          height = Math.round(height*ratio);
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width; canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#fff'; // на случай PNG с прозрачностью — чтобы не стало чёрным на JPEG
+        ctx.fillRect(0,0,width,height);
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', 0.78));
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+function setDayPhotoPreview(dataUrl){
+  pendingDayPhoto = dataUrl || null;
+  if(pendingDayPhoto){
+    dayPhotoPreview.src = pendingDayPhoto;
+    dayPhotoPreview.style.display = 'block';
+    dayPhotoHint.style.display = 'block';
+    dayPhotoRemoveBtn.style.display = '';
+  } else {
+    dayPhotoPreview.src = '';
+    dayPhotoPreview.style.display = 'none';
+    dayPhotoHint.style.display = 'none';
+    dayPhotoRemoveBtn.style.display = 'none';
+  }
+}
+dayPhotoAddBtn.addEventListener('click', () => dayPhotoInput.click());
+dayPhotoInput.addEventListener('change', async () => {
+  const file = dayPhotoInput.files && dayPhotoInput.files[0];
+  dayPhotoInput.value = ''; // сбрасываем, чтобы повторный выбор того же файла тоже сработал
+  if(!file) return;
+  if(!file.type.startsWith('image/')){ showToast('Выберите файл изображения'); return; }
+  try{
+    dayPhotoAddBtn.disabled = true;
+    dayPhotoAddBtn.textContent = 'Обработка…';
+    const compressed = await compressImageFile(file);
+    setDayPhotoPreview(compressed);
+  }catch(err){
+    console.error('Не удалось обработать фото', err);
+    showToast('Не удалось обработать фото: ' + err.message);
+  }finally{
+    dayPhotoAddBtn.disabled = false;
+    dayPhotoAddBtn.textContent = 'Добавить фото';
+  }
+});
+dayPhotoRemoveBtn.addEventListener('click', () => setDayPhotoPreview(null));
+function openPhotoLightbox(src){
+  document.getElementById('photoLightboxImg').src = src;
+  document.getElementById('photoLightboxOverlay').classList.add('show');
+}
+dayPhotoPreview.addEventListener('click', () => { if(pendingDayPhoto) openPhotoLightbox(pendingDayPhoto); });
+dayPhotoPreview.addEventListener('keydown', (e) => {
+  if((e.key === 'Enter' || e.key === ' ') && pendingDayPhoto){ e.preventDefault(); openPhotoLightbox(pendingDayPhoto); }
+});
+document.getElementById('photoLightboxCloseBtn').addEventListener('click', () => {
+  document.getElementById('photoLightboxOverlay').classList.remove('show');
+});
+document.getElementById('photoLightboxOverlay').addEventListener('click', (e) => {
+  if(e.target.id === 'photoLightboxOverlay') document.getElementById('photoLightboxOverlay').classList.remove('show');
+});
+
 function openModal(key, idx){
   editingDay = {key, idx};
   const d = DATA[key].days[idx];
@@ -1780,6 +1945,7 @@ function openModal(key, idx){
   endInput.value = d.end || '23:00';
   busInput.value = d.bus || '';
   routeInput.value = d.route || '';
+  setDayPhotoPreview(d.photo || null);
   renderRecentTimes();
   updatePreview();
 
@@ -1919,6 +2085,9 @@ document.getElementById('saveBtn').addEventListener('click', (ev) => {
     d.bus = null;
     d.route = null;
   }
+  // фото графика смен сохраняем независимо от того, рабочий это день или выходной —
+  // расписание на доске вывешивают на весь блок дней (5 рабочих + выходные) сразу
+  d.photo = pendingDayPhoto || null;
   recomputeMonth(key);
   closeModal();
   render(key);
@@ -2000,8 +2169,13 @@ syncPassOverlay.addEventListener('click', (e) => { if(e.target === syncPassOverl
 // ---------- КЛАВИАТУРА ДЛЯ ВСЕХ МОДАЛОК: Enter подтверждает, Escape отменяет ----------
 // каждая .modal-overlay помечена data-cancel-btn / data-confirm-btn — id соответствующих кнопок
 document.addEventListener('keydown', (e) => {
-  const openOverlay = document.querySelector('.modal-overlay.show');
-  if(!openOverlay) return;
+  // если открыто несколько оверлеев одновременно (например, фото-лайтбокс поверх
+  // модалки дня), берём самый последний в разметке — он же самый верхний по
+  // рисованию (position:fixed, порядок в DOM = порядок наложения), чтобы Esc/Enter
+  // всегда относился к тому окну, которое реально видит пользователь
+  const openOverlays = document.querySelectorAll('.modal-overlay.show');
+  if(!openOverlays.length) return;
+  const openOverlay = openOverlays[openOverlays.length - 1];
   if(e.key === 'Escape'){
     e.preventDefault();
     const cancelBtn = document.getElementById(openOverlay.dataset.cancelBtn);
@@ -2702,8 +2876,28 @@ const CLOUD_SCOPE = 'https://www.googleapis.com/auth/drive.file';
 const CLOUD_FILE_NAME = 'rabochiy-grafik-sync.json.enc';
 const CLOUD_ENABLED_KEY = 'cloudSyncEnabled_v1';
 const CLOUD_PASS_SESSION_KEY = 'cloudSyncPass_v1';
+// токен доступа Google живёт максимум ~1 час и по правилам OAuth не может
+// храниться постоянно (это не пароль, а одноразовый пропуск с истечением) —
+// но мы кэшируем его в sessionStorage, чтобы обновление страницы или
+// случайное закрытие/переоткрытие вкладки в рамках одной сессии браузера
+// не требовало заново идти в Google. После полного закрытия браузера или
+// истечения часа Google всё равно потребует авторизацию — так работает
+// эта версия Google OAuth без выделенного сервера-бэкенда.
+const CLOUD_TOKEN_CACHE_KEY = 'cloudAccessToken_v1';
+const CLOUD_CONSENT_GIVEN_KEY = 'cloudConsentGiven_v1';
 
 let cloudAccessToken = null;
+let cloudTokenExpiresAt = 0;
+try{
+  const cachedTokenRaw = sessionStorage.getItem(CLOUD_TOKEN_CACHE_KEY);
+  if(cachedTokenRaw){
+    const cached = JSON.parse(cachedTokenRaw);
+    if(cached && cached.token && cached.expiresAt > Date.now() + 60000){
+      cloudAccessToken = cached.token;
+      cloudTokenExpiresAt = cached.expiresAt;
+    }
+  }
+}catch(err){ /* битый кэш токена — просто игнорируем, запросим новый */ }
 let cloudTokenClient = null;
 let cloudFileId = null;
 let cloudPassword = localStorage.getItem(CLOUD_PASS_SESSION_KEY) || null;
@@ -2772,15 +2966,38 @@ function ensureTokenClient(){
   return cloudTokenClient;
 }
 function requestCloudToken(interactive){
+  // уже есть живой (не просроченный) токен в памяти/кэше сессии — переиспользуем
+  // его и вообще не дёргаем Google. Именно отсутствие такой проверки раньше
+  // заставляло ходить в Google на каждую перезагрузку страницы.
+  if(cloudAccessToken && cloudTokenExpiresAt > Date.now() + 60000){
+    return Promise.resolve(cloudAccessToken);
+  }
   return new Promise((resolve, reject) => {
     let client;
     try{ client = ensureTokenClient(); } catch(err){ reject(err); return; }
     client.callback = (resp) => {
-      if(resp && resp.access_token){ cloudAccessToken = resp.access_token; resolve(resp.access_token); }
+      if(resp && resp.access_token){
+        cloudAccessToken = resp.access_token;
+        // expires_in приходит в секундах от Google — переводим в абсолютную метку времени
+        cloudTokenExpiresAt = Date.now() + (Number(resp.expires_in || 3600) * 1000);
+        try{
+          sessionStorage.setItem(CLOUD_TOKEN_CACHE_KEY, JSON.stringify({ token: cloudAccessToken, expiresAt: cloudTokenExpiresAt }));
+        }catch(err){ /* sessionStorage недоступен (приватный режим и т.п.) — не критично */ }
+        localStorage.setItem(CLOUD_CONSENT_GIVEN_KEY, '1');
+        resolve(resp.access_token);
+      }
       else reject(new Error('Не удалось получить доступ к Google-аккаунту'));
     };
     client.error_callback = (err) => reject(new Error(err && err.type ? err.type : 'Ошибка авторизации Google'));
-    client.requestAccessToken({ prompt: interactive ? 'consent' : '' });
+    // 'consent' (экран подтверждения доступа) запрашиваем ТОЛЬКО при самом первом
+    // подключении на этом устройстве. При всех следующих обращениях, даже
+    // интерактивных (по клику), просим пустой prompt — тогда Google, если доступ
+    // уже когда-то давали, выдаёт токен без единого лишнего окна, максимум мелькнёт
+    // выбор аккаунта. Раньше здесь стояло 'consent' на каждый клик, из-за чего
+    // Google каждый раз заново спрашивал разрешение — это и есть та самая
+    // "постоянно просит войти" проблема.
+    const firstTimeConsent = interactive && localStorage.getItem(CLOUD_CONSENT_GIVEN_KEY) !== '1';
+    client.requestAccessToken({ prompt: firstTimeConsent ? 'consent' : '' });
   });
 }
 
@@ -2931,7 +3148,10 @@ async function connectCloudSync(){
 }
 function disconnectCloudSync(){
   localStorage.removeItem(CLOUD_ENABLED_KEY);
+  localStorage.removeItem(CLOUD_CONSENT_GIVEN_KEY);
   cloudAccessToken = null;
+  cloudTokenExpiresAt = 0;
+  try{ sessionStorage.removeItem(CLOUD_TOKEN_CACHE_KEY); }catch(err){}
   cloudPassword = null;
   localStorage.removeItem(CLOUD_PASS_SESSION_KEY);
   setCloudStatus('');
