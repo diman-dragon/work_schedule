@@ -2706,7 +2706,7 @@ const CLOUD_PASS_SESSION_KEY = 'cloudSyncPass_v1';
 let cloudAccessToken = null;
 let cloudTokenClient = null;
 let cloudFileId = null;
-let cloudPassword = sessionStorage.getItem(CLOUD_PASS_SESSION_KEY) || null;
+let cloudPassword = localStorage.getItem(CLOUD_PASS_SESSION_KEY) || null;
 let cloudPushTimer = null;
 let cloudBusy = false;
 
@@ -2908,7 +2908,7 @@ async function connectCloudSync(){
     }
     if(!pass){ setCloudStatus(''); cloudBusy = false; return; }
     cloudPassword = pass;
-    sessionStorage.setItem(CLOUD_PASS_SESSION_KEY, pass);
+    localStorage.setItem(CLOUD_PASS_SESSION_KEY, pass);
     localStorage.setItem(CLOUD_ENABLED_KEY, '1');
     setCloudStatus('☁️ синхронизация…');
     await pullFromCloud();
@@ -2921,7 +2921,7 @@ async function connectCloudSync(){
     if(err && err.message && err.message.includes('OPERATION_FAILED')){
       setCloudStatus('☁️ неверный пароль или повреждён файл', true);
       cloudPassword = null;
-      sessionStorage.removeItem(CLOUD_PASS_SESSION_KEY);
+      localStorage.removeItem(CLOUD_PASS_SESSION_KEY);
     } else {
       setCloudStatus('☁️ не удалось подключиться', true);
     }
@@ -2933,7 +2933,7 @@ function disconnectCloudSync(){
   localStorage.removeItem(CLOUD_ENABLED_KEY);
   cloudAccessToken = null;
   cloudPassword = null;
-  sessionStorage.removeItem(CLOUD_PASS_SESSION_KEY);
+  localStorage.removeItem(CLOUD_PASS_SESSION_KEY);
   setCloudStatus('');
   cloudSyncBtn.textContent = '☁️ Синхронизация';
   cloudDisconnectBtn.style.display = 'none';
