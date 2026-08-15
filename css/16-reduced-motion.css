@@ -1,0 +1,11 @@
+/* 16-reduced-motion.css
+ * Уважение к prefers-reduced-motion — отключение анимаций.
+ */
+@media (max-width:480px){
+  .header-actions .rate-box{flex-basis:100%;}
+  .today-btn{height:34px;}
+  .action-menu{position:fixed;top:auto;bottom:12px;left:12px;right:12px;width:auto;}
+  .tabs{position:sticky;top:8px;z-index:20;padding:4px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-pill);backdrop-filter:blur(20px);}
+  .tab-btn{flex:1;}
+  .quick-actions .save-btn{flex:1 1 auto;}
+}

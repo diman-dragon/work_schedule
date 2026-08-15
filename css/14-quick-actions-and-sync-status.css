@@ -1,0 +1,19 @@
+/* 14-quick-actions-and-sync-status.css
+ * Панель быстрых действий, статус синхронизации, скрытие печатного листа на экране.
+ */
+align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:-10px 0 22px;
+}
+.sync-status{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 10px;
+  border-radius:var(--radius-pill);
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  font-size:11px;
+  color:var(--text-dim);
+}
