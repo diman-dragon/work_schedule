@@ -1,0 +1,183 @@
+/* 05-calendar-grid.css
+ * Плиточная сетка календаря: рабочие/выходные/будущие/сегодняшние дни, тепловая карта состояний, легенда.
+ */
+/* CALENDAR — плиточный стиль, как в приложении "Календарь" Windows 11 */
+.cal-head{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:8px;
+  margin-bottom:8px;
+}
+.cal-head div{
+  text-align:center;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  color:var(--text-faint);
+  font-weight:600;
+  padding-bottom:2px;
+}
+.cal-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:6px;
+}
+.day{
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:var(--radius-md);
+  min-height:96px;
+  min-width:0;
+  padding:8px 9px;
+  position:relative;
+  cursor:pointer;
+  transition:background .12s ease, border-color .12s ease, box-shadow .12s ease, transform .1s ease;
+  animation:dayIn .28s ease backwards;
+}
+@keyframes dayIn{
+  from{ opacity:0; transform:translateY(4px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+.day:hover{background:var(--accent-dim); border-color:var(--accent); box-shadow:0 0 0 1px var(--accent); z-index:2;}
+.day.empty{background:transparent; border:none; cursor:default;}
+.day.empty:hover{background:transparent; border-color:transparent; box-shadow:none;}
+
+/* будний рабочий день */
+/* мой рабочий день (независимо от дня недели) — нейтральная плитка + акцентная рамка/текст */
+.day.worked{
+  background:var(--accent-dim);
+  border-color:var(--workday);
+}
+.day.worked .d-num{color:var(--workday);}
+.day.worked .d-time{color:var(--workday);}
+
+/* мой выходной (независимо от дня недели), день уже прошёл — нейтрально-приглушённая плитка */
+.day.off{
+  background:var(--off-day-dim);
+  border-color:var(--off-day);
+  border-style:dashed;
+}
+.day.off .d-num{color:var(--off-day);}
+.day.off .d-off{color:var(--off-day); opacity:.9; font-weight:600;}
+
+/* день ещё не наступил — нейтрально, это не "выходной" */
+.day.future{
+  background:var(--off);
+  border-color:var(--border);
+}
+.day.future .d-num{color:var(--text-faint);}
+.day.future .d-off{color:var(--text-faint); opacity:.65; font-weight:400;}
+
+/* сегодняшний день, данные ещё не внесены */
+.day.pending-today{
+  background:var(--off);
+  border-color:var(--border);
+}
+.day.pending-today .d-num{color:var(--text);}
+.day.pending-today .d-off{color:var(--accent); font-weight:600;}
+
+.day .d-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:6px;
+  margin-bottom:2px;
+}
+.day .d-num{
+  font-size:12px;
+  color:var(--text-faint);
+  font-weight:600;
+  flex:0 0 auto;
+}
+.day .d-body{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+.day .d-time{
+  font-family:var(--font-ui);
+  font-size:10.5px;
+  color:var(--text-dim);
+  line-height:1.35;
+  font-weight:600;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  flex:0 1 auto;
+  min-width:0;
+}
+.day .d-dur{
+  font-family:var(--font-ui);
+  font-size:9.5px;
+  color:var(--text-faint);
+  margin-top:1px;
+  line-height:1.3;
+}
+.day .d-bus,
+.day .d-route{
+  align-self:flex-start;
+  text-align:left;
+  font-size:11px;
+  font-weight:600;
+  color:var(--text);
+  margin-top:4px;
+  line-height:1.25;
+  max-width:100%;
+  width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.day .d-tag{
+  font-size:9px;
+  font-weight:500;
+  color:var(--text-faint);
+  text-transform:uppercase;
+  letter-spacing:0.02em;
+}
+.day .d-sum{
+  font-family:var(--font-ui);
+  font-size:15px;
+  color:var(--teal);
+  margin-top:6px;
+  font-weight:800;
+  letter-spacing:-.01em;
+}
+.day .d-off{
+  font-size:10px;
+  color:var(--text-faint);
+  margin-top:0;
+  font-style:italic;
+}
+.day.pending-shift{
+  background:var(--accent-dim);
+  border-color:var(--accent);
+  border-style:dashed;
+}
+.day.pending-shift .d-num{color:var(--accent);}
+.day.pending-shift .d-time{color:var(--accent);}
+.day .d-pending{
+  font-size:10.5px;
+  color:var(--accent);
+  margin-top:6px;
+  font-weight:700;
+  line-height:1.3;
+}
+
+/* легенда */
+.cal-legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin:2px 0 14px;
+  font-size:11px;
+  color:var(--text-dim);
+}
+.cal-legend .lg-item{display:flex; align-items:center; gap:6px;}
+.cal-legend .lg-dot{width:11px; height:11px; border-radius:var(--radius-xs); display:inline-block;}
+.cal-legend .lg-dot.workday{background:var(--accent-dim); border:1px solid var(--workday);}
+.cal-legend .lg-dot.weekend{background:var(--off-day-dim); border:1px solid var(--off-day);}
+.cal-legend .lg-dot.off{background:var(--off); border:1px dashed var(--border);}
+.cal-legend .lg-dot.future{background:var(--off); border:1px solid var(--border); opacity:.55;}
+.cal-legend .lg-dot.pending{background:var(--accent-dim); border:1px dashed var(--accent);}

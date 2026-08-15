@@ -1,0 +1,20 @@
+/* 15-responsive-late.css
+ * Поздние адаптивные правки (мобильное меню, липкие вкладки).
+ */
+.sync-status.ok{color:var(--teal);}
+.sync-status.error{color:var(--negative);}
+.print-sheet{display:none;}
+.toast[aria-live]{min-width:180px;text-align:center;}
+@media (max-width:720px){
+  body{padding-bottom:86px;}
+  .header-right{width:100%;}
+  .header-actions{width:100%;justify-content:stretch;}
+  .header-actions > *{flex:0 0 auto;}
+  .header-actions .rate-box{flex:1 1 180px;}
+  .action-group{flex:0 0 auto;}
+  .today-btn{flex:1 1 auto;}
+  .months{gap:6px;}
+  .month-btn{padding:9px 8px;}
+  .quick-actions{margin-top:-6px;}
+  .day{min-height:104px;}
+}
