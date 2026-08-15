@@ -4,15 +4,12 @@
 /* =========================
    POLISH / UX ENHANCEMENTS
    ========================= */
-:root{
-  --focus-ring:0 0 0 3px var(--accent-glow), 0 0 0 1px var(--accent);
-}
 html{scroll-behavior:smooth;}
 button,input{touch-action:manipulation;}
 button:disabled{opacity:.55; cursor:not-allowed;}
+button:focus-visible,input:focus-visible,
 .day:focus-visible,.month-btn:focus-visible,.tab-btn:focus-visible,
-.btn:focus-visible,.save-btn:focus-visible,.theme-toggle:focus-visible,
-.switch:focus-visible,.time-chip:focus-visible,input:focus-visible{
+.switch:focus-visible,.time-chip:focus-visible{
   outline:2px solid var(--accent);
   outline-offset:3px;
 }
@@ -51,3 +48,9 @@ button:disabled{opacity:.55; cursor:not-allowed;}
   color:var(--text);
   border-radius:var(--radius-sm);
   padding:9px 10px;
+  text-align:left;
+  font:600 12.5px var(--font-ui);
+  cursor:pointer;
+}
+.action-menu button:hover{background:var(--accent-dim);color:var(--accent);}
+.action-menu .menu-sep{height:1px;background:var(--border);margin:5px 2px;}

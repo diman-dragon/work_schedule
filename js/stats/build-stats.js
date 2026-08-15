@@ -3,7 +3,7 @@
  */
 function buildStats(){
   const stats = computeStats();
-  const grid = document.getElementById('chartsGrid');
+  const grid = $('chartsGrid');
   if(stats.totalShifts === 0){
     grid.innerHTML = `<div class="chart-card wide"><div class="empty-state">Пока нет ни одной рабочей смены — отметьте смены в табеле или загрузите файл с данными.</div></div>`;
     renderStatCards(stats);

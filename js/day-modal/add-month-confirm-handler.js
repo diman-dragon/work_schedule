@@ -1,7 +1,7 @@
 /* day-modal/add-month-confirm-handler.js
  * Автоматически выделено из монолитного index.html при разбиении на модули.
  */
-document.getElementById('addMonthConfirmBtn').addEventListener('click', () => {
+$('addMonthConfirmBtn').addEventListener('click', () => {
   const val = addMonthInput.value; // "YYYY-MM"
   if(!val){ addMonthOverlay.classList.remove('show'); return; }
   const [yStr, mStr] = val.split('-');

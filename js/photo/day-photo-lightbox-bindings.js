@@ -5,9 +5,9 @@ dayPhotoPreview.addEventListener('click', () => { if(pendingDayPhoto) openPhotoL
 dayPhotoPreview.addEventListener('keydown', (e) => {
   if((e.key === 'Enter' || e.key === ' ') && pendingDayPhoto){ e.preventDefault(); openPhotoLightbox(pendingDayPhoto); }
 });
-document.getElementById('photoLightboxCloseBtn').addEventListener('click', () => {
-  document.getElementById('photoLightboxOverlay').classList.remove('show');
+$('photoLightboxCloseBtn').addEventListener('click', () => {
+  $('photoLightboxOverlay').classList.remove('show');
 });
-document.getElementById('photoLightboxOverlay').addEventListener('click', (e) => {
-  if(e.target.id === 'photoLightboxOverlay') document.getElementById('photoLightboxOverlay').classList.remove('show');
+$('photoLightboxOverlay').addEventListener('click', (e) => {
+  if(e.target.id === 'photoLightboxOverlay') $('photoLightboxOverlay').classList.remove('show');
 });

@@ -17,7 +17,7 @@ async function pullFromCloud(){
     hiddenShiftTimes = new Set(Array.isArray(remote.hiddenShiftTimes) ? remote.hiddenShiftTimes : []);
     APP.updatedAt = remoteUpdatedAt;
     if(!DATA[currentKey]) currentKey = ensureCurrentMonthExists();
-    document.getElementById('rateInput').value = rate;
+    $('rateInput').value = rate;
     renderMonthsStrip();
     render(currentKey);
     persistLocalOnly();

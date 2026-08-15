@@ -1,8 +1,8 @@
 /* data/load-file-button-bindings.js
  * Автоматически выделено из монолитного index.html при разбиении на модули.
  */
-const loadFileInput = document.getElementById('loadFileInput');
-document.getElementById('loadFileBtn').addEventListener('click', loadJsonFile);
+const loadFileInput = $('loadFileInput');
+$('loadFileBtn').addEventListener('click', loadJsonFile);
 loadFileInput.addEventListener('change', (e) => {
   const file = e.target.files[0];
   if(!file) return;

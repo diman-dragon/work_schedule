@@ -2,7 +2,7 @@
  * Автоматически выделено из монолитного index.html при разбиении на модули.
  */
 function renderStatCards(stats){
-  const wrap = document.getElementById('statCards');
+  const wrap = $('statCards');
   const cards = [
     { label: 'Всего отработано', value: minutesToHM(stats.totalMinutes), sub: stats.totalShifts + ' смен' },
     { label: 'Общий заработок', value: fmtNum(stats.totalSum) + ' дин.', sub: 'за весь период' },

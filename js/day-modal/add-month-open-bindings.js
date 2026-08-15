@@ -2,9 +2,9 @@
  * Автоматически выделено из монолитного index.html при разбиении на модули.
  */
 // ---------- ДОБАВЛЕНИЕ МЕСЯЦА ----------
-const addMonthOverlay = document.getElementById('addMonthOverlay');
-const addMonthInput = document.getElementById('addMonthInput');
-document.getElementById('addMonthBtn').addEventListener('click', () => {
+const addMonthOverlay = $('addMonthOverlay');
+const addMonthInput = $('addMonthInput');
+$('addMonthBtn').addEventListener('click', () => {
   // подставляем месяц, следующий за последним в текущем графике
   let y, mo;
   if(order.length){
@@ -19,5 +19,5 @@ document.getElementById('addMonthBtn').addEventListener('click', () => {
   addMonthOverlay.classList.add('show');
   setTimeout(() => addMonthInput.focus(), 50);
 });
-document.getElementById('addMonthCancelBtn').addEventListener('click', () => addMonthOverlay.classList.remove('show'));
+$('addMonthCancelBtn').addEventListener('click', () => addMonthOverlay.classList.remove('show'));
 addMonthOverlay.addEventListener('click', (e) => { if(e.target === addMonthOverlay) addMonthOverlay.classList.remove('show'); });

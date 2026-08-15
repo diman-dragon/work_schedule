@@ -44,5 +44,5 @@ let cloudPassword = localStorage.getItem(CLOUD_PASS_SESSION_KEY) || null;
 let cloudPushTimer = null;
 let cloudBusy = false;
 
-const cloudSyncBtn = document.getElementById('cloudSyncBtn');
-const cloudSyncStatus = document.getElementById('cloudSyncStatus');
+const cloudSyncBtn = $('cloudSyncBtn');
+const cloudSyncStatus = $('cloudSyncStatus');

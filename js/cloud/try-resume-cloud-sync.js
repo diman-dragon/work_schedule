@@ -13,7 +13,8 @@
       return;
     }
     await pullFromCloud();
-    setCloudStatus('☁️ подключено');
+    recordLastSyncTime();
+    setCloudStatusOk('☁️ подключено · ' + (formatLastSyncTime() || ''));
   }catch(err){
     setCloudStatus('☁️ нажмите, чтобы подключиться');
   }

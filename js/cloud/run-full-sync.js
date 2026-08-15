@@ -12,7 +12,8 @@ async function runFullSync(){
     setCloudStatus('☁️ синхронизация…');
     await pullFromCloud();
     await pushToCloud();
-    setCloudStatus('☁️ синхронизировано ' + new Date().toLocaleTimeString('ru-RU', {hour:'2-digit', minute:'2-digit'}));
+    recordLastSyncTime();
+    setCloudStatusOk('☁️ синхронизировано · ' + (formatLastSyncTime() || ''));
   }catch(err){
     console.error('Ошибка синхронизации с Google Диском', err);
     setCloudStatus('☁️ ошибка синхронизации', true);

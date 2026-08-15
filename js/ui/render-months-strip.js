@@ -4,9 +4,9 @@
 function renderMonthsStrip(){
   const {y: ty, m: tm} = getTodayYM();
   const todayIdx = ty*12+tm;
-  const monthsEl = document.getElementById('months');
-  const pastEl = document.getElementById('monthsPast');
-  const pastDetails = document.getElementById('pastMonthsDetails');
+  const monthsEl = $('months');
+  const pastEl = $('monthsPast');
+  const pastDetails = $('pastMonthsDetails');
   monthsEl.innerHTML = '';
   pastEl.innerHTML = '';
   let pastCount = 0;
@@ -21,6 +21,6 @@ function renderMonthsStrip(){
       monthsEl.appendChild(monthButton(key));
     }
   });
-  document.getElementById('pastMonthsSummary').textContent = `Прошедшие месяцы (${pastCount})`;
+  $('pastMonthsSummary').textContent = `Прошедшие месяцы (${pastCount})`;
   pastDetails.style.display = pastCount ? '' : 'none';
 }

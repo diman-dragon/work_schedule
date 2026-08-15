@@ -1,7 +1,7 @@
 /* cloud/cloud-buttons-bindings.js
  * Автоматически выделено из монолитного index.html при разбиении на модули.
  */
-const cloudDisconnectBtn = document.getElementById('cloudDisconnectBtn');
+const cloudDisconnectBtn = $('cloudDisconnectBtn');
 cloudSyncBtn.addEventListener('click', async () => {
   if(isCloudSyncActive()) runFullSync();
   else connectCloudSync();

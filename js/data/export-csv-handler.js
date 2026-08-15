@@ -2,7 +2,7 @@
  * Автоматически выделено из монолитного index.html при разбиении на модули.
  */
 // ---------- ЭКСПОРТ В CSV ----------
-document.getElementById('exportCsvBtn').addEventListener('click', async () => {
+$('exportCsvBtn').addEventListener('click', async () => {
   if(!order.length){ showToast('Нет данных для экспорта'); return; }
   const rows = [['Месяц','Год','Дата','День недели','Начало','Конец','Длительность (ч:мм)','Сумма, дин.','Автобус','Маршрут']];
   order.forEach(key => {

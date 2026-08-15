@@ -1,27 +1,23 @@
 /* ui/data-menu-bindings.js
- * Автоматически выделено из монолитного index.html при разбиении на модули.
+ * Выпадающее меню «⋯ Данные»: открытие по клику, закрытие по клику вне меню
+ * или по выбору пункта. Закрытие по Escape вынесено в общий обработчик
+ * modals/global-modal-keyboard.js — раньше было продублировано и здесь.
  */
-// Data dropdown
-  const menuBtn = $('dataMenuBtn');
-  const dataMenu = $('dataMenu');
-  function closeDataMenu(){
-    if(!dataMenu) return;
+const menuBtn = $('dataMenuBtn');
+const dataMenu = $('dataMenu');
+menuBtn?.addEventListener('click', e => {
+  e.stopPropagation();
+  const show = !dataMenu.classList.contains('show');
+  dataMenu.classList.toggle('show', show);
+  menuBtn.setAttribute('aria-expanded', String(show));
+});
+document.addEventListener('click', e => {
+  if(dataMenu && dataMenu.classList.contains('show') && !dataMenu.contains(e.target) && e.target !== menuBtn){
     dataMenu.classList.remove('show');
-    menuBtn && menuBtn.setAttribute('aria-expanded','false');
+    menuBtn.setAttribute('aria-expanded', 'false');
   }
-  menuBtn?.addEventListener('click', e => {
-    e.stopPropagation();
-    const show = !dataMenu.classList.contains('show');
-    dataMenu.classList.toggle('show', show);
-    menuBtn.setAttribute('aria-expanded', String(show));
-  });
-  document.addEventListener('click', e => {
-    if(dataMenu && !dataMenu.contains(e.target) && e.target !== menuBtn) closeDataMenu();
-  });
-  document.addEventListener('keydown', e => {
-    if(e.key === 'Escape'){
-      closeDataMenu();
-      document.querySelectorAll('.modal-overlay.show').forEach(x => x.classList.remove('show'));
-    }
-  });
-  dataMenu?.querySelectorAll('button').forEach(btn => btn.addEventListener('click', closeDataMenu));
+});
+dataMenu?.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+  dataMenu.classList.remove('show');
+  menuBtn?.setAttribute('aria-expanded', 'false');
+}));

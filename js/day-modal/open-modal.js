@@ -6,8 +6,8 @@ function openModal(key, idx){
   const d = DATA[key].days[idx];
   const dayNum = parseInt(d.date.split('.')[0],10);
   const m = DATA[key];
-  document.getElementById('modalTitle').textContent = `${dayNum} ${monthNamesGen[m.month-1]} ${m.year}`;
-  document.getElementById('modalSub').textContent = d.weekday;
+  $('modalTitle').textContent = `${dayNum} ${monthNamesGen[m.month-1]} ${m.year}`;
+  $('modalSub').textContent = d.weekday;
 
   const isWorking = !!d.start;
   workSwitch.classList.toggle('on', isWorking);

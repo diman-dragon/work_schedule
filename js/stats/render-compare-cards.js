@@ -2,7 +2,7 @@
  * Автоматически выделено из монолитного index.html при разбиении на модули.
  */
 function renderCompareCards(){
-  const wrap = document.getElementById('compareCards');
+  const wrap = $('compareCards');
   const rows = computeMonthComparisons();
   if(!rows.length){ wrap.innerHTML = ''; return; }
   wrap.innerHTML = rows.map(r => {

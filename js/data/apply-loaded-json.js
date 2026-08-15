@@ -12,7 +12,7 @@ function applyLoadedJson(text, fileLabel){
   sortOrderChronologically();
   recomputeAll();
   currentKey = ensureCurrentMonthExists(); // фокус на сегодняшнем месяце, создаём его, если отсутствует
-  document.getElementById('rateInput').value = rate;
+  $('rateInput').value = rate;
   render(currentKey);
   if(tabStats.classList.contains('active')) buildStats();
   persist();

@@ -4,7 +4,7 @@
 // init
 currentKey = ensureCurrentMonthExists();
 APP.currentKey = currentKey;
-document.getElementById('rateInput').value = rate;
+$('rateInput').value = rate;
 render(currentKey);
-document.getElementById('monthNavLabel') && (document.getElementById('monthNavLabel').textContent = `${DATA[currentKey].label} ${DATA[currentKey].year}`);
+$('monthNavLabel') && ($('monthNavLabel').textContent = `${DATA[currentKey].label} ${DATA[currentKey].year}`);
 persist();

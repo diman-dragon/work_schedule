@@ -2,7 +2,7 @@
  * Автоматически выделено из монолитного index.html при разбиении на модули.
  */
 function applyHeatmap(){
-  const grid = document.getElementById('calGrid');
+  const grid = $('calGrid');
   const cells = document.querySelectorAll('#calGrid .day');
   grid.classList.toggle('heatmap-active', heatmapMode);
   if(!heatmapMode){

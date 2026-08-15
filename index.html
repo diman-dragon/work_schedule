@@ -27,12 +27,14 @@
 <body>
 <body>
 <div class="wrap">
+  <div class="title-card">
+    <div class="title-card-icon" aria-hidden="true">🕒</div>
+    <h1>Рабочий <span>график</span></h1>
+    <div class="eyebrow" id="headerSub">—</div>
+    <div class="autosave-badge"><span class="autosave-dot"></span>Автосохранение в этом браузере включено</div>
+  </div>
+
   <div class="header">
-    <div class="header-left">
-      <h1>Рабочий <span>график</span></h1>
-      <div class="sub" id="headerSub">—</div>
-      <div class="sub" style="margin-top:2px; opacity:.65;">💾 автосохранение в этом браузере включено</div>
-    </div>
     <div class="header-right">
       <div class="header-actions">
         <div class="rate-box" title="Ставка применяется к новым и изменённым дням. Импортированные старые значения сохраняются.">
@@ -57,9 +59,11 @@
           </div>
         </div>
 
-        <button class="save-btn" id="cloudSyncBtn" title="Синхронизировать с Google Диском" aria-label="Синхронизировать с Google Диском">☁️ Синхронизация</button>
-        <button class="save-btn" id="cloudDisconnectBtn" title="Отключить синхронизацию" aria-label="Отключить синхронизацию" style="display:none;padding:0 10px;">✕</button>
-        <span class="sync-status" id="cloudSyncStatus" aria-live="polite"></span>
+        <div class="sync-group">
+          <button class="save-btn" id="cloudSyncBtn" title="Синхронизировать с Google Диском" aria-label="Синхронизировать с Google Диском">☁️ Синхронизация</button>
+          <button class="save-btn" id="cloudDisconnectBtn" title="Отключить синхронизацию" aria-label="Отключить синхронизацию" style="display:none;padding:0 10px;">✕</button>
+          <span class="sync-status" id="cloudSyncStatus" aria-live="polite"></span>
+        </div>
       </div>
     </div>
   </div>
@@ -307,14 +311,9 @@
 <script src="js/day-modal/day-modal-basic-bindings.js"></script>
 <script src="js/day-modal/save-day-handler.js"></script>
 <script src="js/day-modal/add-month-open-bindings.js"></script>
-<script src="js/modals/confirm-modal-elements.js"></script>
-<script src="js/modals/show-confirm-modal.js"></script>
-<script src="js/modals/close-confirm-modal.js"></script>
-<script src="js/modals/confirm-modal-bindings.js"></script>
-<script src="js/modals/sync-pass-modal-elements.js"></script>
-<script src="js/modals/prompt-sync-password.js"></script>
-<script src="js/modals/close-sync-pass-modal.js"></script>
-<script src="js/modals/sync-pass-modal-bindings.js"></script>
+<script src="js/modals/promise-modal.js"></script>
+<script src="js/modals/confirm-modal.js"></script>
+<script src="js/modals/sync-pass-modal.js"></script>
 <script src="js/modals/global-modal-keyboard.js"></script>
 <script src="js/data/make-month-key.js"></script>
 <script src="js/data/build-empty-month.js"></script>
@@ -342,6 +341,7 @@
 <script src="js/charts/build-charts.js"></script>
 <script src="js/stats/build-stats.js"></script>
 <script src="js/cloud/00-cloud-state.js"></script>
+<script src="js/cloud/last-sync-time.js"></script>
 <script src="js/cloud/set-cloud-status.js"></script>
 <script src="js/cloud/b64-encode.js"></script>
 <script src="js/cloud/b64-decode.js"></script>
@@ -372,12 +372,9 @@
 <script src="js/ui/render-wrap-month-label.js"></script>
 <script src="js/ui/keyboard-month-nav.js"></script>
 <script src="js/calendar/swipe-navigation.js"></script>
-<script src="js/day-modal/auto-focus-on-open.js"></script>
 <script src="js/print/print-month-handler.js"></script>
 <script src="js/data/backup-button-binding.js"></script>
-<script src="js/day-modal/modal-dirty-tracking.js"></script>
 <script src="js/ui/backup-title-indicator.js"></script>
-<script src="js/cloud/sync-status-styling.js"></script>
 <script src="js/ui/initial-month-nav-label.js"></script>
 </body>
 </html>

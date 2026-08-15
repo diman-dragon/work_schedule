@@ -5,7 +5,7 @@
 // чем выше заработок за смену относительно самой прибыльной смены за весь период,
 // тем насыщеннее заливка дня акцентным цветом
 let heatmapMode = false;
-const heatmapToggleBtn = document.getElementById('heatmapToggleBtn');
+const heatmapToggleBtn = $('heatmapToggleBtn');
 heatmapToggleBtn.addEventListener('click', () => {
   heatmapMode = !heatmapMode;
   heatmapToggleBtn.classList.toggle('active', heatmapMode);

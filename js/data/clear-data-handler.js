@@ -2,7 +2,7 @@
  * Автоматически выделено из монолитного index.html при разбиении на модули.
  */
 // ---------- ПОЛНАЯ ОЧИСТКА ДАННЫХ ----------
-document.getElementById('clearDataBtn').addEventListener('click', async () => {
+$('clearDataBtn').addEventListener('click', async () => {
   if(!order.length){ showToast('Данные уже пусты'); return; }
   const ok = await showConfirmModal(
     'Это действие необратимо. Если нужен бэкап — сначала нажмите «Сохранить» (JSON) или «CSV».',

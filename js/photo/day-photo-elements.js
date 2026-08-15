@@ -10,9 +10,9 @@
 // Перед сохранением фото пережимаем на canvas (макс. сторона ~1600px, JPEG
 // ~0.78 качества), иначе несколько фото в высоком разрешении быстро упрутся
 // в лимит localStorage (обычно 5–10 МБ на домен).
-const dayPhotoInput = document.getElementById('dayPhotoInput');
-const dayPhotoAddBtn = document.getElementById('dayPhotoAddBtn');
-const dayPhotoRemoveBtn = document.getElementById('dayPhotoRemoveBtn');
-const dayPhotoPreview = document.getElementById('dayPhotoPreview');
-const dayPhotoHint = document.getElementById('dayPhotoHint');
+const dayPhotoInput = $('dayPhotoInput');
+const dayPhotoAddBtn = $('dayPhotoAddBtn');
+const dayPhotoRemoveBtn = $('dayPhotoRemoveBtn');
+const dayPhotoPreview = $('dayPhotoPreview');
+const dayPhotoHint = $('dayPhotoHint');
 let pendingDayPhoto = null; // dataURL строкой, null — если фото не прикреплено; undefined никогда не используется

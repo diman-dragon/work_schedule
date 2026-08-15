@@ -12,5 +12,5 @@ workSwitch.addEventListener('keydown', (e) => {
 });
 startInput.addEventListener('input', updatePreview);
 endInput.addEventListener('input', updatePreview);
-document.getElementById('cancelBtn').addEventListener('click', closeModal);
+$('cancelBtn').addEventListener('click', closeModal);
 overlay.addEventListener('click', (e) => { if(e.target === overlay) closeModal(); });

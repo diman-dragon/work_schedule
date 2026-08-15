@@ -13,8 +13,10 @@
   border:1px solid var(--border);
   border-radius:var(--radius-lg);
   padding:14px 16px;
-  box-shadow:var(--shadow);
+  box-shadow:var(--shadow-2);
+  transition:box-shadow .15s ease, transform .12s ease;
 }
+.compare-card:hover{box-shadow:var(--shadow-8); transform:translateY(-1px);}
 .compare-card .cc-label{
   font-size:13px;
   font-weight:600;

@@ -9,7 +9,7 @@ function renderOverallBar(){
     totalSum += m.total_sum || 0;
     totalShifts += m.days.filter(d => d.start).length;
   });
-  document.getElementById('overallBar').innerHTML =
+  $('overallBar').innerHTML =
     `<span>Итого за весь период</span>
      <span><b>${minutesToHM(totalMin)}</b> · <b>${totalShifts}</b> смен · <b>${fmtNum(totalSum)} дин.</b></span>`;
 }

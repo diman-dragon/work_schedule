@@ -18,7 +18,8 @@ async function connectCloudSync(){
     setCloudStatus('☁️ синхронизация…');
     await pullFromCloud();
     await pushToCloud();
-    setCloudStatus('☁️ подключено');
+    recordLastSyncTime();
+    setCloudStatusOk('☁️ подключено · ' + (formatLastSyncTime() || ''));
     cloudSyncBtn.textContent = '🔄 Синхронизировать';
     cloudDisconnectBtn.style.display = '';
   }catch(err){

@@ -15,7 +15,7 @@ function render(key){
   const avg = worked.length ? m.total_minutes/worked.length : 0;
   animateMinutesLed('avgShift', avg);
 
-  const grid = document.getElementById('calGrid');
+  const grid = $('calGrid');
   grid.innerHTML = '';
   const firstOfMonth = new Date(m.year, m.month-1, 1);
   let offset = firstOfMonth.getDay();

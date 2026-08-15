@@ -2,7 +2,7 @@
  * Автоматически выделено из монолитного index.html при разбиении на модули.
  */
 function renderRecentTimes(){
-  const wrap = document.getElementById('recentTimes');
+  const wrap = $('recentTimes');
   const freq = getFrequentShiftTimes();
   if(!freq.length){ wrap.innerHTML = ''; return; }
   wrap.innerHTML = '<div class="rt-label">недавние смены</div>' +

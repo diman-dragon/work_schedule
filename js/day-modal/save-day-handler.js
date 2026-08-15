@@ -1,7 +1,7 @@
 /* day-modal/save-day-handler.js
  * Автоматически выделено из монолитного index.html при разбиении на модули.
  */
-document.getElementById('saveBtn').addEventListener('click', (ev) => {
+$('saveBtn').addEventListener('click', (ev) => {
   if(!editingDay) return;
   const {key, idx} = editingDay;
   const d = DATA[key].days[idx];

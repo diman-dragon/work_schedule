@@ -2,7 +2,7 @@
  * Автоматически выделено из монолитного index.html при разбиении на модули.
  */
 function animateNumberLed(id, to, formatter){
-  const el = document.getElementById(id);
+  const el = $(id);
   if(!el) return;
   const from = parseFloat((el.dataset.raw||'0')) || 0;
   const f = formatter || (v => Math.round(v).toLocaleString('ru-RU'));
