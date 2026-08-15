@@ -1,0 +1,53 @@
+/* 12-focus-ring-and-action-menu.css
+ * Кольцо фокуса, шапка действий и выпадающее меню "⋯ Данные".
+ */
+/* =========================
+   POLISH / UX ENHANCEMENTS
+   ========================= */
+:root{
+  --focus-ring:0 0 0 3px var(--accent-glow), 0 0 0 1px var(--accent);
+}
+html{scroll-behavior:smooth;}
+button,input{touch-action:manipulation;}
+button:disabled{opacity:.55; cursor:not-allowed;}
+.day:focus-visible,.month-btn:focus-visible,.tab-btn:focus-visible,
+.btn:focus-visible,.save-btn:focus-visible,.theme-toggle:focus-visible,
+.switch:focus-visible,.time-chip:focus-visible,input:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+}
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+.action-group{
+  position:relative;
+  display:inline-flex;
+}
+.action-menu{
+  position:absolute;
+  top:calc(100% + 8px);
+  right:0;
+  z-index:80;
+  min-width:210px;
+  padding:7px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  box-shadow:0 12px 36px rgba(0,0,0,.25);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  display:none;
+}
+.action-menu.show{display:grid;animation:menuIn .12s ease;}
+@keyframes menuIn{from{opacity:0;transform:translateY(-4px) scale(.98)}to{opacity:1;transform:none}}
+.action-menu button{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:var(--text);
+  border-radius:var(--radius-sm);
+  padding:9px 10px;
