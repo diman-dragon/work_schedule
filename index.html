@@ -1,37 +1,19 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Рабочий график</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%3Cdefs%3E%0A%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%3Cstop%20offset%3D%220%22%20stop-color%3D%22%232a2a2a%22/%3E%0A%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231a1a1a%22/%3E%0A%3C/linearGradient%3E%0A%3C/defs%3E%0A%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22url%28%23bg%29%22/%3E%0A%3Crect%20x%3D%229%22%20y%3D%2213%22%20width%3D%2230%22%20height%3D%2227%22%20rx%3D%225%22%20fill%3D%22%23ffffff%22/%3E%0A%3Crect%20x%3D%229%22%20y%3D%2213%22%20width%3D%2230%22%20height%3D%229%22%20rx%3D%225%22%20fill%3D%22%234cc2ff%22/%3E%0A%3Crect%20x%3D%229%22%20y%3D%2218%22%20width%3D%2230%22%20height%3D%224%22%20fill%3D%22%234cc2ff%22/%3E%0A%3Crect%20x%3D%2215%22%20y%3D%229%22%20width%3D%224%22%20height%3D%228%22%20rx%3D%222%22%20fill%3D%22%234cc2ff%22/%3E%0A%3Crect%20x%3D%2229%22%20y%3D%229%22%20width%3D%224%22%20height%3D%228%22%20rx%3D%222%22%20fill%3D%22%234cc2ff%22/%3E%0A%3Ccircle%20cx%3D%2215.5%22%20cy%3D%2229.5%22%20r%3D%222.4%22%20fill%3D%22%23c7d2d9%22/%3E%0A%3Ccircle%20cx%3D%2224%22%20cy%3D%2229.5%22%20r%3D%222.4%22%20fill%3D%22%23c7d2d9%22/%3E%0A%3Ccircle%20cx%3D%2215.5%22%20cy%3D%2236%22%20r%3D%222.4%22%20fill%3D%22%23c7d2d9%22/%3E%0A%3Ccircle%20cx%3D%2224%22%20cy%3D%2236%22%20r%3D%222.4%22%20fill%3D%22%23dfe7ea%22%20fill-opacity%3D%220.4%22/%3E%0A%3Ccircle%20cx%3D%2239%22%20cy%3D%2239%22%20r%3D%2216%22%20fill%3D%22%230f1a17%22/%3E%0A%3Ccircle%20cx%3D%2239%22%20cy%3D%2239%22%20r%3D%2213%22%20fill%3D%22%236fa89a%22/%3E%0A%3Cpath%20d%3D%22M39%2030.5v9l6.5%204.2%22%20stroke%3D%22%230f1a17%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20fill%3D%22none%22/%3E%0A%3Ccircle%20cx%3D%2239%22%20cy%3D%2239%22%20r%3D%221.8%22%20fill%3D%22%230f1a17%22/%3E%0A%3C/svg%3E">
-<link rel="stylesheet" href="css/00-tokens-and-reset.css">
-<link rel="stylesheet" href="css/01-header.css">
-<link rel="stylesheet" href="css/02-month-strip.css">
-<link rel="stylesheet" href="css/03-display-panel.css">
-<link rel="stylesheet" href="css/04-overall-bar.css">
-<link rel="stylesheet" href="css/05-calendar-grid.css">
-<link rel="stylesheet" href="css/06-modal-and-controls.css">
-<link rel="stylesheet" href="css/07-day-photo.css">
-<link rel="stylesheet" href="css/08-responsive-early.css">
-<link rel="stylesheet" href="css/09-today-state-and-focus.css">
-<link rel="stylesheet" href="css/10-compare-cards.css">
-<link rel="stylesheet" href="css/11-native-press-effect.css">
-<link rel="stylesheet" href="css/12-focus-ring-and-action-menu.css">
-<link rel="stylesheet" href="css/13-today-button-and-month-nav.css">
-<link rel="stylesheet" href="css/14-quick-actions-and-sync-status.css">
-<link rel="stylesheet" href="css/15-responsive-late.css">
-<link rel="stylesheet" href="css/16-reduced-motion.css">
-<link rel="stylesheet" href="css/17-print-a4.css">
+<link rel="stylesheet" href="css/app.css">
 </head>
-<body>
 <body>
 <div class="wrap">
   <div class="header">
     <div class="header-left">
       <h1>Рабочий <span>график</span></h1>
       <div class="sub" id="headerSub">—</div>
-      <div class="sub" style="margin-top:2px; opacity:.65;">💾 автосохранение в этом браузере включено</div>
+      <div class="sub sub-note">💾 автосохранение в этом браузере включено</div>
     </div>
     <div class="header-right">
       <div class="header-actions">
@@ -58,13 +40,13 @@
         </div>
 
         <button class="save-btn" id="cloudSyncBtn" title="Синхронизировать с Google Диском" aria-label="Синхронизировать с Google Диском">☁️ Синхронизация</button>
-        <button class="save-btn" id="cloudDisconnectBtn" title="Отключить синхронизацию" aria-label="Отключить синхронизацию" style="display:none;padding:0 10px;">✕</button>
+        <button class="save-btn cloud-disconnect" id="cloudDisconnectBtn" title="Отключить синхронизацию" aria-label="Отключить синхронизацию">✕</button>
         <span class="sync-status" id="cloudSyncStatus" aria-live="polite"></span>
       </div>
     </div>
   </div>
 
-  <input type="file" id="loadFileInput" accept="application/json" style="display:none" aria-hidden="true">
+  <input type="file" id="loadFileInput" accept="application/json" class="visually-hidden" aria-hidden="true">
 
   <div class="tabs" role="tablist">
     <button class="tab-btn active" id="tabBtnTable" role="tab" aria-selected="true">Табель</button>
@@ -145,17 +127,6 @@
       <div class="switch" id="workSwitch" tabindex="0" role="switch" aria-label="Рабочий день"><div class="knob"></div></div>
     </div>
 
-    <div class="day-photo-section">
-      <div class="day-photo-label">📷 Фото графика смен на этот день (все машины и водители)</div>
-      <div class="day-photo-controls">
-        <input type="file" id="dayPhotoInput" accept="image/*" style="display:none">
-        <button type="button" class="btn btn-ghost btn-sm" id="dayPhotoAddBtn">Добавить фото</button>
-        <button type="button" class="btn btn-ghost btn-sm" id="dayPhotoRemoveBtn" style="display:none">✕ Убрать фото</button>
-      </div>
-      <img id="dayPhotoPreview" class="day-photo-preview" style="display:none" alt="Фото графика смен на этот день" tabindex="0" role="button" aria-label="Открыть фото графика крупнее">
-      <div class="day-photo-hint" id="dayPhotoHint" style="display:none">Фото сохраняется вместе с остальными данными: в локальном хранилище, в бэкапах, в экспорте JSON и при синхронизации с Google Диском.</div>
-    </div>
-
     <div class="recent-times" id="recentTimes"></div>
 
     <div id="timeFields">
@@ -189,21 +160,12 @@
   </div>
 </div>
 
-<div class="modal-overlay" id="photoLightboxOverlay" data-cancel-btn="photoLightboxCloseBtn" data-confirm-btn="photoLightboxCloseBtn">
-  <div class="modal photo-lightbox-modal">
-    <img id="photoLightboxImg" class="photo-lightbox-img" alt="Фото графика смен, крупный план">
-    <div class="modal-actions">
-      <button class="btn btn-primary" id="photoLightboxCloseBtn">Закрыть</button>
-    </div>
-  </div>
-</div>
-
 <div class="modal-overlay" id="addMonthOverlay" data-cancel-btn="addMonthCancelBtn" data-confirm-btn="addMonthConfirmBtn">
   <div class="modal">
     <h3>Добавить месяц</h3>
     <div class="m-sub">выберите месяц и год</div>
-    <div class="time-row" style="margin-top:16px;">
-      <div class="time-field" style="flex:1;">
+    <div class="time-row" class="modal-spaced">
+      <div class="time-field" class="flex-1">
         <label>Месяц и год</label>
         <input type="month" id="addMonthInput">
       </div>
@@ -231,12 +193,12 @@
     <h3 id="syncPassTitle">Пароль шифрования</h3>
     <div class="m-sub" id="syncPassMessage">Данные на Google Диске хранятся зашифрованными. Введите пароль (в первый раз — придумайте его, дальше используйте всегда один и тот же).</div>
     <div class="time-row">
-      <div class="time-field" style="flex:1;">
+      <div class="time-field" class="flex-1">
         <label for="syncPassInput">Пароль</label>
         <input type="password" id="syncPassInput" autocomplete="off" placeholder="••••••••">
       </div>
     </div>
-    <div class="m-sub" style="margin-top:8px; opacity:.7;">⚠️ Если забудете пароль — данные с Диска будет не восстановить. Храните его отдельно (менеджер паролей, заметка).</div>
+    <div class="m-sub" class="sync-warning">⚠️ Если забудете пароль — данные с Диска будет не восстановить. Храните его отдельно (менеджер паролей, заметка).</div>
     <div class="modal-actions">
       <button class="btn btn-ghost" id="syncPassCancelBtn">Отмена</button>
       <button class="btn btn-primary" id="syncPassOkBtn">Продолжить</button>
@@ -244,140 +206,100 @@
   </div>
 </div>
 
-
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.9.2/confetti.browser.min.js"></script>
-<script src="js/utils/dollar-helper.js"></script>
-<script src="js/init/00-load-app-state.js"></script>
-<script src="js/data/sanitize-order.js"></script>
-<script src="js/init/01-app-state-variables.js"></script>
-<script src="js/data/persist-local-only.js"></script>
-<script src="js/data/persist.js"></script>
-<script src="js/config/month-weekday-names.js"></script>
-<script src="js/utils/fmt-num.js"></script>
-<script src="js/utils/plural-ru.js"></script>
-<script src="js/utils/minutes-to-hm.js"></script>
-<script src="js/utils/time-to-min.js"></script>
-<script src="js/shift/compute-minutes.js"></script>
-<script src="js/utils/parse-date.js"></script>
-<script src="js/shift/shift-end-date-time.js"></script>
-<script src="js/shift/is-shift-pending.js"></script>
-<script src="js/ui/led-anim-state.js"></script>
-<script src="js/ui/animate-raw.js"></script>
-<script src="js/ui/animate-number-led.js"></script>
-<script src="js/ui/animate-minutes-led.js"></script>
-<script src="js/shift/recompute-day.js"></script>
-<script src="js/shift/recompute-month.js"></script>
-<script src="js/shift/recompute-all.js"></script>
-<script src="js/init/02-initial-recompute-call.js"></script>
-<script src="js/data/sort-order-chronologically.js"></script>
-<script src="js/init/03-initial-sort-call.js"></script>
-<script src="js/utils/get-today-ym.js"></script>
-<script src="js/utils/is-today-key.js"></script>
-<script src="js/data/ensure-current-month-exists.js"></script>
-<script src="js/ui/tabs-bindings.js"></script>
-<script src="js/ui/switch-tab.js"></script>
-<script src="js/ui/update-header-sub.js"></script>
-<script src="js/heatmap/heatmap-toggle-bindings.js"></script>
-<script src="js/utils/hex-to-rgb.js"></script>
-<script src="js/utils/mix-rgb.js"></script>
-<script src="js/heatmap/warm-heat-color.js"></script>
-<script src="js/heatmap/apply-heatmap.js"></script>
-<script src="js/utils/css-var.js"></script>
-<script src="js/ui/apply-theme.js"></script>
-<script src="js/ui/theme-and-rate-bindings.js"></script>
-<script src="js/ui/month-button.js"></script>
-<script src="js/ui/render-months-strip.js"></script>
-<script src="js/ui/render-overall-bar.js"></script>
-<script src="js/calendar/render.js"></script>
-<script src="js/day-modal/day-modal-elements.js"></script>
-<script src="js/photo/day-photo-elements.js"></script>
-<script src="js/photo/compress-image-file.js"></script>
-<script src="js/photo/set-day-photo-preview.js"></script>
-<script src="js/photo/day-photo-input-bindings.js"></script>
-<script src="js/photo/open-photo-lightbox.js"></script>
-<script src="js/photo/day-photo-lightbox-bindings.js"></script>
-<script src="js/day-modal/open-modal.js"></script>
-<script src="js/day-modal/get-frequent-shift-times.js"></script>
-<script src="js/day-modal/render-recent-times.js"></script>
-<script src="js/day-modal/close-modal.js"></script>
-<script src="js/day-modal/update-preview.js"></script>
-<script src="js/day-modal/day-modal-basic-bindings.js"></script>
-<script src="js/day-modal/save-day-handler.js"></script>
-<script src="js/day-modal/add-month-open-bindings.js"></script>
-<script src="js/modals/confirm-modal-elements.js"></script>
-<script src="js/modals/show-confirm-modal.js"></script>
-<script src="js/modals/close-confirm-modal.js"></script>
-<script src="js/modals/confirm-modal-bindings.js"></script>
-<script src="js/modals/sync-pass-modal-elements.js"></script>
-<script src="js/modals/prompt-sync-password.js"></script>
-<script src="js/modals/close-sync-pass-modal.js"></script>
-<script src="js/modals/sync-pass-modal-bindings.js"></script>
-<script src="js/modals/global-modal-keyboard.js"></script>
-<script src="js/data/make-month-key.js"></script>
-<script src="js/data/build-empty-month.js"></script>
-<script src="js/day-modal/add-month-confirm-handler.js"></script>
-<script src="js/ui/show-toast.js"></script>
-<script src="js/data/save-json-file.js"></script>
-<script src="js/data/save-file-button-binding.js"></script>
-<script src="js/data/create-local-backup.js"></script>
-<script src="js/data/validate-loaded-data.js"></script>
-<script src="js/data/apply-loaded-json.js"></script>
-<script src="js/data/load-json-file.js"></script>
-<script src="js/data/load-file-button-bindings.js"></script>
-<script src="js/data/export-csv-handler.js"></script>
-<script src="js/data/clear-data-handler.js"></script>
-<script src="js/stats/iso-week-key.js"></script>
-<script src="js/stats/compute-stats.js"></script>
-<script src="js/stats/render-stat-cards.js"></script>
-<script src="js/stats/compute-month-comparisons.js"></script>
-<script src="js/stats/render-compare-cards.js"></script>
-<script src="js/charts/destroy-charts.js"></script>
-<script src="js/charts/chart-colors.js"></script>
-<script src="js/charts/base-options.js"></script>
-<script src="js/charts/money-label.js"></script>
-<script src="js/charts/hours-label.js"></script>
-<script src="js/charts/build-charts.js"></script>
-<script src="js/stats/build-stats.js"></script>
-<script src="js/cloud/00-cloud-state.js"></script>
-<script src="js/cloud/set-cloud-status.js"></script>
-<script src="js/cloud/b64-encode.js"></script>
-<script src="js/cloud/b64-decode.js"></script>
-<script src="js/cloud/derive-key.js"></script>
-<script src="js/cloud/encrypt-for-cloud.js"></script>
-<script src="js/cloud/decrypt-from-cloud.js"></script>
-<script src="js/cloud/ensure-token-client.js"></script>
-<script src="js/cloud/request-cloud-token.js"></script>
-<script src="js/cloud/drive-api-error.js"></script>
-<script src="js/cloud/drive-find-file.js"></script>
-<script src="js/cloud/drive-create-file.js"></script>
-<script src="js/cloud/drive-update-file.js"></script>
-<script src="js/cloud/drive-download-file.js"></script>
-<script src="js/cloud/pull-from-cloud.js"></script>
-<script src="js/cloud/push-to-cloud.js"></script>
-<script src="js/cloud/is-cloud-sync-active.js"></script>
-<script src="js/cloud/run-full-sync.js"></script>
-<script src="js/cloud/push-after-day-save.js"></script>
-<script src="js/cloud/connect-cloud-sync.js"></script>
-<script src="js/cloud/disconnect-cloud-sync.js"></script>
-<script src="js/cloud/cloud-buttons-bindings.js"></script>
-<script src="js/cloud/try-resume-cloud-sync.js"></script>
-<script src="js/init/bootstrap.js"></script>
-<script src="js/shift/pending-shift-watcher.js"></script>
-<script src="js/ui/data-menu-bindings.js"></script>
-<script src="js/ui/today-button-binding.js"></script>
-<script src="js/ui/move-month.js"></script>
-<script src="js/ui/render-wrap-month-label.js"></script>
-<script src="js/ui/keyboard-month-nav.js"></script>
-<script src="js/calendar/swipe-navigation.js"></script>
-<script src="js/day-modal/auto-focus-on-open.js"></script>
-<script src="js/print/print-month-handler.js"></script>
-<script src="js/data/backup-button-binding.js"></script>
-<script src="js/day-modal/modal-dirty-tracking.js"></script>
-<script src="js/ui/backup-title-indicator.js"></script>
-<script src="js/cloud/sync-status-styling.js"></script>
-<script src="js/ui/initial-month-nav-label.js"></script>
+
+  <script src="js/00-config.js"></script>
+  <script src="js/01-sanitizeorder.js"></script>
+  <script src="js/02-persistlocalonly.js"></script>
+  <script src="js/03-persist.js"></script>
+  <script src="js/04-fmtnum.js"></script>
+  <script src="js/05-pluralru.js"></script>
+  <script src="js/06-minutestohm.js"></script>
+  <script src="js/07-timetomin.js"></script>
+  <script src="js/08-computeminutes.js"></script>
+  <script src="js/09-parsedate.js"></script>
+  <script src="js/10-shiftenddatetime.js"></script>
+  <script src="js/11-isshiftpending.js"></script>
+  <script src="js/12-animateraw.js"></script>
+  <script src="js/12a-animate-raw-frame.js"></script>
+  <script src="js/13-animatenumberled.js"></script>
+  <script src="js/14-animateminutesled.js"></script>
+  <script src="js/15-recomputeday.js"></script>
+  <script src="js/16-recomputemonth.js"></script>
+  <script src="js/17-recomputeall.js"></script>
+  <script src="js/18-sortorderchronologically.js"></script>
+  <script src="js/19-gettodayym.js"></script>
+  <script src="js/20-istodaykey.js"></script>
+  <script src="js/21-ensurecurrentmonthexists.js"></script>
+  <script src="js/22-switchtab.js"></script>
+  <script src="js/23-updateheadersub.js"></script>
+  <script src="js/24-hextorgb.js"></script>
+  <script src="js/25-mixrgb.js"></script>
+  <script src="js/26-warmheatcolor.js"></script>
+  <script src="js/27-applyheatmap.js"></script>
+  <script src="js/28-cssvar.js"></script>
+  <script src="js/29-applytheme.js"></script>
+  <script src="js/30-monthbutton.js"></script>
+  <script src="js/31-rendermonthsstrip.js"></script>
+  <script src="js/32-renderoverallbar.js"></script>
+  <script src="js/33-render.js"></script>
+  <script src="js/34-openmodal.js"></script>
+  <script src="js/35-getfrequentshifttimes.js"></script>
+  <script src="js/36-renderrecenttimes.js"></script>
+  <script src="js/37-closemodal.js"></script>
+  <script src="js/38-updatepreview.js"></script>
+  <script src="js/39-showconfirmmodal.js"></script>
+  <script src="js/40-closeconfirmmodal.js"></script>
+  <script src="js/41-promptsyncpassword.js"></script>
+  <script src="js/42-closesyncpassmodal.js"></script>
+  <script src="js/43-makemonthkey.js"></script>
+  <script src="js/44-buildemptymonth.js"></script>
+  <script src="js/45-showtoast.js"></script>
+  <script src="js/46-savejsonfile.js"></script>
+  <script src="js/47-createlocalbackup.js"></script>
+  <script src="js/48-validateloadeddata.js"></script>
+  <script src="js/49-applyloadedjson.js"></script>
+  <script src="js/50-loadjsonfile.js"></script>
+  <script src="js/51-isoweekkey.js"></script>
+  <script src="js/52-computestats.js"></script>
+  <script src="js/52a-groupby.js"></script>
+  <script src="js/53-renderstatcards.js"></script>
+  <script src="js/54-computemonthcomparisons.js"></script>
+  <script src="js/55-rendercomparecards.js"></script>
+  <script src="js/56-destroycharts.js"></script>
+  <script src="js/57-chartcolors.js"></script>
+  <script src="js/58-baseoptions.js"></script>
+  <script src="js/59-moneylabel.js"></script>
+  <script src="js/60-hourslabel.js"></script>
+  <script src="js/61-buildcharts.js"></script>
+  <script src="js/62-buildstats.js"></script>
+  <script src="js/63-setcloudstatus.js"></script>
+  <script src="js/64-b64encode.js"></script>
+  <script src="js/65-b64decode.js"></script>
+  <script src="js/66-derivekey.js"></script>
+  <script src="js/67-encryptforcloud.js"></script>
+  <script src="js/68-decryptfromcloud.js"></script>
+  <script src="js/69-ensuretokenclient.js"></script>
+  <script src="js/70-requestcloudtoken.js"></script>
+  <script src="js/71-driveapierror.js"></script>
+  <script src="js/72-drivefindfile.js"></script>
+  <script src="js/73-drivecreatefile.js"></script>
+  <script src="js/74-driveupdatefile.js"></script>
+  <script src="js/75-drivedownloadfile.js"></script>
+  <script src="js/76-pullfromcloud.js"></script>
+  <script src="js/77-pushtocloud.js"></script>
+  <script src="js/78-iscloudsyncactive.js"></script>
+  <script src="js/79-runfullsync.js"></script>
+  <script src="js/80-pushafterdaysave.js"></script>
+  <script src="js/81-connectcloudsync.js"></script>
+  <script src="js/82-disconnectcloudsync.js"></script>
+  <script src="js/84-close-data-menu.js"></script>
+  <script src="js/85-move-month.js"></script>
+  <script src="js/86-init-enhancements.js"></script>
+  <script src="js/87-resume-cloud-sync.js"></script>
+  <script src="js/bootstrap.js"></script>
 </body>
 </html>
