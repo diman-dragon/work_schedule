@@ -26,10 +26,11 @@
 <body>
 <div class="wrap">
   <div class="title-card">
-    <div class="title-card-icon" aria-hidden="true">🕒</div>
+    <div class="title-card-icon" aria-hidden="true">🚌</div>
     <h1>Рабочий <span>график</span></h1>
     <div class="eyebrow" id="headerSub">—</div>
     <div class="autosave-badge"><span class="autosave-dot"></span>Автосохранение в этом браузере включено</div>
+    <div class="route-line" aria-hidden="true"><span class="route-marker"></span></div>
   </div>
 
   <div class="header">
@@ -108,6 +109,7 @@
       <span class="lg-item"><span class="lg-dot workday"></span>рабочий день</span>
       <span class="lg-item"><span class="lg-dot weekend"></span>выходной</span>
       <span class="lg-item"><span class="lg-dot future"></span>ещё не наступил</span>
+      <span class="lg-item"><span class="lg-dot notstarted"></span>смена внесена, ещё не началась</span>
       <span class="lg-item"><span class="lg-dot pending"></span>смена идёт, доход ещё не засчитан</span>
     </div>
     <div class="cal-head">
@@ -258,6 +260,7 @@
 <script src="js/utils/parse-date.js"></script>
 <script src="js/shift/shift-end-date-time.js"></script>
 <script src="js/shift/is-shift-pending.js"></script>
+<script src="js/shift/is-shift-not-started.js"></script>
 <script src="js/ui/led-anim-state.js"></script>
 <script src="js/ui/animate-raw.js"></script>
 <script src="js/ui/animate-number-led.js"></script>

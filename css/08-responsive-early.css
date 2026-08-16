@@ -104,7 +104,6 @@
 }
 .stat-card .s-value{
   font-family:var(--font-ui);
-  font-variant-numeric:tabular-nums;
   font-size:27px;
   font-weight:700;
   color:var(--accent);

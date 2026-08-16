@@ -34,7 +34,6 @@
 /* стабильная ширина цифр в местах, где меняются часы/суммы/время */
 .rate-box input, .month-btn .m-year, .day .d-time, .day .d-dur, .day .d-sum,
 .time-field input, .time-chip, .stat-card .s-value{
-  font-variant-numeric:tabular-nums;
 }
 
 /* ТЕПЛОВАЯ КАРТА: заливка идёт через inline-style, текст переводим на нейтральный

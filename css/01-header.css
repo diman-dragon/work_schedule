@@ -83,6 +83,40 @@
   flex:0 0 auto;
 }
 
+/* маршрутная линия — тематическая деталь для графика водителей автобусов:
+   пунктирная "дорога" с точкой-маркером, неспешно идущей от начала до конца
+   маршрута и обратно. Уважает prefers-reduced-motion (см. 16-reduced-motion.css) */
+.route-line{
+  position:relative;
+  width:100%;
+  max-width:200px;
+  height:14px;
+  margin-top:12px;
+}
+.route-line::before{
+  content:"";
+  position:absolute;
+  top:50%; left:0; right:0;
+  height:2px;
+  transform:translateY(-50%);
+  border-radius:var(--radius-pill);
+  background-image:repeating-linear-gradient(90deg, rgba(255,255,255,.6) 0 7px, transparent 7px 14px);
+}
+.route-marker{
+  position:absolute;
+  top:50%; left:0;
+  width:8px; height:8px;
+  margin-left:-4px;
+  border-radius:50%;
+  background:var(--accent-text);
+  box-shadow:0 0 0 4px rgba(255,255,255,.22);
+  animation:routeMove 4.2s ease-in-out infinite;
+}
+@keyframes routeMove{
+  0%, 100%{ left:0%; }
+  50%{ left:100%; }
+}
+
 /* ---------- ПАНЕЛЬ ДЕЙСТВИЙ ---------- */
 .header{
   display:flex;
@@ -194,3 +228,4 @@
   z-index:200;
 }
 .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+.toast[aria-live]{min-width:180px; text-align:center;}

@@ -1,11 +1,17 @@
 /* 16-reduced-motion.css
- * Уважение к prefers-reduced-motion — отключение анимаций.
+ * Уважение к prefers-reduced-motion — отключает все декоративные анимации
+ * (появление страницы/дней, "маршрутная линия" и заливка в шапке, пульс
+ * незавершённой смены, всплытие модалок и меню), оставляя обычные
+ * мгновенные переходы состояний.
  */
-@media (max-width:480px){
-  .header-actions .rate-box{flex-basis:100%;}
-  .today-btn{height:34px;}
-  .action-menu{position:fixed;top:auto;bottom:12px;left:12px;right:12px;width:auto;}
-  .tabs{position:sticky;top:8px;z-index:20;padding:4px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-pill);backdrop-filter:blur(20px);}
-  .tab-btn{flex:1;}
-  .quick-actions .save-btn{flex:1 1 auto;}
+@media (prefers-reduced-motion: reduce){
+  *,
+  *::before,
+  *::after{
+    animation-duration:0.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.001ms !important;
+    scroll-behavior:auto !important;
+  }
+  .route-marker{display:none;}
 }

@@ -25,13 +25,7 @@
   position:absolute;
   top:0; left:0; right:0; height:2px;
   background:linear-gradient(90deg, transparent, var(--accent), var(--teal), transparent);
-  background-size:200% 100%;
-  opacity:0.8;
-  animation:shimmer 3.5s linear infinite;
-}
-@keyframes shimmer{
-  0%{ background-position:200% 0; }
-  100%{ background-position:-200% 0; }
+  opacity:0.7;
 }
 .led-block{text-align:center;}
 .led-label{
@@ -47,7 +41,6 @@
   font-size:34px;
   font-weight:600;
   letter-spacing:-0.02em;
-  font-variant-numeric:tabular-nums;
   color:var(--accent);
   line-height:1.15;
 }

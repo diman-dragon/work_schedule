@@ -26,6 +26,7 @@ html[data-theme="dark"]{
   --accent-glow:rgba(76,194,255,0.22);
   --accent-text:#0c1116;
   --teal:#6fa89a;                         /* нейтрально-приглушённый акцент для дохода, не яркий */
+  --teal-dim:rgba(111,168,154,0.14);
   --text:#ffffff;
   --text-dim:#cccccc;
   --text-faint:#999999;
@@ -64,6 +65,7 @@ html[data-theme="light"]{
   --accent-glow:rgba(0,103,192,0.14);
   --accent-text:#ffffff;
   --teal:#4f8a7c;
+  --teal-dim:rgba(79,138,124,0.12);
   --text:#1b1b1b;
   --text-dim:#4d4d4d;
   --text-faint:#8a8a8a;

@@ -33,29 +33,34 @@ function render(key){
     const isToday = isCurrentCalMonth && dayNum === today.getDate();
     const isFuture = dateObj.getTime() > todayMidnight.getTime();
     let stateClass;
-    if(d.start){ stateClass = d.pending ? 'pending-shift' : 'worked'; }
+    if(d.start){ stateClass = d.pending ? (d.notStarted ? 'not-started' : 'pending-shift') : 'worked'; }
     else if(isFuture){ stateClass = 'future'; }
     else if(isToday){ stateClass = 'pending-today'; }
     else { stateClass = 'off'; }
     cell.className = 'day ' + stateClass + (isToday ? ' today' : '');
     cell.style.animationDelay = (Math.min(idx, 30) * 12) + 'ms';
     let inner = (d.photo ? `<span class="d-photo-badge" title="Есть фото графика смен">📷</span>` : '') +
-      `<div class="d-head"><span class="d-num">${dayNum}</span>` +
-      (d.start ? `<span class="d-time">${d.start}–${d.end}</span>` : '') +
-      `</div><div class="d-body">`;
+      `<div class="d-head"><span class="d-num">${dayNum}</span>`;
+    if(d.start){
+      if(d.notStarted) inner += `<span class="d-sum d-sum-notstarted">🕓 не началась</span>`;
+      else if(d.pending) inner += `<span class="d-sum d-sum-pending">🟡 идёт</span>`;
+      else inner += `<span class="d-sum">${fmtNum(d.sum)} дин.</span>`;
+    }
+    inner += `</div><div class="d-body">`;
     let stateLabel;
     if(d.start){
+      inner += `<div class="d-time">${d.start}–${d.end}</div>`;
       inner += `<div class="d-dur">${minutesToHM(d.minutes)}</div>`;
+      if(d.bus || d.route) inner += `<div class="d-divider"></div>`;
       if(d.bus) inner += `<div class="d-bus">🚌 <span class="d-tag">авт.</span> ${d.bus}</div>`;
       if(d.route) inner += `<div class="d-route">🧭 <span class="d-tag">маршр.</span> ${d.route}</div>`;
-      if(d.pending){
-        inner += `<div class="d-pending">🟡 идёт · после ${d.end}</div>`;
-      } else {
-        inner += `<div class="d-sum">${fmtNum(d.sum)} дин.</div>`;
-      }
-      stateLabel = d.pending
-        ? `смена ${d.start}–${d.end} ещё не закончилась, доход будет засчитан после ${d.end}`
-        : `смена ${d.start}–${d.end}, ${fmtNum(d.sum)} дин.` + (d.bus || d.route ? `, автобус ${d.bus || '—'}, маршрут ${d.route || '—'}` : '');
+      if(d.notStarted) inner += `<div class="d-pending">начнётся в ${d.start}</div>`;
+      else if(d.pending) inner += `<div class="d-pending">после ${d.end} доход будет учтён</div>`;
+      stateLabel = d.notStarted
+        ? `смена ${d.start}–${d.end} ещё не началась`
+        : d.pending
+          ? `смена ${d.start}–${d.end} ещё не закончилась, доход будет засчитан после ${d.end}`
+          : `смена ${d.start}–${d.end}, ${fmtNum(d.sum)} дин.` + (d.bus || d.route ? `, автобус ${d.bus || '—'}, маршрут ${d.route || '—'}` : '');
     } else if(isFuture){
       inner += `<div class="d-off">—</div>`;
       stateLabel = 'ещё не наступил';
