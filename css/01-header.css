@@ -194,7 +194,7 @@
   white-space:nowrap;
 }
 .save-btn:hover{background:var(--accent-dim); border-color:var(--accent); box-shadow:var(--shadow-8); transform:translateY(-1px);}
-.save-btn:active, .theme-toggle:active{background:var(--accent-dim); box-shadow:0 0 0 1px var(--accent); transform:translateY(0);}
+.save-btn:active, .theme-toggle:active{background:var(--accent-dim); box-shadow:0 0 0 1px var(--accent);}
 .save-btn.active{background:var(--accent); color:var(--accent-text); border-color:var(--accent);}
 
 /* группа кнопок синхронизации — визуально объединена рамкой-«таблеткой», как группа
