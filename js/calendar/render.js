@@ -44,12 +44,12 @@ function render(key){
     if(d.start){
       if(d.notStarted) inner += `<span class="d-sum d-sum-notstarted">🕓 не началась</span>`;
       else if(d.pending) inner += `<span class="d-sum d-sum-pending">🟡 идёт</span>`;
-      else inner += `<span class="d-sum">${fmtNum(d.sum)} дин.</span>`;
+      else inner += `<span class="d-sum">${fmtNum(d.sum)}<span class="d-sum-unit"> дин.</span></span>`;
     }
     inner += `</div><div class="d-body">`;
     let stateLabel;
     if(d.start){
-      inner += `<div class="d-time">${d.start}–${d.end}</div>`;
+      inner += `<div class="d-time"><span class="d-time-start">${d.start}</span><span class="d-time-sep">–</span><span class="d-time-end">${d.end}</span></div>`;
       inner += `<div class="d-dur">${minutesToHM(d.minutes)}</div>`;
       if(d.bus || d.route) inner += `<div class="d-divider"></div>`;
       if(d.bus) inner += `<div class="d-bus">🚌 <span class="d-tag">авт.</span> ${d.bus}</div>`;
