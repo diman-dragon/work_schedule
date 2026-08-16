@@ -64,5 +64,4 @@
   white-space:nowrap;
 }
 .led-block.main .led-value.duration{font-size:34px;}
-.led-value.small.duration{font-size:17px;}
 .led-unit{font-size:14px; color:var(--text-dim); font-weight:400; margin-left:3px;}

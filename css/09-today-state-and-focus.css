@@ -32,7 +32,7 @@
 .past-months .months{margin-top:10px;}
 
 /* стабильная ширина цифр в местах, где меняются часы/суммы/время */
-.rate-box input, .month-btn .m-year, .overall b, .day .d-time, .day .d-dur, .day .d-sum,
+.rate-box input, .month-btn .m-year, .day .d-time, .day .d-dur, .day .d-sum,
 .time-field input, .time-chip, .stat-card .s-value{
   font-variant-numeric:tabular-nums;
 }

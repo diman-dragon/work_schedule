@@ -91,7 +91,7 @@ html[data-theme="light"]{
 *{box-sizing:border-box; margin:0; padding:0;}
 /* Fluent Acrylic/Mica: сильное размытие + насыщенность на всех "поверхностях" */
 .rate-box, .theme-toggle, .save-btn, .display-panel, .month-btn, .day,
-.toast, .stat-card, .chart-card, .modal, .overall, .switch, .cal-legend,
+.toast, .stat-card, .chart-card, .modal, .switch, .cal-legend,
 input[type="time"], input[type="month"]{
   backdrop-filter:blur(20px) saturate(180%);
   -webkit-backdrop-filter:blur(20px) saturate(180%);
