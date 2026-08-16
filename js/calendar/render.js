@@ -12,8 +12,6 @@ function render(key){
   const worked = m.days.filter(d => d.start && !d.pending);
   animateNumberLed('shiftCount', worked.length);
   animateNumberLed('totalSum', m.total_sum, fmtNum);
-  const avg = worked.length ? m.total_minutes/worked.length : 0;
-  animateMinutesLed('avgShift', avg);
 
   const grid = $('calGrid');
   grid.innerHTML = '';
@@ -78,7 +76,5 @@ function render(key){
     cell.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openModal(key, idx); } });
     grid.appendChild(cell);
   });
-
-  renderOverallBar();
   applyHeatmap();
 }

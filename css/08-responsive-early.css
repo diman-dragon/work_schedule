@@ -4,13 +4,13 @@
 @media (max-width:720px){
   body{padding:16px 12px 40px;}
   .header{gap:12px;}
-  .header-left h1{font-size:24px;}
+  .title-card h1{font-size:26px;}
   .months{grid-template-columns:repeat(4,1fr);}
   .month-btn:nth-child(n+5){display:none;}
   .led-value{font-size:24px;}
+  .led-block.main .led-value{font-size:26px;}
   .led-value.small{font-size:19px;}
-  .display-panel{padding:16px;}
-  .stat-mini{gap:10px;}
+  .display-panel{padding:16px; gap:22px;}
   .day{min-height:104px; padding:6px 7px;}
   .cal-grid{gap:6px;}
   .day .d-num{font-size:11px;}
@@ -49,7 +49,7 @@
   .day .d-bus, .day .d-route{font-size:9px;}
 }
 
-.tabs{display:flex; gap:8px; margin-bottom:20px;}
+.tabs{display:flex; justify-content:center; gap:8px; margin-bottom:20px;}
 .tab-btn{
   padding:9px 18px;
   border-radius:var(--radius-pill);

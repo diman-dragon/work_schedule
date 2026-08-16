@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="css/01-header.css">
 <link rel="stylesheet" href="css/02-month-strip.css">
 <link rel="stylesheet" href="css/03-display-panel.css">
-<link rel="stylesheet" href="css/04-overall-bar.css">
 <link rel="stylesheet" href="css/05-calendar-grid.css">
 <link rel="stylesheet" href="css/06-modal-and-controls.css">
 <link rel="stylesheet" href="css/07-day-photo.css">
@@ -24,7 +23,6 @@
 <link rel="stylesheet" href="css/16-reduced-motion.css">
 <link rel="stylesheet" href="css/17-print-a4.css">
 </head>
-<body>
 <body>
 <div class="wrap">
   <div class="title-card">
@@ -92,27 +90,19 @@
     </div>
 
     <div class="display-panel">
-      <div class="led-block">
+      <div class="led-block main">
         <div class="led-label">Отработано часов</div>
         <div class="led-value duration" id="totalHours">—</div>
       </div>
-      <div class="stat-mini">
-        <div class="led-block">
-          <div class="led-label">Смен</div>
-          <div class="led-value small" id="shiftCount">—</div>
-        </div>
-        <div class="led-block">
-          <div class="led-label">Заработок, дин.</div>
-          <div class="led-value small" id="totalSum">—</div>
-        </div>
-        <div class="led-block">
-          <div class="led-label">Средняя смена</div>
-          <div class="led-value small duration" id="avgShift">—</div>
-        </div>
+      <div class="led-block main">
+        <div class="led-label">Заработок, дин.</div>
+        <div class="led-value" id="totalSum">—</div>
+      </div>
+      <div class="led-block minor">
+        <div class="led-label">Смен</div>
+        <div class="led-value small" id="shiftCount">—</div>
       </div>
     </div>
-
-    <div class="overall" id="overallBar"></div>
 
     <div class="cal-legend">
       <span class="lg-item"><span class="lg-dot workday"></span>рабочий день</span>
@@ -294,7 +284,6 @@
 <script src="js/ui/theme-and-rate-bindings.js"></script>
 <script src="js/ui/month-button.js"></script>
 <script src="js/ui/render-months-strip.js"></script>
-<script src="js/ui/render-overall-bar.js"></script>
 <script src="js/calendar/render.js"></script>
 <script src="js/day-modal/day-modal-elements.js"></script>
 <script src="js/photo/day-photo-elements.js"></script>

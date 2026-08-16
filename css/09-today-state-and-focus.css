@@ -1,16 +1,13 @@
 /* 09-today-state-and-focus.css
- * Подсветка сегодняшнего дня и повторное уточнение focus-visible/переменных темы.
+ * Повторное уточнение адаптивных правок для графиков статистики.
+ * (Подсветка .day.today теперь живёт в 05-calendar-grid.css, рядом с остальными
+ * состояниями плитки дня — раньше была здесь отдельно, что и создавало дубль
+ * с более поздним переопределением border-color.)
  */
 @media (max-width:720px){
   .charts-grid{grid-template-columns:1fr;}
   .chart-card .chart-wrap{height:230px;}
 }
-.day.today{
-  border-color:var(--accent);
-  border-width:2px;
-  box-shadow:0 0 0 3px var(--accent-glow);
-}
-.day.today .d-num{color:var(--accent);}
 .past-months{margin-bottom:14px;}
 .past-months summary{
   cursor:pointer;
