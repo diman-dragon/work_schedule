@@ -31,11 +31,6 @@
 .past-months summary:hover{color:var(--text);}
 .past-months .months{margin-top:10px;}
 
-/* стабильная ширина цифр в местах, где меняются часы/суммы/время */
-.rate-box input, .month-btn .m-year, .day .d-time, .day .d-dur, .day .d-sum,
-.time-field input, .time-chip, .stat-card .s-value{
-}
-
 /* ТЕПЛОВАЯ КАРТА: заливка идёт через inline-style, текст переводим на нейтральный
    цвет, чтобы оставаться читаемым на любой насыщенности заливки */
 .cal-grid.heatmap-active .day .d-time,

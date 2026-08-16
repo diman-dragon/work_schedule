@@ -13,7 +13,6 @@
   .months{gap:6px;}
   .month-btn{padding:9px 8px;}
   .quick-actions{margin-top:-6px;}
-  .day{min-height:104px;}
 }
 @media (max-width:480px){
   .header-actions .rate-box{flex-basis:100%;}
