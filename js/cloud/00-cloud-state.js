@@ -41,7 +41,6 @@ try{
 let cloudTokenClient = null;
 let cloudFileId = null;
 let cloudPassword = localStorage.getItem(CLOUD_PASS_SESSION_KEY) || null;
-let cloudPushTimer = null;
 let cloudBusy = false;
 
 const cloudSyncBtn = $('cloudSyncBtn');

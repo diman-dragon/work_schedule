@@ -1,6 +1,7 @@
 /* 17-print-a4.css
  * Полноценный печатный табель A4 (@media print).
  */
+.print-sheet{display:none;}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{
     animation-duration:.01ms!important;

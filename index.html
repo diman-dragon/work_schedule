@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="css/01-header.css">
 <link rel="stylesheet" href="css/02-month-strip.css">
 <link rel="stylesheet" href="css/03-display-panel.css">
-<link rel="stylesheet" href="css/04-overall-bar.css">
 <link rel="stylesheet" href="css/05-calendar-grid.css">
 <link rel="stylesheet" href="css/06-modal-and-controls.css">
 <link rel="stylesheet" href="css/07-day-photo.css">
@@ -25,13 +24,13 @@
 <link rel="stylesheet" href="css/17-print-a4.css">
 </head>
 <body>
-<body>
 <div class="wrap">
   <div class="title-card">
-    <div class="title-card-icon" aria-hidden="true">🕒</div>
+    <div class="title-card-icon" aria-hidden="true">🚌</div>
     <h1>Рабочий <span>график</span></h1>
     <div class="eyebrow" id="headerSub">—</div>
     <div class="autosave-badge"><span class="autosave-dot"></span>Автосохранение в этом браузере включено</div>
+    <div class="route-line" aria-hidden="true"><span class="route-marker"></span></div>
   </div>
 
   <div class="header">
@@ -92,32 +91,25 @@
     </div>
 
     <div class="display-panel">
-      <div class="led-block">
+      <div class="led-block main">
         <div class="led-label">Отработано часов</div>
         <div class="led-value duration" id="totalHours">—</div>
       </div>
-      <div class="stat-mini">
-        <div class="led-block">
-          <div class="led-label">Смен</div>
-          <div class="led-value small" id="shiftCount">—</div>
-        </div>
-        <div class="led-block">
-          <div class="led-label">Заработок, дин.</div>
-          <div class="led-value small" id="totalSum">—</div>
-        </div>
-        <div class="led-block">
-          <div class="led-label">Средняя смена</div>
-          <div class="led-value small duration" id="avgShift">—</div>
-        </div>
+      <div class="led-block main">
+        <div class="led-label">Заработок, дин.</div>
+        <div class="led-value" id="totalSum">—</div>
+      </div>
+      <div class="led-block minor">
+        <div class="led-label">Смен</div>
+        <div class="led-value small" id="shiftCount">—</div>
       </div>
     </div>
-
-    <div class="overall" id="overallBar"></div>
 
     <div class="cal-legend">
       <span class="lg-item"><span class="lg-dot workday"></span>рабочий день</span>
       <span class="lg-item"><span class="lg-dot weekend"></span>выходной</span>
       <span class="lg-item"><span class="lg-dot future"></span>ещё не наступил</span>
+      <span class="lg-item"><span class="lg-dot notstarted"></span>смена внесена, ещё не началась</span>
       <span class="lg-item"><span class="lg-dot pending"></span>смена идёт, доход ещё не засчитан</span>
     </div>
     <div class="cal-head">
@@ -268,6 +260,7 @@
 <script src="js/utils/parse-date.js"></script>
 <script src="js/shift/shift-end-date-time.js"></script>
 <script src="js/shift/is-shift-pending.js"></script>
+<script src="js/shift/is-shift-not-started.js"></script>
 <script src="js/ui/led-anim-state.js"></script>
 <script src="js/ui/animate-raw.js"></script>
 <script src="js/ui/animate-number-led.js"></script>
@@ -294,7 +287,6 @@
 <script src="js/ui/theme-and-rate-bindings.js"></script>
 <script src="js/ui/month-button.js"></script>
 <script src="js/ui/render-months-strip.js"></script>
-<script src="js/ui/render-overall-bar.js"></script>
 <script src="js/calendar/render.js"></script>
 <script src="js/day-modal/day-modal-elements.js"></script>
 <script src="js/photo/day-photo-elements.js"></script>

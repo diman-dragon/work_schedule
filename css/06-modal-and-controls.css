@@ -76,7 +76,6 @@
   margin-bottom:18px;
   line-height:1.6;
 }
-.calc-preview b{color:var(--teal); font-family:var(--font-ui); font-variant-numeric:tabular-nums;}
 .calc-status{font-weight:700; font-size:12.5px;}
 .calc-status--future{color:var(--text-dim);}
 .calc-status--pending{color:var(--accent);}

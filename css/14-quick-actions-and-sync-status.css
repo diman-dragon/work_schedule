@@ -4,6 +4,7 @@
 .quick-actions{
   display:flex;
   align-items:center;
+  justify-content:center;
   gap:8px;
   flex-wrap:wrap;
   margin:-10px 0 22px;
@@ -19,7 +20,6 @@
   font-size:11.5px;
   font-weight:500;
   color:var(--text-dim);
-  font-variant-numeric:tabular-nums;
 }
 /* цветная точка-индикатор перед текстом статуса — сразу видно состояние,
    не читая текст целиком (как индикаторы состояния в Win11) */
