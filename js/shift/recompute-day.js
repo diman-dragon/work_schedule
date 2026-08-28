@@ -8,9 +8,14 @@
 function recomputeDay(d){
   if(!d.edited) return;
   if(d.start && d.end){
-    d.minutes = computeMinutes(d.start, d.end);
+    const workMin = computeMinutes(d.start, d.end);
+    // довоз до гаража после последней остановки — не часть линии, оплачивается
+    // по половине ставки, но входит в общее отработанное время (см. фото
+    // туражной таблицы: рейс до 22:45 по полной, "долазак" 22:45–23:10 — по половине)
+    const garageMin = Math.max(0, Number(d.garageMin) || 0);
+    d.minutes = workMin + garageMin;
     d.hours = minutesToHM(d.minutes);
-    d.sum = Math.round((d.minutes/60)*rate*100)/100;
+    d.sum = Math.round(((workMin/60)*rate + (garageMin/60)*rate*0.5)*100)/100;
   } else {
     d.minutes = null; d.hours = null; d.sum = null;
   }
