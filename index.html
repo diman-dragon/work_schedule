@@ -165,13 +165,7 @@
           <input type="time" id="endInput">
         </div>
       </div>
-      <div class="time-row">
-        <div class="time-field">
-          <label for="garageMinInput">Довоз до гаража, мин</label>
-          <input type="number" id="garageMinInput" min="0" step="1" placeholder="0" inputmode="numeric">
-        </div>
-      </div>
-      <div class="day-photo-hint" id="garageMinHint">Время от последней остановки до гаража — считается отдельно, по половине ставки</div>
+      <div class="day-photo-hint" id="garageMinHint">Довоз до гаража после последней остановки (20 мин) включается в каждую смену автоматически, по полной ставке</div>
       <div class="time-row">
         <div class="time-field">
           <label for="busInput">Номер автобуса</label>
@@ -182,6 +176,8 @@
           <input type="text" id="routeInput" placeholder="напр. А17" inputmode="text" autocomplete="off">
         </div>
       </div>
+      <div class="recent-times" id="recentBuses"></div>
+      <div class="recent-times" id="recentRoutes"></div>
       <div class="calc-preview" id="calcPreview">—</div>
     </div>
 
@@ -305,6 +301,8 @@
 <script src="js/day-modal/open-modal.js"></script>
 <script src="js/day-modal/get-frequent-shift-times.js"></script>
 <script src="js/day-modal/render-recent-times.js"></script>
+<script src="js/day-modal/get-frequent-bus-routes.js"></script>
+<script src="js/day-modal/render-recent-bus-route.js"></script>
 <script src="js/day-modal/close-modal.js"></script>
 <script src="js/day-modal/update-preview.js"></script>
 <script src="js/day-modal/day-modal-basic-bindings.js"></script>
