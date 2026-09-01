@@ -18,6 +18,8 @@ function openModal(key, idx){
   routeInput.value = d.route || '';
   setDayPhotoPreview(d.photo || null);
   renderRecentTimes();
+  renderRecentBuses();
+  renderRecentRoutes();
   updatePreview();
 
   overlay.classList.add('show');
