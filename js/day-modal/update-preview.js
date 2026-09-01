@@ -10,16 +10,16 @@ function updatePreview(){
     calcPreview.innerHTML = '<span style="color:var(--weekend)">Начало и конец совпадают — укажите корректное время смены</span>';
     return;
   }
-  const workMins = computeMinutes(startInput.value, endInput.value);
-  const garageMin = Math.max(0, parseInt(garageMinInput.value, 10) || 0);
-  const mins = workMins + garageMin;
-  const sum = Math.round(((workMins/60)*rate + (garageMin/60)*rate*0.5)*100)/100;
-  const garageNote = garageMin ? ` (вкл. ${garageMin} мин до гаража по половине ставки)` : '';
+  const lineMin = computeMinutes(startInput.value, endInput.value);
+  // довоз до гаража — фиксированные 20 минут на каждую смену, по полной ставке
+  const mins = lineMin + GARAGE_RETURN_MIN;
+  const perMinuteRate = Math.round((rate/60)*100)/100;
+  const sum = Math.round(perMinuteRate * mins * 100)/100;
 
   // определяем реальные дату/время начала и конца смены (та дата, что редактируется,
-  // а не "сегодня"), чтобы правильно показать один из трёх статусов; конец смены —
-  // это момент реального освобождения, то есть время окончания линии + довоз до гаража
-  let startDt = null, endDt = null;
+  // а не "сегодня"), чтобы правильно показать один из трёх статусов; момент
+  // реального освобождения — это конец линии + фиксированный довоз до гаража
+  let startDt = null, endDt = null, releaseLabel = endInput.value;
   if(editingDay){
     const d = DATA[editingDay.key].days[editingDay.idx];
     const base = parseDate(d.date);
@@ -27,12 +27,11 @@ function updatePreview(){
     const dayOffset = (eMin <= sMin) ? 1 : 0;
     startDt = new Date(base.getFullYear(), base.getMonth(), base.getDate(), Math.floor(sMin/60), sMin%60);
     endDt = new Date(base.getFullYear(), base.getMonth(), base.getDate()+dayOffset, Math.floor(eMin/60), eMin%60);
-    if(garageMin) endDt.setMinutes(endDt.getMinutes() + garageMin);
+    endDt.setMinutes(endDt.getMinutes() + GARAGE_RETURN_MIN);
+    releaseLabel = `${String(endDt.getHours()).padStart(2,'0')}:${String(endDt.getMinutes()).padStart(2,'0')}`;
   }
   const now = new Date();
-  const releaseLabel = garageMin && endDt
-    ? `${String(endDt.getHours()).padStart(2,'0')}:${String(endDt.getMinutes()).padStart(2,'0')}`
-    : endInput.value;
+  const garageNote = ` (включая ${GARAGE_RETURN_MIN} мин довоза до гаража)`;
 
   if(startDt && startDt.getTime() > now.getTime()){
     calcPreview.innerHTML = `<span class="calc-status calc-status--future">🕓 Смена ещё не началась</span><br>Начало в <b>${startInput.value}</b> · длительность: <b>${minutesToHM(mins)}</b>${garageNote} · доход будет: <b>${fmtNum(sum)} дин.</b>`;
