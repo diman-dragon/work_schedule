@@ -14,7 +14,6 @@ function openModal(key, idx){
   timeFields.style.display = isWorking ? 'block' : 'none';
   startInput.value = d.start || '15:00';
   endInput.value = d.end || '23:00';
-  garageMinInput.value = d.garageMin || '';
   busInput.value = d.bus || '';
   routeInput.value = d.route || '';
   setDayPhotoPreview(d.photo || null);

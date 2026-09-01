@@ -12,6 +12,5 @@ workSwitch.addEventListener('keydown', (e) => {
 });
 startInput.addEventListener('input', updatePreview);
 endInput.addEventListener('input', updatePreview);
-garageMinInput.addEventListener('input', updatePreview);
 $('cancelBtn').addEventListener('click', closeModal);
 overlay.addEventListener('click', (e) => { if(e.target === overlay) closeModal(); });

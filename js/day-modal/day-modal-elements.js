@@ -7,7 +7,6 @@ const workSwitch = $('workSwitch');
 const timeFields = $('timeFields');
 const startInput = $('startInput');
 const endInput = $('endInput');
-const garageMinInput = $('garageMinInput');
 const busInput = $('busInput');
 const routeInput = $('routeInput');
 const calcPreview = $('calcPreview');
