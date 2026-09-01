@@ -14,15 +14,14 @@ $('saveBtn').addEventListener('click', (ev) => {
   if(isWorking){
     d.start = startInput.value;
     d.end = endInput.value;
-    // довоз до гаража после последней остановки — считается отдельно, по
-    // половине ставки (см. recomputeDay); 0/пусто, если довоза не было
-    d.garageMin = Math.max(0, parseInt(garageMinInput.value, 10) || 0);
+    // довоз до гаража после последней остановки — фиксированные
+    // GARAGE_RETURN_MIN минут, применяются автоматически ко всем сменам
+    // (см. shift/recompute-day.js), поэтому здесь ничего не сохраняем
     d.bus = busInput.value.trim() || null;
     d.route = routeInput.value.trim() || null;
   } else {
     d.start = null;
     d.end = null;
-    d.garageMin = null;
     d.bus = null;
     d.route = null;
   }
