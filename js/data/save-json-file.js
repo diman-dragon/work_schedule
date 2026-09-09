@@ -6,7 +6,7 @@
 // настоящий системный диалог "Сохранить как", где можно выбрать папку и имя файла.
 // Иначе — откатываемся на обычную загрузку файла в папку "Загрузки".
 async function saveJsonFile(){
-  const exportObj = { schemaVersion: DATA_SCHEMA_VERSION, exportedAt: new Date().toISOString(), rate, currentKey, order, months: DATA, hiddenShiftTimes: Array.from(hiddenShiftTimes) };
+  const exportObj = { schemaVersion: DATA_SCHEMA_VERSION, exportedAt: new Date().toISOString(), rate, currentKey, order, months: DATA, hiddenShiftTimes: Array.from(hiddenShiftTimes), hiddenBuses: Array.from(hiddenBuses), hiddenRoutes: Array.from(hiddenRoutes) };
   const json = JSON.stringify(exportObj, null, 2);
   if(window.showSaveFilePicker){
     try{

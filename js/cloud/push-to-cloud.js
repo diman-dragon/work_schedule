@@ -6,7 +6,7 @@ async function pushToCloud(){
   // изменения данных), а не генерируем здесь заново — раньше метка
   // проставлялась ДО подтверждения успешной записи на Диск, и при обрыве
   // сети локальная копия начинала выглядеть "новее", чем есть на самом деле
-  const payload = { schemaVersion: DATA_SCHEMA_VERSION, rate, currentKey, order, months: DATA, hiddenShiftTimes: Array.from(hiddenShiftTimes), updatedAt: APP.updatedAt || Date.now() };
+  const payload = { schemaVersion: DATA_SCHEMA_VERSION, rate, currentKey, order, months: DATA, hiddenShiftTimes: Array.from(hiddenShiftTimes), hiddenBuses: Array.from(hiddenBuses), hiddenRoutes: Array.from(hiddenRoutes), updatedAt: APP.updatedAt || Date.now() };
   const encrypted = await encryptForCloud(payload, cloudPassword);
   if(!cloudFileId) cloudFileId = await driveFindFile();
   if(!cloudFileId) cloudFileId = await driveCreateFile(encrypted);

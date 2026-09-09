@@ -10,7 +10,7 @@ function persistLocalOnly(){
     // из-за чего pullFromCloud мог посчитать свежие локальные данные
     // "устаревшими" и затереть их более старой версией с Google Диска
     // (типичная причина пропажи только что сохранённой смены).
-    APP = { schemaVersion: DATA_SCHEMA_VERSION, rate, currentKey, order, months: DATA, theme: document.documentElement.getAttribute('data-theme') || 'dark', hiddenShiftTimes: Array.from(hiddenShiftTimes), updatedAt: Date.now() };
+    APP = { schemaVersion: DATA_SCHEMA_VERSION, rate, currentKey, order, months: DATA, theme: document.documentElement.getAttribute('data-theme') || 'dark', hiddenShiftTimes: Array.from(hiddenShiftTimes), hiddenBuses: Array.from(hiddenBuses), hiddenRoutes: Array.from(hiddenRoutes), updatedAt: Date.now() };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(APP));
   }catch(err){
     console.error('Не удалось сохранить данные в localStorage', err);
