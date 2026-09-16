@@ -15,6 +15,8 @@ async function pullFromCloud(){
     DATA = remote.months || {};
     order = sanitizeOrder(remote.order, DATA);
     hiddenShiftTimes = new Set(Array.isArray(remote.hiddenShiftTimes) ? remote.hiddenShiftTimes : []);
+    hiddenBuses = new Set(Array.isArray(remote.hiddenBuses) ? remote.hiddenBuses : []);
+    hiddenRoutes = new Set(Array.isArray(remote.hiddenRoutes) ? remote.hiddenRoutes : []);
     APP.updatedAt = remoteUpdatedAt;
     if(!DATA[currentKey]) currentKey = ensureCurrentMonthExists();
     $('rateInput').value = rate;

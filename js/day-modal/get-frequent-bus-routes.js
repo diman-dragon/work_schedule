@@ -5,7 +5,7 @@
 // та же идея, что и в get-frequent-shift-times.js: собираем значения поля из всей
 // истории дней, считаем частоту и дату последнего использования, чтобы можно было
 // в один клик подставить привычный номер автобуса или маршрута.
-function getFrequentFieldValues(field, limit){
+function getFrequentFieldValues(field, hiddenSet, limit){
   const map = {};
   Object.values(DATA).forEach(m => {
     m.days.forEach(d => {
@@ -18,10 +18,13 @@ function getFrequentFieldValues(field, limit){
       }
     });
   });
-  // сортируем по свежести использования (самые недавние — первыми), как и для смен
-  const sorted = Object.values(map).sort((a, b) => (b.lastUsed - a.lastUsed) || (b.count - a.count));
+  // сортируем по свежести использования (самые недавние — первыми), как и для смен;
+  // скрытые пользователем варианты исключаем (см. render-recent-bus-route.js)
+  const sorted = Object.values(map)
+    .filter(f => !hiddenSet.has(f.value))
+    .sort((a, b) => (b.lastUsed - a.lastUsed) || (b.count - a.count));
   return limit ? sorted.slice(0, limit) : sorted;
 }
 
-function getFrequentBuses(limit){ return getFrequentFieldValues('bus', limit); }
-function getFrequentRoutes(limit){ return getFrequentFieldValues('route', limit); }
+function getFrequentBuses(limit){ return getFrequentFieldValues('bus', hiddenBuses, limit); }
+function getFrequentRoutes(limit){ return getFrequentFieldValues('route', hiddenRoutes, limit); }

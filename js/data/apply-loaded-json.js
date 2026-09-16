@@ -8,6 +8,8 @@ function applyLoadedJson(text, fileLabel){
   DATA = obj.months;
   order = sanitizeOrder(obj.order, obj.months);
   hiddenShiftTimes = new Set(Array.isArray(obj.hiddenShiftTimes) ? obj.hiddenShiftTimes : []);
+  hiddenBuses = new Set(Array.isArray(obj.hiddenBuses) ? obj.hiddenBuses : []);
+  hiddenRoutes = new Set(Array.isArray(obj.hiddenRoutes) ? obj.hiddenRoutes : []);
   rate = (typeof obj.rate === 'number' && obj.rate >= 0) ? obj.rate : 700;
   sortOrderChronologically();
   recomputeAll();

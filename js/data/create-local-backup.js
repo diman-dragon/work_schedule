@@ -11,7 +11,9 @@ function createLocalBackup(reason){
       backupAt: new Date().toISOString(),
       reason: reason || 'automatic',
       rate, currentKey, order, months: DATA,
-      hiddenShiftTimes: Array.from(hiddenShiftTimes)
+      hiddenShiftTimes: Array.from(hiddenShiftTimes),
+      hiddenBuses: Array.from(hiddenBuses),
+      hiddenRoutes: Array.from(hiddenRoutes)
     };
     localStorage.setItem(BACKUP_KEY, JSON.stringify(backup));
     return true;
