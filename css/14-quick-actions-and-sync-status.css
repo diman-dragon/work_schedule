@@ -34,3 +34,19 @@
 .sync-status.ok::before{background:var(--teal); box-shadow:0 0 0 3px var(--accent-glow);}
 .sync-status.error{color:var(--negative); border-color:var(--negative);}
 .sync-status.error::before{background:var(--negative);}
+
+/* подпись версии приложения в подвале — нужна, чтобы на любом устройстве
+   (особенно на телефоне, где легко застрять на закешированной сборке)
+   было видно, какая версия реально открыта */
+.app-version{
+  display:inline-block;
+  margin-left:6px;
+  padding:1px 6px;
+  border-radius:6px;
+  background:var(--surface-2, rgba(255,255,255,0.06));
+  color:var(--text-dim);
+  font-size:11px;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.02em;
+  white-space:nowrap;
+}
