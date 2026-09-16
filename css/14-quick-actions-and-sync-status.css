@@ -20,6 +20,26 @@
   font-size:11.5px;
   font-weight:500;
   color:var(--text-dim);
+  /* статус может быть длинным ("загружено из облака · смен: 167"), а раньше
+     ширина ничем не ограничивалась — на телефоне плашка вылезала за край
+     экрана. Теперь она не шире контейнера и переносится по словам */
+  max-width:100%;
+  min-width:0;
+  box-sizing:border-box;
+  text-align:left;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  line-height:1.35;
+}
+/* сама группа кнопок синхронизации тоже не должна распирать страницу */
+.sync-group{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:8px;
+  max-width:100%;
+  min-width:0;
 }
 /* цветная точка-индикатор перед текстом статуса — сразу видно состояние,
    не читая текст целиком (как индикаторы состояния в Win11) */
