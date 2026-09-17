@@ -1,7 +1,7 @@
 /* stats/build-stats.js
  * Автоматически выделено из монолитного index.html при разбиении на модули.
  */
-function buildStats(){
+async function buildStats(){
   const stats = computeStats();
   const grid = $('chartsGrid');
   if(stats.totalShifts === 0){
@@ -12,10 +12,15 @@ function buildStats(){
   }
   renderStatCards(stats);
   renderCompareCards();
-  if(typeof Chart === 'undefined'){
-    // Библиотека графиков грузится с CDN и недоступна без интернета — остальное приложение
-    // (табель, календарь, суммы, автосохранение) при этом продолжает работать полностью локально.
-    grid.innerHTML = `<div class="chart-card wide"><div class="empty-state">📉 Графики недоступны без подключения к интернету — библиотека Chart.js загружается с CDN и не была загружена.<br>Табель, календарь, суммы и автосохранение при этом работают в обычном режиме.</div></div>`;
+  grid.innerHTML = `<div class="chart-card wide"><div class="empty-state">Загрузка графиков…</div></div>`;
+  try{
+    await ensureChartLibsLoaded();
+  }catch(err){
+    // Библиотека графиков лежит локально в проекте (js/vendor/) — если её всё же
+    // не удалось загрузить (например, файл не выложен на хостинг вместе с остальными),
+    // остальное приложение (табель, календарь, суммы, автосохранение) продолжает
+    // работать полностью в обычном режиме.
+    grid.innerHTML = `<div class="chart-card wide"><div class="empty-state">📉 Не удалось загрузить библиотеку графиков (${err.message}).<br>Табель, календарь, суммы и автосохранение при этом работают в обычном режиме.</div></div>`;
     return;
   }
   grid.innerHTML = `

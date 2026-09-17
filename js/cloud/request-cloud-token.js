@@ -1,13 +1,16 @@
 /* cloud/request-cloud-token.js
  * Автоматически выделено из монолитного index.html при разбиении на модули.
  */
-function requestCloudToken(interactive){
+async function requestCloudToken(interactive){
   // уже есть живой (не просроченный) токен в памяти/кэше сессии — переиспользуем
   // его и вообще не дёргаем Google. Именно отсутствие такой проверки раньше
   // заставляло ходить в Google на каждую перезагрузку страницы.
   if(cloudAccessToken && cloudTokenExpiresAt > Date.now() + 60000){
-    return Promise.resolve(cloudAccessToken);
+    return cloudAccessToken;
   }
+  // Google-скрипт теперь не грузится заранее (см. cloud/ensure-gis-loaded.js) —
+  // подгружаем его прямо здесь, внутри клика по кнопке синхронизации.
+  await ensureGisLoaded();
   return new Promise((resolve, reject) => {
     let client;
     try{ client = ensureTokenClient(); } catch(err){ reject(err); return; }

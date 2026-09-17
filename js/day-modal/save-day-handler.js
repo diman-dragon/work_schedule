@@ -38,9 +38,16 @@ $('saveBtn').addEventListener('click', (ev) => {
   closeModal();
   render(key);
   persist();
-  if(typeof isCloudSyncActive === 'function' && isCloudSyncActive()) pushAfterDaySave();
-  if(isWorking && window.confetti){
-    confetti({ particleCount: 45, spread: 55, startVelocity: 28, gravity: 1.1,
-      origin: { x: 0.5, y: 0.35 }, colors: [cssVar('--accent'), cssVar('--teal')], scalar: 0.8, ticks: 140 });
+  // Автоматической отправки в облако здесь больше нет: синхронизация выполняется
+  // только по кнопке «Синхронизировать». Вместо этого обновляем подпись рядом
+  // с кнопкой, чтобы было видно, что появились несинхронизированные изменения.
+  if(typeof updateSyncDirtyIndicator === 'function') updateSyncDirtyIndicator();
+  if(isWorking){
+    ensureConfettiLoaded().then(() => {
+      if(window.confetti){
+        confetti({ particleCount: 45, spread: 55, startVelocity: 28, gravity: 1.1,
+          origin: { x: 0.5, y: 0.35 }, colors: [cssVar('--accent'), cssVar('--teal')], scalar: 0.8, ticks: 140 });
+      }
+    }).catch(() => { /* конфетти — не критично, тихо пропускаем, если не загрузилось */ });
   }
 });
