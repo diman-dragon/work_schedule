@@ -19,6 +19,12 @@ $('saveBtn').addEventListener('click', (ev) => {
     // (см. shift/recompute-day.js), поэтому здесь ничего не сохраняем
     d.bus = busInput.value.trim() || null;
     d.route = routeInput.value.trim() || null;
+    // если это же время/автобус/маршрут когда-то скрыли крестиком из подсказок,
+    // а теперь его снова вводят вручную — значит, скрытие было случайным
+    // (или это регулярная смена), и подсказку нужно вернуть, а не хоронить навсегда
+    hiddenShiftTimes.delete(d.start + '–' + d.end);
+    if(d.bus) hiddenBuses.delete(d.bus);
+    if(d.route) hiddenRoutes.delete(d.route);
   } else {
     d.start = null;
     d.end = null;
