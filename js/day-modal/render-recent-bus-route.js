@@ -9,8 +9,8 @@ function renderRecentFieldChips(containerId, items, input, label, hiddenSet, rer
   const wrap = $(containerId);
   if(!wrap) return;
   if(!items.length){ wrap.innerHTML = ''; return; }
-  wrap.innerHTML = `<div class="rt-label">${label}</div>` +
-    items.map(f => `<span class="time-chip" data-value="${f.value}" tabindex="0" role="button" aria-label="Подставить ${f.value}">${f.count > 1 ? `<span class="rt-count">${f.count}</span>` : ''}${f.value}<span class="rt-del" data-del-value="${f.value}" role="button" tabindex="0" aria-label="Убрать ${f.value} из подсказок" title="Убрать из подсказок">✕</span></span>`).join('');
+  wrap.innerHTML = `<div class="rt-label">${escapeHtml(label)}</div>` +
+    items.map(f => `<span class="time-chip" data-value="${escapeHtml(f.value)}" tabindex="0" role="button" aria-label="Подставить ${escapeHtml(f.value)}">${f.count > 1 ? `<span class="rt-count">${f.count}</span>` : ''}${escapeHtml(f.value)}<span class="rt-del" data-del-value="${escapeHtml(f.value)}" role="button" tabindex="0" aria-label="Убрать ${escapeHtml(f.value)} из подсказок" title="Убрать из подсказок">✕</span></span>`).join('');
   wrap.querySelectorAll('.time-chip').forEach(chip => {
     const apply = () => { input.value = chip.dataset.value; };
     chip.addEventListener('click', apply);

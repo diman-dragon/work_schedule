@@ -52,8 +52,8 @@ It answers three questions at a glance:
 
 | Category | What it does |
 |---|---|
-| 📅 **Interactive calendar** | Click any day to mark it worked/off, set start & end time, attach a bus/route, leave notes. Swipe navigation between months on mobile. |
-| ⏱ **Auto-computed everything** | Hours, minutes, and earnings recalculate live from `rate × time` the instant you edit a shift — including shifts that cross midnight, and a configurable fixed "garage return" time added to every shift. |
+| 📅 **Interactive calendar** | Click any day to mark it worked/off, set start & end time, attach a bus/route, and attach a photo of the paper schedule. Swipe navigation between months on mobile. |
+| ⏱ **Auto-computed everything** | Hours, minutes, and earnings recalculate live from `rate × time` the instant you edit a shift — including shifts that cross midnight, and a fixed 20-minute "garage return" time added to every shift (currently a constant in code, not a UI setting). |
 | 🟡 **Live shift states** | Distinct visual states for *future*, *not started yet*, and *in progress — earnings not final* shifts, refreshed by a background watcher every minute. |
 | 💡 **Smart suggestions** | Recently used shift times, bus numbers and routes are suggested as one-tap chips when editing a day, with a per-item "hide" you can always undo just by re-entering the value. |
 | 🔥 **Earnings heatmap** | One click recolors the whole calendar by how much each day earned. |

@@ -6,7 +6,12 @@ function computeStats(){
   order.forEach(key => {
     const m = DATA[key];
     m.days.forEach(d => {
-      if(d.start){
+      // смена, которая ещё идёт (d.pending) или ещё не началась (d.notStarted),
+      // не входит в статистику — точно так же, как её не учитывает
+      // recomputeMonth() при подсчёте итогов месяца в табеле; иначе "Всего
+      // отработано"/"Заработок"/"Лучшая смена" на вкладке "Статистика" могли
+      // включать ещё не отработанное время и не заработанные деньги.
+      if(d.start && !d.pending){
         allDays.push({ ...d, monthKey: key, monthLabel: m.label, year: m.year, dateObj: parseDate(d.date) });
       }
     });
@@ -25,7 +30,7 @@ function computeStats(){
 
   const monthly = order.map(key => {
     const m = DATA[key];
-    const worked = m.days.filter(d => d.start).length;
+    const worked = m.days.filter(d => d.start && !d.pending).length;
     return { key, label: m.label + " '" + String(m.year).slice(2), minutes: m.total_minutes||0, sum: m.total_sum||0, shifts: worked };
   });
 

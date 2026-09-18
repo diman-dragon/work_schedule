@@ -38,10 +38,10 @@ $('saveBtn').addEventListener('click', (ev) => {
   closeModal();
   render(key);
   persist();
-  // Автоматической отправки в облако здесь больше нет: синхронизация выполняется
-  // только по кнопке «Синхронизировать». Вместо этого обновляем подпись рядом
-  // с кнопкой, чтобы было видно, что появились несинхронизированные изменения.
-  if(typeof updateSyncDirtyIndicator === 'function') updateSyncDirtyIndicator();
+  // Синхронизация с облаком здесь НЕ запускается. Google трогается только
+  // из runFullSync() — то есть только по явному нажатию кнопки
+  // «Синхронизировать» (см. cloud/run-full-sync.js и README: «сеть — только
+  // по нажатию кнопки»). Сохранение дня — чисто локальная операция.
   if(isWorking){
     ensureConfettiLoaded().then(() => {
       if(window.confetti){

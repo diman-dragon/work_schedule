@@ -1,15 +1,14 @@
 /* cloud/push-after-day-save.js
- * Автоматически выделено из монолитного index.html при разбиении на модули.
+ * ОСТАВЛЕНО НАМЕРЕННО ПУСТЫМ (функция-заглушка).
+ *
+ * Раньше эта функция вызывалась после каждого сохранения дня и молча пыталась
+ * отправить данные в облако. На телефоне она почти всегда ничего не делала
+ * (не было живого токена Google), но пользователь об этом не знал и считал,
+ * что данные уехали в облако. Теперь синхронизация выполняется только по
+ * явному нажатию кнопки — см. cloud/run-full-sync.js.
+ *
+ * Функция сохранена, чтобы не сломать возможные внешние вызовы.
  */
 async function pushAfterDaySave(){
-  if(!isCloudSyncActive() || cloudBusy) return;
-  try{
-    setCloudStatus('☁️ сохранение…');
-    await pushToCloud();
-    recordLastSyncTime();
-    setCloudStatusOk('☁️ синхронизировано · ' + (formatLastSyncTime() || ''));
-  }catch(err){
-    console.error('Ошибка синхронизации с Google Диском', err);
-    setCloudStatus('☁️ ошибка синхронизации', true);
-  }
+  if(typeof updateSyncDirtyIndicator === 'function') updateSyncDirtyIndicator();
 }

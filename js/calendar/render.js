@@ -49,17 +49,26 @@ function render(key){
     inner += `</div><div class="d-body">`;
     let stateLabel;
     if(d.start){
-      inner += `<div class="d-time"><span class="d-time-start">${d.start}</span><span class="d-time-sep">–</span><span class="d-time-end">${d.end}</span></div>`;
+      // момент реального зачисления дохода — это конец линии + фиксированный
+      // довоз до гаража (GARAGE_RETURN_MIN), а не "чистый" d.end; тот же расчёт
+      // уже используется в day-modal/update-preview.js — здесь просто повторяем
+      // его, чтобы плитка дня в календаре не показывала время на 20 минут раньше,
+      // чем доход реально засчитается
+      const releaseDt = shiftEndDateTime(d);
+      const releaseLabel = releaseDt
+        ? `${String(releaseDt.getHours()).padStart(2,'0')}:${String(releaseDt.getMinutes()).padStart(2,'0')}`
+        : d.end;
+      inner += `<div class="d-time"><span class="d-time-start">${escapeHtml(d.start)}</span><span class="d-time-sep">–</span><span class="d-time-end">${escapeHtml(d.end)}</span></div>`;
       inner += `<div class="d-dur">${minutesToHM(d.minutes)}</div>`;
       if(d.bus || d.route) inner += `<div class="d-divider"></div>`;
-      if(d.bus) inner += `<div class="d-bus">🚌 <span class="d-tag">авт.</span> ${d.bus}</div>`;
-      if(d.route) inner += `<div class="d-route">🧭 <span class="d-tag">маршр.</span> ${d.route}</div>`;
-      if(d.notStarted) inner += `<div class="d-pending">начнётся в ${d.start}</div>`;
-      else if(d.pending) inner += `<div class="d-pending">после ${d.end} доход будет учтён</div>`;
+      if(d.bus) inner += `<div class="d-bus">🚌 <span class="d-tag">авт.</span> ${escapeHtml(d.bus)}</div>`;
+      if(d.route) inner += `<div class="d-route">🧭 <span class="d-tag">маршр.</span> ${escapeHtml(d.route)}</div>`;
+      if(d.notStarted) inner += `<div class="d-pending">начнётся в ${escapeHtml(d.start)}</div>`;
+      else if(d.pending) inner += `<div class="d-pending">после ${releaseLabel} доход будет учтён</div>`;
       stateLabel = d.notStarted
         ? `смена ${d.start}–${d.end} ещё не началась`
         : d.pending
-          ? `смена ${d.start}–${d.end} ещё не закончилась, доход будет засчитан после ${d.end}`
+          ? `смена ${d.start}–${d.end} ещё не закончилась, доход будет засчитан после ${releaseLabel}`
           : `смена ${d.start}–${d.end}, ${fmtNum(d.sum)} дин.` + (d.bus || d.route ? `, автобус ${d.bus || '—'}, маршрут ${d.route || '—'}` : '');
     } else if(isFuture){
       inner += `<div class="d-off">—</div>`;

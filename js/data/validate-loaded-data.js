@@ -1,6 +1,15 @@
 /* data/validate-loaded-data.js
  * Автоматически выделено из монолитного index.html при разбиении на модули.
+ *
+ * УСИЛЕНО: раньше проверялась только верхнеуровневая структура (months/order,
+ * и что у месяца есть days/year/month) — содержимое самих дней вообще не
+ * проверялось. Файл с датой "2026-99-99", временем "не-время" или числовым
+ * полем sum, равным строке или гигантскому числу, проходил бы валидацию и
+ * ломал бы расчёты и отрисовку уже после загрузки. Теперь проверяем и это.
  */
+const TIME_RE = /^([01]\d|2[0-3]):[0-5]\d$/;
+const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
 function validateLoadedData(obj){
   if(!obj || typeof obj !== 'object') throw new Error('файл не является JSON-объектом');
   if(!obj.months || typeof obj.months !== 'object') throw new Error('в файле отсутствует корректное поле months');
@@ -10,6 +19,36 @@ function validateLoadedData(obj){
     const m = obj.months[key];
     if(!m || !Array.isArray(m.days) || typeof m.year !== 'number' || typeof m.month !== 'number'){
       throw new Error('структура одного из месяцев повреждена');
+    }
+    if(m.month < 0 || m.month > 11 || m.year < 2000 || m.year > 2100){
+      throw new Error(`некорректный месяц/год в "${key}"`);
+    }
+    for(const d of m.days){
+      if(!d || typeof d !== 'object') throw new Error(`повреждена запись дня в "${key}"`);
+      if(d.date != null && (typeof d.date !== 'string' || !DATE_RE.test(d.date))){
+        throw new Error(`некорректная дата у одного из дней в "${key}"`);
+      }
+      if(d.start != null && (typeof d.start !== 'string' || !TIME_RE.test(d.start))){
+        throw new Error(`некорректное время начала смены в "${key}"`);
+      }
+      if(d.end != null && (typeof d.end !== 'string' || !TIME_RE.test(d.end))){
+        throw new Error(`некорректное время конца смены в "${key}"`);
+      }
+      if(d.minutes != null && (typeof d.minutes !== 'number' || !Number.isFinite(d.minutes) || d.minutes < 0 || d.minutes > 24*60)){
+        throw new Error(`некорректная длительность смены в "${key}"`);
+      }
+      if(d.sum != null && (typeof d.sum !== 'number' || !Number.isFinite(d.sum) || d.sum < 0)){
+        throw new Error(`некорректная сумма заработка в "${key}"`);
+      }
+      if(d.bus != null && typeof d.bus !== 'string'){
+        throw new Error(`некорректное поле "автобус" в "${key}"`);
+      }
+      if(d.route != null && typeof d.route !== 'string'){
+        throw new Error(`некорректное поле "маршрут" в "${key}"`);
+      }
+      if(d.photo != null && (typeof d.photo !== 'string' || !d.photo.startsWith('data:image/'))){
+        throw new Error(`некорректное фото у одного из дней в "${key}"`);
+      }
     }
   }
 }

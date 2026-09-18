@@ -6,7 +6,7 @@ function renderRecentTimes(){
   const freq = getFrequentShiftTimes();
   if(!freq.length){ wrap.innerHTML = ''; return; }
   wrap.innerHTML = '<div class="rt-label">недавние смены</div>' +
-    freq.map(f => `<span class="time-chip" data-start="${f.start}" data-end="${f.end}" tabindex="0" role="button" aria-label="Подставить смену ${f.start}–${f.end}">${f.count > 1 ? `<span class="rt-count">${f.count}</span>` : ''}${f.start}–${f.end}<span class="rt-del" data-del-start="${f.start}" data-del-end="${f.end}" role="button" tabindex="0" aria-label="Убрать ${f.start}–${f.end} из подсказок" title="Убрать из подсказок">✕</span></span>`).join('');
+    freq.map(f => `<span class="time-chip" data-start="${escapeHtml(f.start)}" data-end="${escapeHtml(f.end)}" tabindex="0" role="button" aria-label="Подставить смену ${escapeHtml(f.start)}–${escapeHtml(f.end)}">${f.count > 1 ? `<span class="rt-count">${f.count}</span>` : ''}${escapeHtml(f.start)}–${escapeHtml(f.end)}<span class="rt-del" data-del-start="${escapeHtml(f.start)}" data-del-end="${escapeHtml(f.end)}" role="button" tabindex="0" aria-label="Убрать ${escapeHtml(f.start)}–${escapeHtml(f.end)} из подсказок" title="Убрать из подсказок">✕</span></span>`).join('');
   wrap.querySelectorAll('.time-chip').forEach(chip => {
     const apply = () => {
       startInput.value = chip.dataset.start;
