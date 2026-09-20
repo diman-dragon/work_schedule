@@ -4,6 +4,13 @@
 function buildCharts(stats){
   const col = chartColors();
   destroyCharts();
+  // раньше подписи дат на графиках обрезались до "ДД.ММ" (slice(0,5)), теряя год —
+  // при данных за несколько лет это делало подписи неоднозначными (напр. 05.01
+  // могло относиться и к 2026, и к 2027 году). Показываем ДД.ММ.ГГ (2 цифры года).
+  const shortDate = (dateStr) => {
+    const parts = String(dateStr).split('.');
+    return parts.length === 3 ? `${parts[0]}.${parts[1]}.${parts[2].slice(2)}` : dateStr;
+  };
   // раньше здесь не задавался шрифт по умолчанию — Chart.js подставлял свой ('Helvetica Neue' и т.п.),
   // из-за чего подписи осей/легенд/тултипов визуально выбивались из общего нативного стиля страницы
   if(typeof Chart !== 'undefined'){
@@ -29,7 +36,7 @@ function buildCharts(stats){
   const sampled = stats.cumulative.filter((_,i) => i % step === 0 || i === stats.cumulative.length-1);
   charts.cumulative = new Chart($('chartCumulative'), {
     type:'line',
-    data:{ labels: sampled.map(c=>c.date.slice(0,5)), datasets:[{ label:'Накопительно, дин.', data: sampled.map(c=>c.value), borderColor: col.accent, backgroundColor: col.accent+"33", fill:true, tension:0.25, pointRadius:2, pointBackgroundColor: col.accent,
+    data:{ labels: sampled.map(c=>shortDate(c.date)), datasets:[{ label:'Накопительно, дин.', data: sampled.map(c=>c.value), borderColor: col.accent, backgroundColor: col.accent+"33", fill:true, tension:0.25, pointRadius:2, pointBackgroundColor: col.accent,
       datalabels: { display: (ctx)=> ctx.dataIndex === sampled.length-1, color: col.accent, font:{size:11,weight:'700'}, formatter: v=>moneyLabel(v), align:'top', anchor:'end' } }] },
     options: baseOptions()
   });
@@ -63,7 +70,7 @@ function buildCharts(stats){
   });
   charts.top5 = new Chart($('chartTop5'), {
     type:'bar',
-    data:{ labels: stats.top5.map(d=>d.date.slice(0,5)), datasets:[{ label:'Заработок, дин.', data: stats.top5.map(d=>d.sum), backgroundColor: stats.top5.map(d=>(d.weekend?col.weekend:col.workday)+"cc"), borderRadius:5, datalabels: dl(v=>moneyLabel(v), col.text) }] },
+    data:{ labels: stats.top5.map(d=>shortDate(d.date)), datasets:[{ label:'Заработок, дин.', data: stats.top5.map(d=>d.sum), backgroundColor: stats.top5.map(d=>(d.weekend?col.weekend:col.workday)+"cc"), borderRadius:5, datalabels: dl(v=>moneyLabel(v), col.text) }] },
     options: baseOptions({ indexAxis:'y' })
   });
   charts.shiftBuckets = new Chart($('chartShiftBuckets'), {

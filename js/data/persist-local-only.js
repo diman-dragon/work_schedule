@@ -55,6 +55,16 @@ function persistLocalOnly(){
     };
     lastPersistedSignature = signature;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(APP));
+    // Раньше подпись "есть несинхронизированные изменения" обновлялась только
+    // в нескольких местах вручную (после сохранения дня, после синхронизации),
+    // и часть изменений — смена ставки, импорт, очистка, добавление месяца,
+    // смена темы, скрытие подсказки — этот статус не трогали вообще. Теперь
+    // это встроено прямо в persistLocalOnly(), которую в итоге вызывают все
+    // операции, меняющие данные — статус не может отстать от реальности.
+    // updateSyncDirtyIndicator определяется одним из последних скриптов —
+    // на самом первом старте (bootstrap вызывает persist сразу) она ещё
+    // может быть не загружена, поэтому проверяем перед вызовом.
+    if(typeof updateSyncDirtyIndicator === 'function') updateSyncDirtyIndicator();
   }catch(err){
     console.error('Не удалось сохранить данные в localStorage', err);
     if(typeof showToast === 'function'){

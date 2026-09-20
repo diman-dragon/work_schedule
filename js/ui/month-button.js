@@ -11,7 +11,7 @@ function monthButton(key){
   btn.setAttribute('role', 'button');
   btn.setAttribute('aria-label', `${m.label} ${m.year}, отработано ${minutesToHM(m.total_minutes)}`);
   const yy = String(m.year).slice(2);
-  btn.innerHTML = `<span class="m-name">${m.label}</span><span class="m-year">'${yy}</span><span class="m-hours">${minutesToHM(m.total_minutes)}</span>`;
+  btn.innerHTML = `<span class="m-name">${escapeHtml(m.label)}</span><span class="m-year">'${yy}</span><span class="m-hours">${minutesToHM(m.total_minutes)}</span>`;
   btn.addEventListener('click', () => render(key));
   btn.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); render(key); } });
   return btn;

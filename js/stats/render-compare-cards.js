@@ -12,10 +12,10 @@ function renderCompareCards(){
     const hoursText = `${r.deltaHours > 0 ? '+' : ''}${Math.round(r.deltaHours*10)/10} ч`;
     return `
     <div class="compare-card">
-      <div class="cc-label">${r.label}</div>
+      <div class="cc-label">${escapeHtml(r.label)}</div>
       <div class="cc-sum">${fmtNum(r.sum)} дин.</div>
       <span class="cc-delta ${dir}">${arrow} ${pctText}</span>
-      <div class="cc-vs">${hoursText} к ${r.prevLabel}</div>
+      <div class="cc-vs">${hoursText} к ${escapeHtml(r.prevLabel)}</div>
     </div>`;
   }).join('');
 }

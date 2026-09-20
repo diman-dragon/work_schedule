@@ -1,20 +1,22 @@
 /* modals/sync-pass-modal.js
  * Модалка ввода пароля шифрования для облачной синхронизации.
- * Возвращает Promise<string|null>: введённый пароль, либо null при отмене.
+ * Возвращает Promise<{password, remember}|null>: null при отмене.
  */
 const syncPassInput = $('syncPassInput');
 const syncPassMessageEl = $('syncPassMessage');
+const syncPassRememberInput = $('syncPassRememberInput');
 const syncPassModal = createPromiseModal({
   overlayId: 'syncPassOverlay',
   cancelBtnId: 'syncPassCancelBtn',
   okBtnId: 'syncPassOkBtn',
   focusId: 'syncPassInput',
   cancelValue: null,
-  okValue: () => syncPassInput.value || null,
+  okValue: () => syncPassInput.value ? { password: syncPassInput.value, remember: !!(syncPassRememberInput && syncPassRememberInput.checked) } : null,
 });
 
 function promptSyncPassword(message){
   if(message) syncPassMessageEl.textContent = message;
   syncPassInput.value = '';
+  if(syncPassRememberInput) syncPassRememberInput.checked = false;
   return syncPassModal.open();
 }

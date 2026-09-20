@@ -36,6 +36,11 @@
 @keyframes popin{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
 .modal h3{font-size:17px; font-weight:600; margin-bottom:2px;}
 .modal .m-sub{font-size:12px; color:var(--text-dim); margin-bottom:20px;}
+/* #confirmMessage — универсальная модалка подтверждения; иногда в неё
+   передают многострочный текст (например, список бэкапов на выбор) через
+   textContent. По умолчанию переносы строк в HTML схлопываются в пробел —
+   без pre-line такой текст превращался бы в нечитаемую сплошную строку. */
+#confirmMessage{ white-space: pre-line; }
 .switch-row{
   display:flex;
   justify-content:space-between;
@@ -144,8 +149,18 @@
 .modal-actions{display:flex; gap:10px;}
 .btn{
   flex:1;
-  height:36px;
-  padding:0 20px;
+  /* раньше height:36px было ЖЁСТКО фиксированным — часть подписей кнопок
+     подтверждения достаточно длинные ("Взять версию из облака", "Всё равно
+     заменить"), а модалка на телефоне узкая (кнопки делят ~280px на двоих);
+     если текст не помещался в одну строку, вторая строка обрезалась по
+     высоте кнопки. min-height позволяет кнопке вырасти, если текст перенёсся */
+  min-height:36px;
+  padding:8px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  line-height:1.25;
   border-radius:var(--radius-pill);
   border:1px solid var(--border);
   font-size:13.5px;

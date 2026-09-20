@@ -14,15 +14,19 @@ async function pushToCloud(){
       const existing = await decryptFromCloud(existingEnc, cloudPassword);
       const remoteFilled = countFilledDays(existing.months);
       const localFilled = countFilledDays(DATA);
+      // сравниваем не только количество, но и содержимое — одинаковое число
+      // смен ещё не значит одинаковые данные (см. day-fingerprints.js)
+      const { onlyInA: onlyRemote } = diffDayFingerprints(existing.months, DATA);
 
-      if(remoteFilled > 0 && localFilled < remoteFilled){
-        const ok = await showConfirmModal(
-          `В облаке сохранено смен: ${remoteFilled}, а на этом устройстве только ${localFilled}. ` +
-          `Если продолжить, облачная версия будет заменена этой, и ${remoteFilled - localFilled} смен(ы) пропадут. ` +
-          `Обычно в такой ситуации нужно наоборот — загрузить данные из облака (кнопка «Загрузить из облака»).`,
-          'Заменить данные в облаке?',
-          'Всё равно заменить'
-        );
+      if(remoteFilled > 0 && (localFilled < remoteFilled || onlyRemote.size > 0)){
+        const msg = onlyRemote.size > 0
+          ? `В облаке есть изменения (смен: ${onlyRemote.size}), которых нет на этом устройстве. ` +
+            `Если продолжить, они будут потеряны. Обычно в такой ситуации нужно сначала нажать ` +
+            `«Синхронизировать» ещё раз, чтобы сначала забрать эти изменения, а не затирать их.`
+          : `В облаке сохранено смен: ${remoteFilled}, а на этом устройстве только ${localFilled}. ` +
+            `Если продолжить, облачная версия будет заменена этой, и ${remoteFilled - localFilled} смен(ы) пропадут. ` +
+            `Обычно в такой ситуации нужно наоборот — загрузить данные из облака (кнопка «Загрузить из облака»).`;
+        const ok = await showConfirmModal(msg, 'Заменить данные в облаке?', 'Всё равно заменить');
         if(!ok){
           throw new Error('SKIPPED_BY_USER');
         }

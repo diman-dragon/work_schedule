@@ -7,17 +7,17 @@ $('printBtn')?.addEventListener('click', () => {
   if(!m) return;
   const rows = m.days.filter(d => d.start).map(d => `
     <tr>
-      <td>${d.date}</td>
-      <td>${d.weekday || ''}</td>
-      <td>${d.start || ''}–${d.end || ''}</td>
+      <td>${escapeHtml(d.date)}</td>
+      <td>${escapeHtml(d.weekday || '')}</td>
+      <td>${escapeHtml(d.start || '')}–${escapeHtml(d.end || '')}</td>
       <td>${minutesToHM(d.minutes || 0)}</td>
-      <td>${d.bus || '—'}</td>
-      <td>${d.route || '—'}</td>
+      <td>${escapeHtml(d.bus) || '—'}</td>
+      <td>${escapeHtml(d.route) || '—'}</td>
       <td class="num">${fmtNum(d.sum || 0)} дин.</td>
     </tr>`).join('');
   const sheet = $('printSheet');
   sheet.innerHTML = `
-    <h1>Рабочий график — ${m.label} ${m.year}</h1>
+    <h1>Рабочий график — ${escapeHtml(m.label)} ${m.year}</h1>
     <div class="print-meta">Сформировано ${new Date().toLocaleString('ru-RU')} · ставка для новых/изменённых смен: ${fmtNum(rate)} дин./ч</div>
     <table>
       <thead><tr><th>Дата</th><th>День</th><th>Смена</th><th>Длительность</th><th>Автобус</th><th>Маршрут</th><th>Заработок</th></tr></thead>

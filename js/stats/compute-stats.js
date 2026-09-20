@@ -6,12 +6,7 @@ function computeStats(){
   order.forEach(key => {
     const m = DATA[key];
     m.days.forEach(d => {
-      // смена, которая ещё идёт (d.pending) или ещё не началась (d.notStarted),
-      // не входит в статистику — точно так же, как её не учитывает
-      // recomputeMonth() при подсчёте итогов месяца в табеле; иначе "Всего
-      // отработано"/"Заработок"/"Лучшая смена" на вкладке "Статистика" могли
-      // включать ещё не отработанное время и не заработанные деньги.
-      if(d.start && !d.pending){
+      if(d.start){
         allDays.push({ ...d, monthKey: key, monthLabel: m.label, year: m.year, dateObj: parseDate(d.date) });
       }
     });
@@ -28,9 +23,24 @@ function computeStats(){
   let bestDay = null;
   allDays.forEach(d => { if(!bestDay || d.sum > bestDay.sum) bestDay = d; });
 
+  // "Лучший часовой доход" — это ДРУГОЙ день, чем "лучшая смена" (bestDay):
+  // bestDay выбирается по наибольшей ОБЩЕЙ сумме за смену, а не по ставке
+  // в час. Пример: 10ч смена на 1000 даст больше суммы, чем 5ч смена на
+  // 750, но у второй эффективная ставка выше (150/ч против 100/ч) —
+  // раньше карточка "лучший часовой доход" молча показывала цифру от
+  // bestDay, что было неверно почти всегда, когда самая денежная смена
+  // не совпадала с самой "выгодной по часам".
+  let bestHourlyDay = null;
+  let bestHourlyRate = 0;
+  allDays.forEach(d => {
+    if(!d.minutes || d.minutes <= 0) return;
+    const rate = d.sum / (d.minutes / 60);
+    if(!bestHourlyDay || rate > bestHourlyRate){ bestHourlyDay = d; bestHourlyRate = rate; }
+  });
+
   const monthly = order.map(key => {
     const m = DATA[key];
-    const worked = m.days.filter(d => d.start && !d.pending).length;
+    const worked = m.days.filter(d => d.start).length;
     return { key, label: m.label + " '" + String(m.year).slice(2), minutes: m.total_minutes||0, sum: m.total_sum||0, shifts: worked };
   });
 
@@ -82,7 +92,10 @@ function computeStats(){
     weekMap[wk].minutes += (d.minutes||0);
     weekMap[wk].sum += (d.sum||0);
   });
-  const weeklyTrend = Object.keys(weekMap).sort().map(wk => ({ week: wk.split('-W')[1]+' нед.', minutes: weekMap[wk].minutes, sum: weekMap[wk].sum }));
+  // раньше в подписи оставался только номер недели без года ("01 нед."), из-за
+  // чего при данных за несколько лет 1-я неделя 2026 и 1-я неделя 2027
+  // выглядели на графике одинаково неотличимо
+  const weeklyTrend = Object.keys(weekMap).sort().map(wk => ({ week: wk.split('-W')[1]+' нед. '+wk.split('-W')[0], minutes: weekMap[wk].minutes, sum: weekMap[wk].sum }));
 
   // статистика по автобусам и маршрутам (только там, где эти поля заполнены)
   function groupBy(field){
@@ -114,6 +127,6 @@ function computeStats(){
   const byStartHour = startHourCounts.map((count, h) => ({ hour: String(h).padStart(2,'0')+':00', count })).filter(h => h.count > 0);
 
   return { totalMinutes, totalSum, totalShifts, avgShiftMin, avgDailyEarn, effectiveRate,
-           bestDay, monthly, bestMonth, byWeekday, cumulative, totalDaysInPeriod, offDays,
+           bestDay, bestHourlyDay, bestHourlyRate, monthly, bestMonth, byWeekday, cumulative, totalDaysInPeriod, offDays,
            weekendVsWorkday, top5, shiftBuckets, weeklyTrend, byBus, byRoute, byShiftTime, byStartHour };
 }

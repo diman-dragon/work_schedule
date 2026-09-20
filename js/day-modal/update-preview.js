@@ -34,7 +34,7 @@ function updatePreview(){
   const garageNote = ` (включая ${GARAGE_RETURN_MIN} мин довоза до гаража)`;
 
   if(startDt && startDt.getTime() > now.getTime()){
-    calcPreview.innerHTML = `<span class="calc-status calc-status--future">🕓 Смена ещё не началась</span><br>Начало в <b>${startInput.value}</b> · длительность: <b>${minutesToHM(mins)}</b>${garageNote} · доход будет: <b>${fmtNum(sum)} дин.</b>`;
+    calcPreview.innerHTML = `<span class="calc-status calc-status--future">🕓 Смена ещё не началась</span><br>Начало в <b>${escapeHtml(startInput.value)}</b> · длительность: <b>${minutesToHM(mins)}</b>${garageNote} · доход будет: <b>${fmtNum(sum)} дин.</b>`;
   } else if(endDt && endDt.getTime() > now.getTime()){
     calcPreview.innerHTML = `<span class="calc-status calc-status--pending">🟡 Смена идёт</span><br>Длительность: <b>${minutesToHM(mins)}</b>${garageNote} · доход будет засчитан после <b>${releaseLabel}</b>`;
   } else {

@@ -7,15 +7,22 @@
 // Данные хранятся в одном приватном файле на Google Диске, доступном только
 // этому приложению (scope drive.file — Google не даёт видеть остальные файлы
 // пользователя). Перед отправкой в облако содержимое шифруется AES-256-GCM
-// с ключом, полученным из пароля пользователя (PBKDF2). Пароль хранится в
-// localStorage этого устройства/браузера (в открытом виде) — так синхронизация
-// остаётся включённой между перезапусками браузера и не спрашивает пароль
-// заново, пока сами не нажмёте «Отключить синхронизацию».
+// с ключом, полученным из пароля пользователя (PBKDF2). По умолчанию пароль
+// хранится только в sessionStorage (до закрытия вкладки/браузера) — заново
+// спросится при следующем открытии. Постоянное хранение в localStorage
+// (переживает перезапуск браузера) включается отдельной явной галочкой
+// «запомнить пароль на этом устройстве» при подключении синхронизации —
+// с пониманием, что это снижает защиту, если к этому origin/localStorage
+// получит доступ посторонний код.
 const CLOUD_CLIENT_ID = '524857013705-lcro9dq97ctlfdq0rmubkgcvhao0724n.apps.googleusercontent.com';
 const CLOUD_SCOPE = 'https://www.googleapis.com/auth/drive.file';
 const CLOUD_FILE_NAME = 'rabochiy-grafik-sync.json.enc';
 const CLOUD_ENABLED_KEY = 'cloudSyncEnabled_v1';
 const CLOUD_PASS_SESSION_KEY = 'cloudSyncPass_v1';
+// если пользователь явно поставил галочку "запомнить пароль на этом устройстве" —
+// это отмечается отдельным ключом; без него пароль живёт только в sessionStorage
+// (до закрытия вкладки), а не постоянно в localStorage (см. connect-cloud-sync.js)
+const CLOUD_PASS_REMEMBER_KEY = 'cloudSyncPassRemember_v1';
 // токен доступа Google живёт максимум ~1 час и по правилам OAuth не может
 // храниться постоянно (это не пароль, а одноразовый пропуск с истечением) —
 // но мы кэшируем его в sessionStorage, чтобы обновление страницы или
@@ -40,7 +47,11 @@ try{
 }catch(err){ /* битый кэш токена — просто игнорируем, запросим новый */ }
 let cloudTokenClient = null;
 let cloudFileId = null;
-let cloudPassword = localStorage.getItem(CLOUD_PASS_SESSION_KEY) || null;
+let cloudPassword = null;
+try{ cloudPassword = sessionStorage.getItem(CLOUD_PASS_SESSION_KEY) || null; }catch(err){}
+if(!cloudPassword && localStorage.getItem(CLOUD_PASS_REMEMBER_KEY) === '1'){
+  cloudPassword = localStorage.getItem(CLOUD_PASS_SESSION_KEY) || null;
+}
 let cloudBusy = false;
 
 const cloudSyncBtn = $('cloudSyncBtn');
