@@ -20,7 +20,7 @@ function validateLoadedData(obj){
     if(!m || !Array.isArray(m.days) || typeof m.year !== 'number' || typeof m.month !== 'number'){
       throw new Error('структура одного из месяцев повреждена');
     }
-    if(m.month < 0 || m.month > 11 || m.year < 2000 || m.year > 2100){
+    if(!Number.isInteger(m.month) || m.month < 1 || m.month > 12 || !Number.isInteger(m.year) || m.year < 2000 || m.year > 2100){
       throw new Error(`некорректный месяц/год в "${key}"`);
     }
     for(const d of m.days){
