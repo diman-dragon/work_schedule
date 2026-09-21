@@ -2,6 +2,12 @@
  * Отправка уже объединённых данных в облако.
  */
 async function pushToCloud(){
+  // Последняя линия защиты: данные, не проходящие проверку структуры, в облако
+  // не отправляются никогда. Раньше слияние по ключам месяцев могло записать туда
+  // «дни не своего месяца» — после этого ни одно устройство уже не могло
+  // синхронизироваться, пока файл в облаке не будет починен.
+  validateLoadedData({ months: DATA, order });
+
   if(!cloudFileId) cloudFileId = await driveFindFile();
 
   if(cloudFileId){
@@ -20,7 +26,7 @@ async function pushToCloud(){
       }
     }catch(err){
       if(err && err.message === 'CLOUD_CHANGED_DURING_SYNC') throw err;
-      if(err && /OPERATION_FAILED|decrypt/i.test(err.message || '')) throw err;
+      if(isDecryptError(err)) throw err;
       // Сеть/чтение может временно упасть. Не затираем облако в этом случае.
       throw new Error('Не удалось повторно проверить облачные данные перед записью: ' + (err?.message || 'неизвестная ошибка'));
     }

@@ -6,6 +6,12 @@ $('saveBtn').addEventListener('click', (ev) => {
   const {key, idx} = editingDay;
   const d = DATA[key].days[idx];
   const isWorking = workSwitch.classList.contains('on');
+  // <input type="time"> можно очистить — пустая строка в start/end потом не проходит
+  // проверку данных, и при следующем запуске весь график считался бы повреждённым
+  if(isWorking && (!startInput.value || !endInput.value)){
+    showToast('Укажите время начала и конца смены');
+    return;
+  }
   if(isWorking && startInput.value === endInput.value){
     showToast('Начало и конец смены совпадают — исправьте время');
     return;

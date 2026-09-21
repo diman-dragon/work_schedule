@@ -53,7 +53,15 @@ async function connectCloudSync(options = {}){
         }
       }
     }else{
-      await pullFromCloud();
+      const pullResult = await pullFromCloud();
+      // Если пользователь отменил разбор конфликтов, в облако ничего не отправляем:
+      // раньше push выполнялся всё равно и молча затирал спорные дни облака локальными.
+      if(pullResult && pullResult.cancelled){
+        // подключение при этом уже выполнено (пароль сохранён) — кнопки показываем как у подключённого
+        cloudSyncBtn.textContent = '🔄 Синхронизировать';
+        cloudDisconnectBtn.style.display = '';
+        return;
+      }
       await pushToCloud();
     }
 
@@ -63,7 +71,7 @@ async function connectCloudSync(options = {}){
     cloudDisconnectBtn.style.display = '';
   }catch(err){
     console.error('Не удалось подключить синхронизацию', err);
-    if(err && err.message && err.message.includes('OPERATION_FAILED')){
+    if(isDecryptError(err)){
       cloudPassword = null;
       try{ sessionStorage.removeItem(CLOUD_PASS_SESSION_KEY); }catch(e){}
       localStorage.removeItem(CLOUD_PASS_SESSION_KEY);

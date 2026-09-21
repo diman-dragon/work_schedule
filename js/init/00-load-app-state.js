@@ -18,14 +18,43 @@ let HAS_LOCAL_DATA = false;
 // Теперь структура проверяется той же функцией, что и при импорте JSON-файла,
 // а при повреждении данных автоматически подставляется последний локальный
 // бэкап вместо падения приложения.
+// showToast() определяется одним из последних скриптов страницы. Обычный
+// setTimeout(…, 0) не гарантирует, что к моменту вызова все внешние скрипты уже
+// выполнены (парсер может ждать загрузки следующего), и уведомление молча
+// терялось. DOMContentLoaded наступает строго после выполнения всех скриптов.
+function showToastWhenReady(message){
+  const run = () => { if(typeof showToast === 'function') showToast(message); };
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
+  else setTimeout(run, 0);
+}
+
+// Если строгая проверка не проходит, сначала пробуем ПОЧИНИТЬ данные (см.
+// data/repair-months-structure.js): типичная причина — день, попавший в месяц с
+// другой датой из-за слияния с облаком. Починка ничего не выбрасывает, а вместо
+// «повреждено → откат к бэкапу/пустому листу» (и потери всего, что не успело
+// попасть в бэкап) возвращает согласованные данные. При успешной починке
+// saved.months/order заменяются исправленными, а счётчик записывается в
+// LOCAL_REPAIRED_COUNT — по нему ниже показывается уведомление.
+let LOCAL_REPAIRED_COUNT = 0;
 function isStructurallyValidApp(saved){
   if(!saved || typeof saved !== 'object') return false;
   if(saved.months === undefined) return true; // совсем пустой/новый профиль — это нормально
+  const order = Array.isArray(saved.order) ? saved.order : [];
   try{
-    validateLoadedData({ months: saved.months, order: Array.isArray(saved.order) ? saved.order : [] });
+    validateLoadedData({ months: saved.months, order });
     return true;
   }catch(err){
-    return false;
+    try{
+      const fixed = repairLoadedData({ months: saved.months, order });
+      if(!fixed.repaired) return false;
+      validateLoadedData({ months: fixed.months, order: fixed.order });
+      saved.months = fixed.months;
+      saved.order = fixed.order;
+      LOCAL_REPAIRED_COUNT += fixed.repaired;
+      return true;
+    }catch(repairErr){
+      return false;
+    }
   }
 }
 
@@ -37,6 +66,10 @@ try{
       HAS_LOCAL_DATA = true;
       APP = Object.assign(APP, saved);
       if(!APP.schemaVersion) APP.schemaVersion = 1;
+      if(LOCAL_REPAIRED_COUNT){
+        console.warn('Структура сохранённых данных исправлена автоматически, затронуто записей:', LOCAL_REPAIRED_COUNT);
+        showToastWhenReady('🔧 Данные были в неверном порядке по месяцам — исправлено автоматически, ничего не потеряно');
+      }
     } else {
       console.error('Сохранённые данные повреждены (не прошли структурную проверку), пробуем локальный бэкап');
       let restored = false;
@@ -58,17 +91,9 @@ try{
       // повреждённую копию не трогаем молча — сохраняем её под отдельным ключом,
       // чтобы данные можно было попытаться спасти вручную, а не потерять совсем
       try{ localStorage.setItem(STORAGE_KEY + '_corrupted_' + Date.now(), savedRaw); }catch(e){}
-      // showToast() определяется одним из последних скриптов — на этот момент при
-      // самом первом старте страницы она может быть ещё не загружена, поэтому
-      // откладываем вызов до конца текущего цикла событий (к этому моменту все
-      // скрипты уже гарантированно выполнены)
-      setTimeout(() => {
-        if(typeof showToast === 'function'){
-          showToast(restored
-            ? '⚠️ Сохранённые данные были повреждены — восстановлено из последнего локального бэкапа'
-            : '⚠️ Сохранённые данные повреждены, бэкапа нет — начато с чистого состояния. Повреждённая копия сохранена отдельно на случай ручного восстановления');
-        }
-      }, 0);
+      showToastWhenReady(restored
+        ? '⚠️ Сохранённые данные были повреждены — восстановлено из последнего локального бэкапа'
+        : '⚠️ Сохранённые данные повреждены, бэкапа нет — начато с чистого состояния. Повреждённая копия сохранена отдельно на случай ручного восстановления');
     }
   }
 }catch(err){

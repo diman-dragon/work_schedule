@@ -3,6 +3,10 @@
  */
 function applyLoadedJson(text, fileLabel){
   const obj = JSON.parse(text);
+  // файл, выгруженный из испорченного состояния (дни не в своём месяце), чиним,
+  // а не отвергаем: иначе такой экспорт/бэкап невозможно было бы загрузить обратно
+  const fixed = repairLoadedData(obj);
+  if(fixed.repaired){ obj.months = fixed.months; obj.order = fixed.order; }
   validateLoadedData(obj);
   createLocalBackup('перед импортом ' + (fileLabel || 'JSON'));
   DATA = obj.months;
@@ -18,5 +22,5 @@ function applyLoadedJson(text, fileLabel){
   render(currentKey);
   if(tabStats.classList.contains('active')) buildStats();
   persist();
-  showToast('Данные загружены' + (fileLabel ? ' из ' + fileLabel : '') + ' и сохранены локально');
+  showToast('Данные загружены' + (fileLabel ? ' из ' + fileLabel : '') + ' и сохранены локально' + (fixed.repaired ? ' (порядок месяцев исправлен)' : ''));
 }

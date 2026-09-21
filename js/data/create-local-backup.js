@@ -77,6 +77,10 @@ function restoreLocalBackup(key){
   const raw = localStorage.getItem(key);
   if(!raw) throw new Error('Бэкап не найден (возможно, уже удалён по возрасту)');
   const backup = JSON.parse(raw);
+  // бэкапы, сделанные старым слиянием с облаком, могли сохранить дни не в своём
+  // месяце — чиним их, иначе восстановиться из такого бэкапа было бы невозможно
+  const fixed = repairLoadedData({ months: backup.months, order: backup.order || [] });
+  if(fixed.repaired){ backup.months = fixed.months; backup.order = fixed.order; }
   validateLoadedData({ months: backup.months, order: backup.order || [] });
   createLocalBackup('перед восстановлением из бэкапа ' + (backup.backupAt || ''));
   rate = (typeof backup.rate === 'number' && backup.rate >= 0) ? backup.rate : rate;

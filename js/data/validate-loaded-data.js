@@ -50,7 +50,9 @@ function validateLoadedData(obj){
       if(d.end != null && (typeof d.end !== 'string' || !TIME_RE.test(d.end))){
         throw new Error(`некорректное время конца смены в "${key}"`);
       }
-      if(d.minutes != null && (typeof d.minutes !== 'number' || !Number.isFinite(d.minutes) || d.minutes < 0 || d.minutes > 24*60)){
+      // верхняя граница с запасом: смена до 23ч59м + фиксированный довоз до гаража
+      // (GARAGE_RETURN_MIN) может немного превысить 24 часа, и такой день валиден
+      if(d.minutes != null && (typeof d.minutes !== 'number' || !Number.isFinite(d.minutes) || d.minutes < 0 || d.minutes > 24*60 + 60)){
         throw new Error(`некорректная длительность смены в "${key}"`);
       }
       if(d.sum != null && (typeof d.sum !== 'number' || !Number.isFinite(d.sum) || d.sum < 0)){
