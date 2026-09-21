@@ -8,6 +8,7 @@ function disconnectCloudSync(){
   cloudTokenExpiresAt = 0;
   try{ sessionStorage.removeItem(CLOUD_TOKEN_CACHE_KEY); }catch(err){}
   cloudPassword = null;
+  cloudLastPulledRemoteSignature = null;
   try{ sessionStorage.removeItem(CLOUD_PASS_SESSION_KEY); }catch(err){}
   localStorage.removeItem(CLOUD_PASS_SESSION_KEY);
   localStorage.removeItem(CLOUD_PASS_REMEMBER_KEY);

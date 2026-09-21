@@ -9,6 +9,7 @@ const STORAGE_KEY = 'workScheduleData_v1';
 const DATA_SCHEMA_VERSION = 2;
 const BACKUP_KEY = 'workScheduleBackup_v1';
 let APP = { rate: 700, currentKey: null, order: [], months: {}, theme: 'dark' };
+let HAS_LOCAL_DATA = false;
 
 // Раньше здесь только проверялось, что JSON вообще распарсился — если сам файл
 // был синтаксически валиден, но структурно повреждён (не тот тип у months/order,
@@ -33,6 +34,7 @@ try{
   if(savedRaw){
     const saved = JSON.parse(savedRaw);
     if(isStructurallyValidApp(saved)){
+      HAS_LOCAL_DATA = true;
       APP = Object.assign(APP, saved);
       if(!APP.schemaVersion) APP.schemaVersion = 1;
     } else {
@@ -46,6 +48,7 @@ try{
           // без обёртки — то же самое, что и структура APP, просто без "лишних" полей
           // вроде theme/updatedAt, которым в APP и так есть безопасные значения по умолчанию
           if(isStructurallyValidApp(backup)){
+            HAS_LOCAL_DATA = true;
             APP = Object.assign(APP, backup);
             if(!APP.schemaVersion) APP.schemaVersion = 1;
             restored = true;

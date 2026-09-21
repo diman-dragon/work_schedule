@@ -55,6 +55,7 @@ function persistLocalOnly(){
     };
     lastPersistedSignature = signature;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(APP));
+    HAS_LOCAL_DATA = true;
     // Раньше подпись "есть несинхронизированные изменения" обновлялась только
     // в нескольких местах вручную (после сохранения дня, после синхронизации),
     // и часть изменений — смена ставки, импорт, очистка, добавление месяца,

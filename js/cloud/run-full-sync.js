@@ -16,7 +16,12 @@ async function runFullSync(){
     await requestCloudToken(true);
 
     setCloudStatus('☁️ синхронизация…');
-    await pullFromCloud();
+    const pullResult = await pullFromCloud();
+    if(pullResult && pullResult.cancelled) return;
+    if(pullResult && pullResult.remoteMissing){
+      // Облака ещё нет: текущая локальная копия становится первой облачной.
+      HAS_LOCAL_DATA = true;
+    }
     await pushToCloud();
     recordLastSyncTime();
     setCloudStatusOk('☁️ синхронизировано · ' + (formatLastSyncTime() || ''));

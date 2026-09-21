@@ -1,41 +1,62 @@
 /* cloud/connect-cloud-sync.js
- * Первичное подключение синхронизации на этом устройстве (по кнопке).
+ * Первичное подключение синхронизации на этом устройстве.
+ * Пароль сохраняется на устройстве до явного отключения синхронизации.
  */
-async function connectCloudSync(){
+async function connectCloudSync(options = {}){
   if(cloudBusy) return;
   cloudBusy = true;
   try{
     setCloudStatus('☁️ вход в Google…');
     await requestCloudToken(true);
+
     let pass = cloudPassword;
-    let remember = localStorage.getItem(CLOUD_PASS_REMEMBER_KEY) === '1';
     if(!pass){
-      const result = await promptSyncPassword('Данные на Google Диске хранятся зашифрованными. Введите пароль (в первый раз — придумайте его, дальше используйте всегда один и тот же).');
-      if(!result){ setCloudStatus(''); cloudBusy = false; return; }
+      const result = await promptSyncPassword(
+        'Данные на Google Диске хранятся зашифрованными. Введите пароль (в первый раз — придумайте его, дальше используйте всегда один и тот же).'
+      );
+      if(!result){ setCloudStatus(''); return; }
       pass = result.password;
-      remember = result.remember;
     }
+
     cloudPassword = pass;
-    // Пароль, которым шифруется весь облачный бэкап, по умолчанию хранится
-    // только в sessionStorage — он переживает обновление страницы, но
-    // стирается при полном закрытии вкладки/браузера. Постоянное хранение
-    // в localStorage (переживает и перезапуск браузера, и перезагрузку
-    // устройства) включается только явной галочкой «запомнить», потому что
-    // localStorage этого origin потенциально доступен любому коду, который
-    // туда получит доступ — раньше пароль лежал в localStorage всегда,
-    // без возможности выбора.
-    try{ sessionStorage.setItem(CLOUD_PASS_SESSION_KEY, pass); }catch(err){}
-    if(remember){
+    // По требованиям приложения пароль живёт на этом устройстве до
+    // принудительного выхода через «Отключить синхронизацию».
+    try{
       localStorage.setItem(CLOUD_PASS_SESSION_KEY, pass);
-      localStorage.setItem(CLOUD_PASS_REMEMBER_KEY, '1');
-    } else {
-      localStorage.removeItem(CLOUD_PASS_SESSION_KEY);
-      localStorage.removeItem(CLOUD_PASS_REMEMBER_KEY);
-    }
-    localStorage.setItem(CLOUD_ENABLED_KEY, '1');
+      localStorage.setItem(CLOUD_ENABLED_KEY, '1');
+      localStorage.removeItem(CLOUD_PASS_REMEMBER_KEY); // наследие старых версий
+    }catch(err){}
+
     setCloudStatus('☁️ синхронизация…');
-    await pullFromCloud();
-    await pushToCloud();
+
+    if(options.initialEmptyLocal){
+      cloudFileId = await driveFindFile();
+      if(cloudFileId){
+        // На чистом устройстве только скачиваем облако. Пустое локальное
+        // состояние никогда не отправляется поверх существующего облака.
+        await pullFromCloud();
+      }else{
+        const create = await showConfirmModal(
+          'В облаке пока нет файла с данными. Создать новый облачный файл из текущего пустого графика?',
+          'В облаке нет данных',
+          'Создать файл'
+        );
+        if(create){
+          persistLocalOnly();
+          await pushToCloud();
+        }else{
+          localStorage.removeItem(CLOUD_ENABLED_KEY);
+          localStorage.removeItem(CLOUD_PASS_SESSION_KEY);
+          cloudPassword = null;
+          setCloudStatus('');
+          return;
+        }
+      }
+    }else{
+      await pullFromCloud();
+      await pushToCloud();
+    }
+
     recordLastSyncTime();
     setCloudStatusOk('☁️ синхронизировано · ' + (formatLastSyncTime() || ''));
     cloudSyncBtn.textContent = '🔄 Синхронизировать';
@@ -43,11 +64,10 @@ async function connectCloudSync(){
   }catch(err){
     console.error('Не удалось подключить синхронизацию', err);
     if(err && err.message && err.message.includes('OPERATION_FAILED')){
-      // пароль не подошёл — сбрасываем его везде, чтобы при следующем нажатии
-      // приложение спросило пароль заново, а не молча падало с той же ошибкой
       cloudPassword = null;
       try{ sessionStorage.removeItem(CLOUD_PASS_SESSION_KEY); }catch(e){}
       localStorage.removeItem(CLOUD_PASS_SESSION_KEY);
+      localStorage.removeItem(CLOUD_ENABLED_KEY);
       localStorage.removeItem(CLOUD_PASS_REMEMBER_KEY);
     }
     setCloudStatus('☁️ ' + describeCloudError(err), true);

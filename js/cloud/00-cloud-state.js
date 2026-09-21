@@ -7,13 +7,10 @@
 // Данные хранятся в одном приватном файле на Google Диске, доступном только
 // этому приложению (scope drive.file — Google не даёт видеть остальные файлы
 // пользователя). Перед отправкой в облако содержимое шифруется AES-256-GCM
-// с ключом, полученным из пароля пользователя (PBKDF2). По умолчанию пароль
-// хранится только в sessionStorage (до закрытия вкладки/браузера) — заново
-// спросится при следующем открытии. Постоянное хранение в localStorage
-// (переживает перезапуск браузера) включается отдельной явной галочкой
-// «запомнить пароль на этом устройстве» при подключении синхронизации —
-// с пониманием, что это снижает защиту, если к этому origin/localStorage
-// получит доступ посторонний код.
+// с ключом, полученным из пароля пользователя (PBKDF2). Пароль облачного файла
+// хранится в localStorage этого устройства до явного отключения синхронизации.
+// Это соответствует модели приложения: локальные устройства имеют ограниченный
+// физический доступ, отдельная защита localStorage не требуется.
 const CLOUD_CLIENT_ID = '524857013705-lcro9dq97ctlfdq0rmubkgcvhao0724n.apps.googleusercontent.com';
 const CLOUD_SCOPE = 'https://www.googleapis.com/auth/drive.file';
 const CLOUD_FILE_NAME = 'rabochiy-grafik-sync.json.enc';
@@ -48,11 +45,24 @@ try{
 let cloudTokenClient = null;
 let cloudFileId = null;
 let cloudPassword = null;
-try{ cloudPassword = sessionStorage.getItem(CLOUD_PASS_SESSION_KEY) || null; }catch(err){}
-if(!cloudPassword && localStorage.getItem(CLOUD_PASS_REMEMBER_KEY) === '1'){
+// Пароль облачного файла хранится на этом устройстве до явного отключения
+// синхронизации («принудительного выхода»). Это намеренно не защищённое
+// хранилище: приложение рассчитано на локальные устройства с ограниченным
+// физическим доступом.
+try{
   cloudPassword = localStorage.getItem(CLOUD_PASS_SESSION_KEY) || null;
-}
+  // Миграция со старой версии: если пароль остался только в sessionStorage,
+  // переносим его в постоянное хранилище устройства.
+  if(!cloudPassword){
+    const legacySessionPass = sessionStorage.getItem(CLOUD_PASS_SESSION_KEY) || null;
+    if(legacySessionPass){
+      cloudPassword = legacySessionPass;
+      localStorage.setItem(CLOUD_PASS_SESSION_KEY, legacySessionPass);
+    }
+  }
+}catch(err){}
 let cloudBusy = false;
+let cloudLastPulledRemoteSignature = null;
 
 const cloudSyncBtn = $('cloudSyncBtn');
 const cloudSyncStatus = $('cloudSyncStatus');
