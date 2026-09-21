@@ -8,7 +8,7 @@
  * ломал бы расчёты и отрисовку уже после загрузки. Теперь проверяем и это.
  */
 const TIME_RE = /^([01]\d|2[0-3]):[0-5]\d$/;
-const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+const DATE_RE = /^(\d{2})\.(\d{2})\.(\d{4})$/;
 
 function validateLoadedData(obj){
   if(!obj || typeof obj !== 'object') throw new Error('файл не является JSON-объектом');
@@ -25,8 +25,24 @@ function validateLoadedData(obj){
     }
     for(const d of m.days){
       if(!d || typeof d !== 'object') throw new Error(`повреждена запись дня в "${key}"`);
-      if(d.date != null && (typeof d.date !== 'string' || !DATE_RE.test(d.date))){
-        throw new Error(`некорректная дата у одного из дней в "${key}"`);
+      if(d.date != null){
+        if(typeof d.date !== 'string'){
+          throw new Error(`некорректная дата у одного из дней в "${key}"`);
+        }
+        const match = d.date.match(DATE_RE);
+        if(!match){
+          throw new Error(`некорректная дата у одного из дней в "${key}"`);
+        }
+        const day = Number(match[1]);
+        const month = Number(match[2]);
+        const year = Number(match[3]);
+        const daysInMonth = new Date(year, month, 0).getDate();
+        if(month < 1 || month > 12 || day < 1 || day > daysInMonth || year < 2000 || year > 2100){
+          throw new Error(`некорректная дата у одного из дней в "${key}"`);
+        }
+        if(year !== m.year || month !== m.month){
+          throw new Error(`дата дня не соответствует месяцу "${key}"`);
+        }
       }
       if(d.start != null && (typeof d.start !== 'string' || !TIME_RE.test(d.start))){
         throw new Error(`некорректное время начала смены в "${key}"`);
